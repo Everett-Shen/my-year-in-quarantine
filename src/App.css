@@ -1,38 +1,117 @@
-.App {
-  text-align: center;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;1,700&display=swap");
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.landing-page h1 {
+  position: relative;
+  line-height: 1.1;
+  font-size: 50px;
+  margin-top: 70px;
+  font-family: "Nunito", sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.landing-page h1 span {
+  font-family: "Nunito", sans-serif;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.landing-page p {
+  margin: 20px 0px;
+  /* hyphens: auto; */
 }
 
-.App-link {
-  color: #61dafb;
+/* positioning */
+.intro-block {
+  width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.createForm .timelineForm .next, .learnMore, .getStarted {
+  margin-right: 5px;
+  text-decoration: none;
+  width: 10px;
+  height: 10px;
+  color: black;
+  border-radius: 10px;
+  padding: 5px 15px;
+  font-size: 15px;
 }
+
+.getStarted {
+  background-color: #ff7676;
+}
+
+.learnMore {
+  color: gray;
+}
+
+.landing-page::after {
+  content: "";
+  position: absolute;
+  background-color: #ff7676;
+  width: 4px;
+  height: 100%;
+  left: calc(50% - 175px);
+  top: 0px;
+}
+
+.intro-block .circle {
+  background-color: white;
+  border: 3px solid #ff7676;
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  z-index: 10;
+  border-radius: 25px;
+  top: 16px;
+  left: calc( 50% - 198px );
+}
+
+.createForm h1 {
+  font-size: 20px;
+  margin: 10px 20px;
+  font-family: "Nunito", sans-serif;
+}
+.createForm h2 {
+  font-size: 40px;
+  margin: 10px 20px;
+  font-family: "Nunito", sans-serif;
+  margin-top: 20px;
+}
+.createForm hr {
+  width: 97%;
+  border-width: 0;
+  height: 1px;
+  background-color: black;
+  margin: auto;
+  opacity: 0.2;
+}
+.createForm .timelineForm .next {
+  background-color: #ff7676;
+  float: right;
+  border: 0px;
+  width: 100px;
+  height: 40px;
+  line-height: 10px;
+  clear: both;
+  display: block;
+}
+.createForm .timelineForm .nextContainer {
+  height: 100px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+.createForm .timelineForm .locationInput {
+  height: 150px;
+}
+.createForm .timelineForm .questionContainer {
+  height: auto;
+}
+
+/*# sourceMappingURL=App.css.map */

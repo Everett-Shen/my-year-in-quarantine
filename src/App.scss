@@ -1,0 +1,136 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;1,700&display=swap");
+
+$primary-color: rgb(255, 118, 118);
+$intro-block-width: 250px;
+$timeline-margin: 50px;
+$timeline-width: 4px;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+}
+
+.landing-page h1 {
+  position: relative;
+  line-height: 1.1;
+  font-size: 50px;
+  margin-top: 70px;
+  font-family: "Nunito", sans-serif;
+}
+
+.landing-page h1 span {
+  font-family: "Nunito", sans-serif;
+}
+
+.landing-page p {
+  margin: 20px 0px;
+  /* hyphens: auto; */
+}
+
+/* positioning */
+.intro-block {
+  width: $intro-block-width;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+%navLink {
+  margin-right: 5px;
+  text-decoration: none;
+  width: 10px;
+  height: 10px;
+  color: black;
+  border-radius: 10px;
+  padding: 5px 15px;
+  font-size: 15px;
+}
+
+.getStarted {
+  @extend %navLink;
+  background-color: $primary-color;
+}
+
+.learnMore {
+  @extend %navLink;
+  color: gray;
+}
+
+.landing-page::after {
+  content: "";
+  position: absolute;
+  background-color: $primary-color;
+  width: $timeline-width;
+  height: 100%;
+  left: calc(50% - #{$intro-block-width / 2 + $timeline-margin});
+  top: 0px;
+}
+
+.intro-block .circle {
+  $diameter: 50px;
+  background-color: white;
+  border: 3px solid $primary-color;
+  height: $diameter;
+  width: $diameter;
+  position: absolute;
+  z-index: 10;
+  border-radius: $diameter / 2;
+  top: 16px;
+  left: calc(
+    50% - #{$intro-block-width / 2 + $timeline-margin + $diameter / 2 -
+      $timeline-width / 2}
+  );
+}
+
+// CreateTimeline styles
+.createForm {
+  h1 {
+    font-size: 20px;
+    margin: 10px 20px;
+    font-family: "Nunito", sans-serif;
+  }
+  h2 {
+    font-size: 40px;
+    margin: 10px 20px;
+    font-family: "Nunito", sans-serif;
+    margin-top: 20px;
+  }
+  hr {
+    width: 97%;
+    border-width: 0;
+    height: 1px;
+    background-color: black;
+    margin: auto;
+    opacity: 0.2;
+  }
+
+  .timelineForm {
+    .next {
+      @extend %navLink;
+      background-color: $primary-color;
+      float: right;
+      border: 0px;
+      width: 100px;
+      height: 40px;
+      line-height: 10px;
+      clear: both;
+      display: block;
+    }
+
+    .nextContainer {
+      height: 100px;
+      margin-top: 50px;
+      margin-bottom: 50px;
+    }
+    .locationInput {
+      height: 150px;
+      // display: none;
+    }
+    .questionContainer {
+      height: auto;
+    }
+  }
+}
