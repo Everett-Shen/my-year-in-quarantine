@@ -113,5 +113,52 @@
 .createForm .timelineForm .questionContainer {
   height: auto;
 }
+.createForm .timelineForm .inputRow {
+  margin-top: 20px;
+}
+.createForm .timelineForm .date-input {
+  margin-left: 10px;
+  width: 45%;
+  float: right;
+}
+.createForm .timelineForm .text-input {
+  width: 60%;
+}
+.createForm .timelineForm .date-input,
+.createForm .timelineForm .text-input {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 100;
+}
+.createForm .timelineForm .text-input-wide {
+  width: 100%;
+}
+.createForm .timelineForm .addButton, .createForm .timelineForm .deleteButton {
+  margin-top: 3px;
+  background-color: transparent;
+  border: none;
+  color: #ff7676;
+  cursor: pointer;
+  outline: none;
+}
+.createForm .timelineForm .addButton {
+  font-size: 40px;
+  font-weight: 200;
+  width: 35px;
+  height: 35px;
+  margin: 25px auto;
+  display: block;
+  border: 1px solid #ff7676;
+  border-radius: calc(17.5px);
+  line-height: 35px;
+}
+.createForm .timelineForm .rangeAndDeleteRow {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.createForm .timelineForm .dateRange {
+  display: flex;
+  justify-content: flex-end;
+}
 
 /*# sourceMappingURL=App.css.map */

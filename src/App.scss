@@ -132,5 +132,67 @@ $timeline-width: 4px;
     .questionContainer {
       height: auto;
     }
+
+    .inputRow {
+      margin-top: 20px;
+    }
+
+    .date-input {
+      margin-left: 10px;
+      width: 45%;
+      float: right;
+    }
+
+    .text-input {
+      width: 60%;
+    }
+
+    .date-input,
+    .text-input {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 100;
+    }
+
+    .text-input-wide {
+      width: 100%;
+    }
+
+    %form-button {
+      margin-top: 3px;
+      background-color: transparent;
+      border: none;
+      color: $primary-color;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .deleteButton {
+      @extend %form-button;
+    }
+
+    .addButton {
+      $diameter: 35px;
+      @extend %form-button;
+      font-size: 40px;
+      font-weight: 200;
+      width: $diameter;
+      height: $diameter;
+      margin: 25px auto;
+      display: block;
+      border: 1px solid $primary-color;
+      border-radius: calc(#{$diameter / 2});
+      line-height: $diameter;
+    }
+
+    .rangeAndDeleteRow {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .dateRange {
+      display: flex;
+      justify-content: flex-end;
+    }
   }
 }
