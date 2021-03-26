@@ -18,10 +18,10 @@ const LandingPage = () => {
           <span style={{ position: "relative", top: "-5px" }}>quarantine</span>
         </h1>
         <p>
-          My Year in Quarantine is a project aiming to document the experiences
-          of people all over the world during the pandemic using beautiful
-          interactive timelines. Timelines take only minutes to create and can
-          be shared anywhere across the Internet.
+          My Year in Quarantine is a project aiming to document the pandemic
+          journeys of people all over the world using beautiful interactive
+          timelines. Timelines take only minutes to create and can be shared
+          anywhere across the Internet.
           <br />
           <br />
           Everyone has a story worth telling. Share yours today.

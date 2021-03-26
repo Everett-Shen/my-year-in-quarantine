@@ -34,7 +34,7 @@ class Panel extends React.Component {
   // turn code fragements into components which receive render props?
 
   render() {
-    const { label, activeTab, index, activateTab } = this.props;
+    const { label, id, activeTab, index, activateTab } = this.props;
     const { height } = this.state;
     const isActive = activeTab === index;
     const contentHeight = this.myRef.current
@@ -63,7 +63,14 @@ class Panel extends React.Component {
               update: this.forceUpdateHandler,
             })}
             <div className="nextContainer">
-              <button className="next" onClick={this.props.nextTab}>
+              <button
+                form={id ? id : ""}
+                type="submit"
+                className="next"
+                onClick={() => {
+                  this.props.nextTab();
+                }}
+              >
                 <span>Next</span>
               </button>
             </div>
