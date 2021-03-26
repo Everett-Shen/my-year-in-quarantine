@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import MetaTags from "react-meta-tags";
 import { Formik, Form, FieldArray, useField } from "formik";
 import Accordion from "./Accordion/accordion.js";
@@ -7,6 +7,7 @@ import { TextField } from "@material-ui/core";
 
 const CreateTimeline = () => {
   const [answers, setAnswers] = useState({
+    Q1: { location: "" },
     Q2: {
       events: [
         { event: "", date: "" },
@@ -15,19 +16,34 @@ const CreateTimeline = () => {
       ],
     },
     Q3: {
-      events: [
-        { event: "", from: "", to: "" },
-        { event: "", from: "", to: "" },
-        { event: "", from: "", to: "" },
+      phases: [
+        { phase: "", from: "", to: "" },
+        { phase: "", from: "", to: "" },
+        { phase: "", from: "", to: "" },
       ],
     },
+    Q4: {},
+    Q5: { title: "" },
+    Q6: { name: "" },
   });
 
   const Q1 = () => {
+    const setLocation = (value) => {
+      setAnswers({
+        ...answers,
+        Q1: { location: value },
+      });
+    };
     return (
       <div className="questionContainer">
         <div className="locationInput">
-          <GooglePlacesAutocomplete apiKey="AIzaSyCeVWbfSffGK19HP7Tg-GY_nFfZ-sP7ASw" />
+          <GooglePlacesAutocomplete
+            apiKey="AIzaSyCeVWbfSffGK19HP7Tg-GY_nFfZ-sP7ASw"
+            selectProps={{
+              value: answers.Q1.location,
+              onChange: setLocation,
+            }}
+          />
         </div>
       </div>
     );
@@ -75,7 +91,7 @@ const CreateTimeline = () => {
           }}
         >
           {({ values }) => (
-            <Form id="q2">
+            <Form id="Q2">
               <FieldArray
                 name="events"
                 render={(arrayHelpers) => (
@@ -142,16 +158,16 @@ const CreateTimeline = () => {
           }}
         >
           {({ values }) => (
-            <Form id="q3">
+            <Form id="Q3">
               <FieldArray
-                name="events"
+                name="phases"
                 render={(arrayHelpers) => (
                   <div>
-                    {values.events.map((event, index) => (
+                    {values.phases.map((phase, index) => (
                       <div className="inputRow" key={index}>
                         <TextInput
-                          id={`events.${index}.event`}
-                          name={`events.${index}.event`}
+                          id={`phases.${index}.phase`}
+                          name={`phases.${index}.phase`}
                           placeholder={
                             index === 0 ? "ex. went home, got sick..." : ""
                           }
@@ -170,25 +186,25 @@ const CreateTimeline = () => {
                           </button>
                           <div className="dateRange">
                             <DateInput
-                              id={`events.${index}.from`}
-                              name={`events.${index}.from`}
+                              id={`phases.${index}.from`}
+                              name={`phases.${index}.from`}
                               // defaultValue={index === 0 ? "2020-01-01" : ""}
                               // {figure out this lastdate thing later}
                               lastdate={
                                 index !== 0
-                                  ? values.events[index - 1].from
+                                  ? values.phases[index - 1].from
                                   : null
                               }
                               classnames={"date-input"}
                             />
                             <span style={{ margin: "5px" }}>to</span>
                             <DateInput
-                              id={`events.${index}.to`}
-                              name={`events.${index}.to`}
+                              id={`phases.${index}.to`}
+                              name={`phases.${index}.to`}
                               // defaultValue={index === 0 ? "2020-01-01" : ""}
                               // {figure out this lastdate thing later}
                               lastdate={
-                                index !== 0 ? values.events[index - 1].to : null
+                                index !== 0 ? values.phases[index - 1].to : null
                               }
                               classnames={"date-input"}
                             />
@@ -216,6 +232,110 @@ const CreateTimeline = () => {
     );
   };
 
+  const TextFieldQuestion = ({ questionNumber, questionName }) => {
+    return (
+      <div key={questionNumber} className="questionContainer">
+        <form
+          id={questionNumber}
+          key={questionNumber}
+          onSubmit={(e) =>
+            setAnswers({ ...answers, [questionNumber]: e.target[0].value })
+          }
+        >
+          <div className="locationInput">
+            <input
+              key={questionNumber}
+              name={questionName}
+              id={questionName}
+              value={answers[questionNumber]}
+              className="text-input-wide"
+            ></input>
+          </div>
+        </form>
+      </div>
+    );
+  };
+
+  const FormikTextFieldQuestion = ({
+    questionNumber,
+    questionName,
+    initialValues,
+  }) => {
+    return (
+      <div className="questionContainer">
+        <Formik
+          initialValues={initialValues}
+          onSubmit={(values) => {
+            setAnswers({ ...answers, [questionNumber]: values });
+          }}
+        >
+          {() => (
+            <Form id={questionNumber}>
+              <TextInput
+                id={questionName}
+                name={questionName}
+                placeholder={"ex. My Year in Quarantine"}
+                classnames={"text-input-wide"}
+              />
+            </Form>
+          )}
+        </Formik>
+      </div>
+    );
+  };
+
+  const Q5 = () => {
+    return (
+      <FormikTextFieldQuestion
+        questionNumber={"Q5"}
+        questionName={"title"}
+        initialValues={answers.Q5}
+      />
+    );
+  };
+  const Q6 = () => {
+    return (
+      <FormikTextFieldQuestion
+        questionNumber={"Q6"}
+        questionName={"name"}
+        initialValues={answers.Q5}
+      />
+    );
+  };
+
+  // const Q5 = () => {
+  //   <TextFieldQuestion questionNumber={"Q5"} questionName={"title"} />;
+  // };
+
+  // const Q5 = () => {
+  //   let questionNumber = "Q5";
+  //   let questionName = "title";
+  //   return (
+  //     <div key={questionNumber} className="questionContainer">
+  //       <form
+  //         id={questionNumber}
+  //         key={questionNumber}
+  //         onSubmit={(e) =>
+  //           setAnswers({ ...answers, [questionNumber]: e.target[0].value })
+  //         }
+  //       >
+  //         <div className="locationInput">
+  //           <input
+  //             key={questionNumber}
+  //             name={questionName}
+  //             id={questionName}
+  //             value={answers[questionNumber]}
+  //             className="text-input-wide"
+  //             // onChange={(e) =>
+  //             //   setAnswers({ ...answers, [questionNumber]: e.target.value })
+  //             // }
+  //           ></input>
+  //         </div>
+  //       </form>
+  //     </div>
+  //   );
+  // };
+
   const panels = [
     {
       label: "1. Where were you located when COVID-19 began?",
@@ -224,27 +344,29 @@ const CreateTimeline = () => {
     {
       label:
         "2. List the most significant things that have happened to you since then",
-      id: "q2",
+      id: "Q2",
       component: <Q2 />,
     },
     {
       label:
         "3. List any periods or phases you went through during this time that you consider significant",
-      id: "q3",
+      id: "Q3",
       component: <Q3 />,
     },
     {
       label: "4. Elaborate on your experiences",
-      id: "q4",
-      component: <Q2 />,
+      id: "Q4",
+      component: <div></div>,
     },
     {
       label: "5. Give your timeline a title",
-      component: <Q2 />,
+      id: "Q5",
+      component: <Q5 />,
     },
     {
       label: "6. Your name (optional)",
-      component: <Q2 />,
+      id: "Q6",
+      component: <Q6 />,
     },
   ];
 
