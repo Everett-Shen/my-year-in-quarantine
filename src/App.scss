@@ -156,6 +156,9 @@ $timeline-width: 4px;
     .text-input-wide {
       width: 100%;
     }
+    .date-input-wide {
+      width: 100%;
+    }
 
     %form-button {
       margin-top: 3px;
@@ -193,6 +196,21 @@ $timeline-width: 4px;
     .dateRange {
       display: flex;
       justify-content: flex-end;
+    }
+
+    .entry-container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .dialog-content {
+      width: 300px;
+      height: 300px;
+    }
+
+    .dialog-button {
+      text-transform: "none";
+      color: $primary-color;
     }
   }
 }

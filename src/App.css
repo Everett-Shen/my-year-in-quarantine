@@ -132,6 +132,9 @@
 .createForm .timelineForm .text-input-wide {
   width: 100%;
 }
+.createForm .timelineForm .date-input-wide {
+  width: 100%;
+}
 .createForm .timelineForm .addButton, .createForm .timelineForm .deleteButton {
   margin-top: 3px;
   background-color: transparent;
@@ -159,6 +162,18 @@
 .createForm .timelineForm .dateRange {
   display: flex;
   justify-content: flex-end;
+}
+.createForm .timelineForm .entry-container {
+  display: flex;
+  justify-content: space-between;
+}
+.createForm .timelineForm .dialog-content {
+  width: 300px;
+  height: 300px;
+}
+.createForm .timelineForm .dialog-button {
+  text-transform: "none";
+  color: #ff7676;
 }
 
 /*# sourceMappingURL=app.css.map */

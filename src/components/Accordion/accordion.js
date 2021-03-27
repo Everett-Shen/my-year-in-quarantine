@@ -16,7 +16,7 @@ class Panel extends React.Component {
 
   componentDidMount() {
     window.setTimeout(() => {
-      const el = ReactDOM.findDOMNode(this);
+      const el = ReactDOM.findDOMNode(this); // findDOMNode is deprecated, replace with refs later
       const height = el.querySelector(".panel__inner").scrollHeight;
       this.setState({
         height,

@@ -1,11 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, createRef, useEffect } from "react";
 import MetaTags from "react-meta-tags";
 import { Formik, Form, FieldArray, useField } from "formik";
+
 import Accordion from "./Accordion/accordion.js";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
-import { TextField } from "@material-ui/core";
+import {
+  TextField,
+  Dialog,
+  DialogContent,
+  DialogActions,
+  Button,
+} from "@material-ui/core";
 
 const CreateTimeline = () => {
+  const [questionTwo, setQuestionTwo] = useState({
+    events: [
+      { event: "", date: "" },
+      { event: "", date: "" },
+      { event: "", date: "" },
+    ],
+  });
+  const [questionThree, setQuestionThree] = useState({
+    phases: [
+      { phase: "", from: "", to: "" },
+      { phase: "", from: "", to: "" },
+      { phase: "", from: "", to: "" },
+    ],
+  });
   const [answers, setAnswers] = useState({
     Q1: { location: "" },
     Q2: {
@@ -22,10 +43,52 @@ const CreateTimeline = () => {
         { phase: "", from: "", to: "" },
       ],
     },
-    Q4: {},
+    Q4: {
+      entries: [
+        { entry: "went home", date: "2017-03-04" },
+        { entry: "went home", date: "2017-03-04" },
+        { entry: "went home", date: "2017-03-04" },
+        { entry: "went home", from: "2017-03-04", to: "2017-03-04" },
+        { entry: "went home", from: "2017-03-04", to: "2017-03-04" },
+        { entry: "went home", from: "2017-03-04", to: "2017-03-04" },
+      ],
+    },
     Q5: { title: "" },
     Q6: { name: "" },
   });
+  const [isOpen, setIsOpen] = useState(false);
+
+  // take answers from Q2 and Q3 and collate them into the initial values for Q4.
+  const setQ4 = () => {
+    let events = questionTwo.events;
+    let phases = questionThree.phases;
+    let entries = { entries: [] };
+    for (let event of events) {
+      if (event.event !== "" && event.date !== "")
+        entries.entries.push({ ...event, entry: event.event });
+    }
+    for (let phase of phases) {
+      if (phase.phase !== "" && phase.from !== "" && phase.to !== "")
+        entries.entries.push({ ...phase, entry: phase.phase });
+    }
+
+    entries.entries.sort((entryA, entryB) => {
+      let dateA = entryA.date ? entryA.date : entryA.from;
+      let dateB = entryB.date ? entryB.date : entryB.from;
+      return dateA < dateB ? -1 : dateA > dateB ? 1 : 0;
+    });
+
+    setAnswers({
+      ...answers,
+      Q2: questionTwo,
+      Q3: questionThree,
+      Q4: entries,
+    });
+  };
+
+  useEffect(() => {
+    setQ4();
+  }, [questionTwo, questionThree]);
 
   const Q1 = () => {
     const setLocation = (value) => {
@@ -87,7 +150,7 @@ const CreateTimeline = () => {
         <Formik
           initialValues={answers.Q2}
           onSubmit={(values) => {
-            setAnswers({ ...answers, Q2: values });
+            setQuestionTwo(values);
           }}
         >
           {({ values }) => (
@@ -154,7 +217,7 @@ const CreateTimeline = () => {
         <Formik
           initialValues={answers.Q3}
           onSubmit={(values) => {
-            setAnswers({ ...answers, Q3: values });
+            setQuestionThree(values);
           }}
         >
           {({ values }) => (
@@ -232,29 +295,29 @@ const CreateTimeline = () => {
     );
   };
 
-  const TextFieldQuestion = ({ questionNumber, questionName }) => {
-    return (
-      <div key={questionNumber} className="questionContainer">
-        <form
-          id={questionNumber}
-          key={questionNumber}
-          onSubmit={(e) =>
-            setAnswers({ ...answers, [questionNumber]: e.target[0].value })
-          }
-        >
-          <div className="locationInput">
-            <input
-              key={questionNumber}
-              name={questionName}
-              id={questionName}
-              value={answers[questionNumber]}
-              className="text-input-wide"
-            ></input>
-          </div>
-        </form>
-      </div>
-    );
-  };
+  // const TextFieldQuestion = ({ questionNumber, questionName }) => {
+  //   return (
+  //     <div key={questionNumber} className="questionContainer">
+  //       <form
+  //         id={questionNumber}
+  //         key={questionNumber}
+  //         onSubmit={(e) =>
+  //           setAnswers({ ...answers, [questionNumber]: e.target[0].value })
+  //         }
+  //       >
+  //         <div className="locationInput">
+  //           <input
+  //             key={questionNumber}
+  //             name={questionName}
+  //             id={questionName}
+  //             value={answers[questionNumber]}
+  //             className="text-input-wide"
+  //           ></input>
+  //         </div>
+  //       </form>
+  //     </div>
+  //   );
+  // };
 
   const FormikTextFieldQuestion = ({
     questionNumber,
@@ -284,6 +347,224 @@ const CreateTimeline = () => {
     );
   };
 
+  // const Q4Copy = (props) => {
+  //   const [selectedEntry, setSelectedEntry] = useState({});
+  //   return (
+  //     <div className="questionContainer">
+  //       <Formik
+  //         initialValues={answers.Q4} // create logic for this in a sec
+  //         onSubmit={(values) => {
+  //           setAnswers({ ...answers, Q4: values });
+  //         }}
+  //       >
+  //         {({ values }) => (
+  //           <div>
+  //             {values.entries.map((entry, index) => (
+  //               <div className="inputRow" key={index}>
+  //                 <div className="entry-container">
+  //                   <button>move</button>
+  //                   <p>{entry.entry}</p>
+  //                   {entry.date ? <p>{entry.date}</p> : <p>{entry.from}</p>}
+  //                   <button
+  //                     onClick={() => {
+  //                       setIsOpen(true);
+  //                       setSelectedEntry(entry);
+  //                     }}
+  //                   >
+  //                     Open
+  //                   </button>
+  //                 </div>
+
+  //               </div>
+  //             ))}
+
+  //             <button
+  //               type="button"
+  //               className="addButton"
+  //               onClick={() => {
+  //                 // arrayHelpers.push({ name: "", age: "" });
+  //                 props.update();
+  //               }}
+  //             >
+  //               +
+  //             </button>
+  //           </div>
+  //         )}
+  //       </Formik>
+  //     </div>
+  //   );
+  // };
+  const [selectedEntry, setSelectedEntry] = useState({});
+  const [selectedEntryIndex, setSelectedEntryIndex] = useState(0);
+  const formRef = createRef();
+
+  const Q4 = (props) => {
+    const formatDate = (dateString) => {
+      function parseDate(input) {
+        var parts = input.match(/(\d+)/g);
+        // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
+        return new Date(parts[0], parts[1] - 1, parts[2]); // months are 0-based
+      }
+      let date = parseDate(dateString);
+
+      let month = date.getMonth() + 1;
+      let day = date.getDate();
+      return `${month < 10 ? "0" + month : month}/${
+        day < 10 ? "0" + day : day
+      }/${date.getFullYear()}`;
+    };
+    return (
+      <div className="questionContainer">
+        {answers.Q4.entries.map((entry, index) => (
+          <div className="inputRow" key={index}>
+            <div className="entry-container">
+              {/* <button>move</button> */}
+              <p>{entry.entry}</p>
+              {entry.date ? (
+                <p>{formatDate(entry.date)}</p>
+              ) : (
+                <p>{`${
+                  formatDate(entry.from) + "-" + formatDate(entry.to)
+                }`}</p>
+              )}
+              <button
+                onClick={() => {
+                  setIsOpen(true);
+                  setSelectedEntry(entry);
+                  setSelectedEntryIndex(index);
+                }}
+              >
+                Open
+              </button>
+            </div>
+          </div>
+        ))}
+        <Formik
+          initialValues={selectedEntry} // create logic for this in a sec
+          onSubmit={(values) => {
+            console.log("submitted");
+            let newEntries = [...answers.Q4.entries];
+            newEntries[selectedEntryIndex] = values;
+            setAnswers({
+              ...answers,
+              Q4: {
+                entries: newEntries,
+              },
+            });
+          }}
+          innerRef={formRef}
+        >
+          {
+            <Form>
+              <Dialog
+                onClose={() => {
+                  setIsOpen(false);
+                  console.log("isOpen:", isOpen);
+                }}
+                open={isOpen}
+                maxWidth={"sm"}
+                fullWidth={true}
+              >
+                <div>
+                  <DialogContent className="dialog-content">
+                    <div className="dialog-content">
+                      <TextInput
+                        name={"entry"}
+                        placeholder={""}
+                        classnames={"text-input text-input-wide"}
+                        fullWidth={true}
+                        variant="outlined"
+                        label="event/phase"
+                      />
+                      {selectedEntry.date ? (
+                        <DateInput
+                          style={{ float: "right" }}
+                          name={"date"}
+                          classnames={"date-input date-input-wide"}
+                        />
+                      ) : (
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "flex-end",
+                          }}
+                        >
+                          <DateInput
+                            name={"from"}
+                            classnames={"date-input date-input-wide"}
+                          />
+                          <span style={{ margin: "6px 40px" }}>to</span>
+
+                          <DateInput
+                            name={"to"}
+                            classnames={"date-input date-input-wide"}
+                          />
+                        </div>
+                      )}
+
+                      <TextInput
+                        id={"test2"}
+                        name={"description"}
+                        placeholder={""}
+                        classnames={"text-input text-input-wide"}
+                        fullWidth={true}
+                        variant="outlined"
+                        multiline={true}
+                        rows={10}
+                        rowsMax={10}
+                        label="description/notes"
+                      />
+                    </div>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button
+                      style={{
+                        textTransform: "none",
+                        color: "rgb(255, 118, 118)",
+                      }}
+                      onClick={() => {
+                        props.submitForm();
+                        setIsOpen(false);
+                      }}
+                      color="primary"
+                    >
+                      cancel
+                    </Button>
+                    <Button
+                      type="submit"
+                      style={{
+                        textTransform: "none",
+                        color: "rgb(255, 118, 118)",
+                      }}
+                      onClick={() => {
+                        if (formRef.current) {
+                          formRef.current.handleSubmit();
+                        }
+                        setIsOpen(false);
+                      }}
+                      color="primary"
+                    >
+                      update
+                    </Button>
+                  </DialogActions>
+                </div>
+              </Dialog>
+            </Form>
+          }
+        </Formik>
+        <button
+          type="button"
+          className="addButton"
+          onClick={() => {
+            // arrayHelpers.push({ name: "", age: "" });
+            props.update();
+          }}
+        >
+          +
+        </button>
+      </div>
+    );
+  };
   const Q5 = () => {
     return (
       <FormikTextFieldQuestion
@@ -302,39 +583,6 @@ const CreateTimeline = () => {
       />
     );
   };
-
-  // const Q5 = () => {
-  //   <TextFieldQuestion questionNumber={"Q5"} questionName={"title"} />;
-  // };
-
-  // const Q5 = () => {
-  //   let questionNumber = "Q5";
-  //   let questionName = "title";
-  //   return (
-  //     <div key={questionNumber} className="questionContainer">
-  //       <form
-  //         id={questionNumber}
-  //         key={questionNumber}
-  //         onSubmit={(e) =>
-  //           setAnswers({ ...answers, [questionNumber]: e.target[0].value })
-  //         }
-  //       >
-  //         <div className="locationInput">
-  //           <input
-  //             key={questionNumber}
-  //             name={questionName}
-  //             id={questionName}
-  //             value={answers[questionNumber]}
-  //             className="text-input-wide"
-  //             // onChange={(e) =>
-  //             //   setAnswers({ ...answers, [questionNumber]: e.target.value })
-  //             // }
-  //           ></input>
-  //         </div>
-  //       </form>
-  //     </div>
-  //   );
-  // };
 
   const panels = [
     {
@@ -356,7 +604,7 @@ const CreateTimeline = () => {
     {
       label: "4. Elaborate on your experiences",
       id: "Q4",
-      component: <div></div>,
+      component: <Q4 />,
     },
     {
       label: "5. Give your timeline a title",
