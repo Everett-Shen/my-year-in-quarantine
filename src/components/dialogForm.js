@@ -16,6 +16,7 @@ const DialogForm = ({
   isOpen,
   setIsOpen,
   formRef,
+  deleteEntry,
 }) => {
   return (
     <Formik
@@ -83,18 +84,31 @@ const DialogForm = ({
                     rowsMax={10}
                     label="description/notes"
                   />
+                  {deleteEntry !== undefined && (
+                    <Button
+                      style={{
+                        textTransform: "none",
+                        color: "rgb(255, 118, 118)",
+                      }}
+                      onClick={() => {
+                        deleteEntry();
+                      }}
+                      color="primary"
+                    >
+                      delete entry
+                    </Button>
+                  )}
                 </div>
               </DialogContent>
               <DialogActions>
                 <Button
                   style={{
                     textTransform: "none",
-                    color: "rgb(255, 118, 118)",
+                    color: "C4C4C4",
                   }}
                   onClick={() => {
                     setIsOpen(false);
                   }}
-                  color="primary"
                 >
                   cancel
                 </Button>
@@ -110,7 +124,6 @@ const DialogForm = ({
                     }
                     setIsOpen(false);
                   }}
-                  color="primary"
                 >
                   update
                 </Button>

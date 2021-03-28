@@ -410,6 +410,17 @@ const CreateTimeline = () => {
           isOpen={isOpen}
           setIsOpen={setIsOpen}
           formRef={formRef}
+          deleteEntry={() => {
+            let newEntries = [...answers.Q4.entries];
+            newEntries.splice(selectedEntryIndex, 1);
+            setAnswers({
+              ...answers,
+              Q4: {
+                entries: newEntries,
+              },
+            });
+            setIsOpen(false);
+          }}
         />
 
         <button
