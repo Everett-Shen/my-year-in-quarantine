@@ -1,7 +1,6 @@
 import React, { useState, createRef, useEffect } from "react";
 import MetaTags from "react-meta-tags";
 import { Formik, Form, FieldArray, useField } from "formik";
-
 import Accordion from "./Accordion/accordion.js";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import {
@@ -10,7 +9,9 @@ import {
   DialogContent,
   DialogActions,
   Button,
+  IconButton,
 } from "@material-ui/core";
+import EditIcon from "@material-ui/icons/Edit";
 
 const CreateTimeline = () => {
   const [questionTwo, setQuestionTwo] = useState({
@@ -27,6 +28,7 @@ const CreateTimeline = () => {
       { phase: "", from: "", to: "" },
     ],
   });
+
   const [answers, setAnswers] = useState({
     Q1: { location: "" },
     Q2: {
@@ -45,7 +47,7 @@ const CreateTimeline = () => {
     },
     Q4: {
       entries: [
-        { entry: "went home", date: "2017-03-04" },
+        { entry: "went home went home", date: "2017-03-04" },
         { entry: "went home", date: "2017-03-04" },
         { entry: "went home", date: "2017-03-04" },
         { entry: "went home", from: "2017-03-04", to: "2017-03-04" },
@@ -64,11 +66,11 @@ const CreateTimeline = () => {
     let phases = questionThree.phases;
     let entries = { entries: [] };
     for (let event of events) {
-      if (event.event !== "" && event.date !== "")
+      if (event.event !== "")
         entries.entries.push({ ...event, entry: event.event });
     }
     for (let phase of phases) {
-      if (phase.phase !== "" && phase.from !== "" && phase.to !== "")
+      if (phase.phase !== "")
         entries.entries.push({ ...phase, entry: phase.phase });
     }
 
@@ -295,30 +297,6 @@ const CreateTimeline = () => {
     );
   };
 
-  // const TextFieldQuestion = ({ questionNumber, questionName }) => {
-  //   return (
-  //     <div key={questionNumber} className="questionContainer">
-  //       <form
-  //         id={questionNumber}
-  //         key={questionNumber}
-  //         onSubmit={(e) =>
-  //           setAnswers({ ...answers, [questionNumber]: e.target[0].value })
-  //         }
-  //       >
-  //         <div className="locationInput">
-  //           <input
-  //             key={questionNumber}
-  //             name={questionName}
-  //             id={questionName}
-  //             value={answers[questionNumber]}
-  //             className="text-input-wide"
-  //           ></input>
-  //         </div>
-  //       </form>
-  //     </div>
-  //   );
-  // };
-
   const FormikTextFieldQuestion = ({
     questionNumber,
     questionName,
@@ -347,53 +325,6 @@ const CreateTimeline = () => {
     );
   };
 
-  // const Q4Copy = (props) => {
-  //   const [selectedEntry, setSelectedEntry] = useState({});
-  //   return (
-  //     <div className="questionContainer">
-  //       <Formik
-  //         initialValues={answers.Q4} // create logic for this in a sec
-  //         onSubmit={(values) => {
-  //           setAnswers({ ...answers, Q4: values });
-  //         }}
-  //       >
-  //         {({ values }) => (
-  //           <div>
-  //             {values.entries.map((entry, index) => (
-  //               <div className="inputRow" key={index}>
-  //                 <div className="entry-container">
-  //                   <button>move</button>
-  //                   <p>{entry.entry}</p>
-  //                   {entry.date ? <p>{entry.date}</p> : <p>{entry.from}</p>}
-  //                   <button
-  //                     onClick={() => {
-  //                       setIsOpen(true);
-  //                       setSelectedEntry(entry);
-  //                     }}
-  //                   >
-  //                     Open
-  //                   </button>
-  //                 </div>
-
-  //               </div>
-  //             ))}
-
-  //             <button
-  //               type="button"
-  //               className="addButton"
-  //               onClick={() => {
-  //                 // arrayHelpers.push({ name: "", age: "" });
-  //                 props.update();
-  //               }}
-  //             >
-  //               +
-  //             </button>
-  //           </div>
-  //         )}
-  //       </Formik>
-  //     </div>
-  //   );
-  // };
   const [selectedEntry, setSelectedEntry] = useState({});
   const [selectedEntryIndex, setSelectedEntryIndex] = useState(0);
   const formRef = createRef();
@@ -418,24 +349,36 @@ const CreateTimeline = () => {
         {answers.Q4.entries.map((entry, index) => (
           <div className="inputRow" key={index}>
             <div className="entry-container">
-              {/* <button>move</button> */}
-              <p>{entry.entry}</p>
-              {entry.date ? (
-                <p>{formatDate(entry.date)}</p>
-              ) : (
-                <p>{`${
-                  formatDate(entry.from) + "-" + formatDate(entry.to)
-                }`}</p>
-              )}
-              <button
-                onClick={() => {
-                  setIsOpen(true);
-                  setSelectedEntry(entry);
-                  setSelectedEntryIndex(index);
+              <div style={{ gridColumnStart: "1", gridColumnEnd: "2" }}>
+                <p>{entry.entry}</p>
+              </div>
+              <div
+                style={{
+                  gridColumnStart: "2",
+                  gridColumnEnd: "3",
+                  textAlign: "center",
                 }}
               >
-                Open
-              </button>
+                {entry.date ? (
+                  <p>{formatDate(entry.date)}</p>
+                ) : (
+                  <p>{`${
+                    formatDate(entry.from) + "-" + formatDate(entry.to)
+                  }`}</p>
+                )}
+              </div>
+              <div style={{ gridColumnStart: "3", gridColumnEnd: "4" }}>
+                <IconButton
+                  style={{ float: "right" }}
+                  onClick={() => {
+                    setIsOpen(true);
+                    setSelectedEntry(entry);
+                    setSelectedEntryIndex(index);
+                  }}
+                >
+                  <EditIcon fontSize="small" />
+                </IconButton>
+              </div>
             </div>
           </div>
         ))}
@@ -523,7 +466,6 @@ const CreateTimeline = () => {
                         color: "rgb(255, 118, 118)",
                       }}
                       onClick={() => {
-                        props.submitForm();
                         setIsOpen(false);
                       }}
                       color="primary"

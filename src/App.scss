@@ -199,8 +199,8 @@ $timeline-width: 4px;
     }
 
     .entry-container {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 55% 30% 15%;
     }
 
     .dialog-content {

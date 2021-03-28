@@ -164,8 +164,8 @@
   justify-content: flex-end;
 }
 .createForm .timelineForm .entry-container {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 55% 30% 15%;
 }
 .createForm .timelineForm .dialog-content {
   width: 300px;
