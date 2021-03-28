@@ -12,7 +12,35 @@ import {
   IconButton,
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
+import DialogForm from "./dialogForm";
+const TextInput = ({ ...props }) => {
+  const [field] = useField(props);
+  return (
+    <>
+      <TextField className={props.classnames} {...field} {...props}></TextField>
+    </>
+  );
+};
 
+const DateInput = ({ ...props }) => {
+  const [field] = useField(props);
+  const inputProps = {
+    disableUnderline: true,
+  };
+  field.value = field.value ? field.value : props.defaultValue;
+  return (
+    <>
+      <TextField
+        className={props.classnames}
+        type="date"
+        InputProps={inputProps}
+        // label="date"
+        {...props}
+        {...field}
+      />
+    </>
+  );
+};
 const CreateTimeline = () => {
   const [questionTwo, setQuestionTwo] = useState({
     events: [
@@ -115,39 +143,6 @@ const CreateTimeline = () => {
           />
         </div>
       </div>
-    );
-  };
-
-  const TextInput = ({ ...props }) => {
-    const [field] = useField(props);
-    return (
-      <>
-        <TextField
-          className={props.classnames}
-          {...field}
-          {...props}
-        ></TextField>
-      </>
-    );
-  };
-
-  const DateInput = ({ ...props }) => {
-    const [field] = useField(props);
-    const inputProps = {
-      disableUnderline: true,
-    };
-    field.value = field.value ? field.value : props.defaultValue;
-    return (
-      <>
-        <TextField
-          className={props.classnames}
-          type="date"
-          InputProps={inputProps}
-          // label="date"
-          {...props}
-          {...field}
-        />
-      </>
     );
   };
 
@@ -393,8 +388,8 @@ const CreateTimeline = () => {
             </div>
           </div>
         ))}
-        <Formik
-          initialValues={selectedEntry} // create logic for this in a sec
+        {/* <Formik
+          initialValues={selectedEntry}
           onSubmit={(values) => {
             console.log("submitted");
             let newEntries = [...answers.Q4.entries];
@@ -505,12 +500,40 @@ const CreateTimeline = () => {
               </Dialog>
             </Form>
           }
-        </Formik>
+        </Formik> */}
+        <DialogForm
+          initialValues={selectedEntry}
+          onSubmit={(values) => {
+            let newEntries = [...answers.Q4.entries];
+            newEntries[selectedEntryIndex] = values;
+            sortEntries(newEntries);
+            setAnswers({
+              ...answers,
+              Q4: {
+                entries: newEntries,
+              },
+            });
+          }}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          formRef={formRef}
+        />
+
         <button
           type="button"
           className="addButton"
           onClick={() => {
-            // arrayHelpers.push({ name: "", age: "" });
+            // let newAnswers = { ...answers };
+            // newAnswers.Q4.entries.push({ event: "", date: "" });
+            setAnswers({
+              ...answers,
+              Q4: {
+                entries: [
+                  ...answers.Q4.entries,
+                  { entry: "went home", date: "2017-03-04" },
+                ],
+              },
+            });
             props.update();
           }}
         >
@@ -592,3 +615,4 @@ const CreateTimeline = () => {
 };
 
 export default CreateTimeline;
+export { TextInput, DateInput };
