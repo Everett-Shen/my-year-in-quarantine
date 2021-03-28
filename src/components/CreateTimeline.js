@@ -3,14 +3,7 @@ import MetaTags from "react-meta-tags";
 import { Formik, Form, FieldArray, useField } from "formik";
 import Accordion from "./Accordion/accordion.js";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
-import {
-  TextField,
-  Dialog,
-  DialogContent,
-  DialogActions,
-  Button,
-  IconButton,
-} from "@material-ui/core";
+import { TextField, IconButton, Menu, MenuItem } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import DialogForm from "./dialogForm";
 const TextInput = ({ ...props }) => {
@@ -87,6 +80,7 @@ const CreateTimeline = () => {
     Q6: { name: "" },
   });
   const [isOpen, setIsOpen] = useState(false);
+  const [isNewEntryFormOpen, setIsNewEntryFormOpen] = useState(false);
 
   const sortEntries = (entries) => {
     entries.sort((entryA, entryB) => {
@@ -329,9 +323,20 @@ const CreateTimeline = () => {
 
   const [selectedEntry, setSelectedEntry] = useState({});
   const [selectedEntryIndex, setSelectedEntryIndex] = useState(0);
+
   const formRef = createRef();
+  const newEntryFormRef = createRef();
 
   const Q4 = (props) => {
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
     const formatDate = (dateString) => {
       function parseDate(input) {
         var parts = input.match(/(\d+)/g);
@@ -388,119 +393,7 @@ const CreateTimeline = () => {
             </div>
           </div>
         ))}
-        {/* <Formik
-          initialValues={selectedEntry}
-          onSubmit={(values) => {
-            console.log("submitted");
-            let newEntries = [...answers.Q4.entries];
-            newEntries[selectedEntryIndex] = values;
-            sortEntries(newEntries);
-            setAnswers({
-              ...answers,
-              Q4: {
-                entries: newEntries,
-              },
-            });
-          }}
-          innerRef={formRef}
-        >
-          {
-            <Form>
-              <Dialog
-                onClose={() => {
-                  setIsOpen(false);
-                  console.log("isOpen:", isOpen);
-                }}
-                open={isOpen}
-                maxWidth={"sm"}
-                fullWidth={true}
-              >
-                <div>
-                  <DialogContent className="dialog-content">
-                    <div className="dialog-content">
-                      <TextInput
-                        name={"entry"}
-                        placeholder={""}
-                        classnames={"text-input text-input-wide"}
-                        fullWidth={true}
-                        variant="outlined"
-                        label="event/phase"
-                      />
-                      {selectedEntry.date ? (
-                        <DateInput
-                          style={{ float: "right" }}
-                          name={"date"}
-                          classnames={"date-input date-input-wide"}
-                        />
-                      ) : (
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "flex-end",
-                          }}
-                        >
-                          <DateInput
-                            name={"from"}
-                            classnames={"date-input date-input-wide"}
-                          />
-                          <span style={{ margin: "6px 40px" }}>to</span>
 
-                          <DateInput
-                            name={"to"}
-                            classnames={"date-input date-input-wide"}
-                          />
-                        </div>
-                      )}
-
-                      <TextInput
-                        id={"test2"}
-                        name={"description"}
-                        placeholder={""}
-                        classnames={"text-input text-input-wide"}
-                        fullWidth={true}
-                        variant="outlined"
-                        multiline={true}
-                        rows={10}
-                        rowsMax={10}
-                        label="description/notes"
-                      />
-                    </div>
-                  </DialogContent>
-                  <DialogActions>
-                    <Button
-                      style={{
-                        textTransform: "none",
-                        color: "rgb(255, 118, 118)",
-                      }}
-                      onClick={() => {
-                        setIsOpen(false);
-                      }}
-                      color="primary"
-                    >
-                      cancel
-                    </Button>
-                    <Button
-                      type="submit"
-                      style={{
-                        textTransform: "none",
-                        color: "rgb(255, 118, 118)",
-                      }}
-                      onClick={() => {
-                        if (formRef.current) {
-                          formRef.current.handleSubmit();
-                        }
-                        setIsOpen(false);
-                      }}
-                      color="primary"
-                    >
-                      update
-                    </Button>
-                  </DialogActions>
-                </div>
-              </Dialog>
-            </Form>
-          }
-        </Formik> */}
         <DialogForm
           initialValues={selectedEntry}
           onSubmit={(values) => {
@@ -522,23 +415,57 @@ const CreateTimeline = () => {
         <button
           type="button"
           className="addButton"
-          onClick={() => {
-            // let newAnswers = { ...answers };
-            // newAnswers.Q4.entries.push({ event: "", date: "" });
-            setAnswers({
-              ...answers,
-              Q4: {
-                entries: [
-                  ...answers.Q4.entries,
-                  { entry: "went home", date: "2017-03-04" },
-                ],
-              },
-            });
-            props.update();
+          onClick={(e) => {
+            handleClick(e);
           }}
         >
           +
         </button>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem
+            onClick={() => {
+              handleClose();
+              setSelectedEntry({ entry: "", date: "" });
+              setIsNewEntryFormOpen(true);
+            }}
+          >
+            add event
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              handleClose();
+              setSelectedEntry({ entry: "", from: "", to: "" });
+              setIsNewEntryFormOpen(true);
+            }}
+          >
+            add time period
+          </MenuItem>
+        </Menu>
+        {/* new entry form */}
+        <DialogForm
+          initialValues={selectedEntry}
+          onSubmit={(values) => {
+            let newEntries = [...answers.Q4.entries];
+            newEntries.push(values);
+            sortEntries(newEntries);
+            setAnswers({
+              ...answers,
+              Q4: {
+                entries: newEntries,
+              },
+            });
+            props.update();
+          }}
+          isOpen={isNewEntryFormOpen}
+          setIsOpen={setIsNewEntryFormOpen}
+          formRef={newEntryFormRef}
+        />
       </div>
     );
   };
@@ -568,13 +495,13 @@ const CreateTimeline = () => {
     },
     {
       label:
-        "2. List the most significant things that have happened to you since then",
+        "2. List the most significant things that have happened to you since then, along with their approximate dates",
       id: "Q2",
       component: <Q2 />,
     },
     {
       label:
-        "3. List any periods or phases you went through during this time that you consider significant",
+        "3. List any time periods or phases you went through during this time that you consider significant, along with their approximate start/end dates",
       id: "Q3",
       component: <Q3 />,
     },

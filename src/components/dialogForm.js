@@ -20,7 +20,7 @@ const DialogForm = ({
   return (
     <Formik
       initialValues={initialValues}
-      //   enableReinitialize
+      enableReinitialize
       onSubmit={onSubmit}
       innerRef={formRef}
     >
@@ -45,7 +45,7 @@ const DialogForm = ({
                     variant="outlined"
                     label="event/phase"
                   />
-                  {initialValues.date ? (
+                  {initialValues.date !== undefined ? (
                     <DateInput
                       style={{ float: "right" }}
                       name={"date"}
