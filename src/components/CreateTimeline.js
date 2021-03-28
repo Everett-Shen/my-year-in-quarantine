@@ -60,6 +60,14 @@ const CreateTimeline = () => {
   });
   const [isOpen, setIsOpen] = useState(false);
 
+  const sortEntries = (entries) => {
+    entries.sort((entryA, entryB) => {
+      let dateA = entryA.date ? entryA.date : entryA.from;
+      let dateB = entryB.date ? entryB.date : entryB.from;
+      return dateA < dateB ? -1 : dateA > dateB ? 1 : 0;
+    });
+  };
+
   // take answers from Q2 and Q3 and collate them into the initial values for Q4.
   const setQ4 = () => {
     let events = questionTwo.events;
@@ -74,11 +82,7 @@ const CreateTimeline = () => {
         entries.entries.push({ ...phase, entry: phase.phase });
     }
 
-    entries.entries.sort((entryA, entryB) => {
-      let dateA = entryA.date ? entryA.date : entryA.from;
-      let dateB = entryB.date ? entryB.date : entryB.from;
-      return dateA < dateB ? -1 : dateA > dateB ? 1 : 0;
-    });
+    sortEntries(entries.entries);
 
     setAnswers({
       ...answers,
@@ -139,6 +143,7 @@ const CreateTimeline = () => {
           className={props.classnames}
           type="date"
           InputProps={inputProps}
+          // label="date"
           {...props}
           {...field}
         />
@@ -234,7 +239,9 @@ const CreateTimeline = () => {
                           id={`phases.${index}.phase`}
                           name={`phases.${index}.phase`}
                           placeholder={
-                            index === 0 ? "ex. went home, got sick..." : ""
+                            index === 0
+                              ? "ex. in quarantine, working from home..."
+                              : ""
                           }
                           classnames={"text-input text-input-wide"}
                         />
@@ -369,7 +376,11 @@ const CreateTimeline = () => {
               </div>
               <div style={{ gridColumnStart: "3", gridColumnEnd: "4" }}>
                 <IconButton
-                  style={{ float: "right" }}
+                  style={{
+                    float: "right",
+                    position: "relative",
+                    top: "-10px",
+                  }}
                   onClick={() => {
                     setIsOpen(true);
                     setSelectedEntry(entry);
@@ -388,6 +399,7 @@ const CreateTimeline = () => {
             console.log("submitted");
             let newEntries = [...answers.Q4.entries];
             newEntries[selectedEntryIndex] = values;
+            sortEntries(newEntries);
             setAnswers({
               ...answers,
               Q4: {
