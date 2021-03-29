@@ -25,6 +25,18 @@ const returnErrorMsg = (msg) => {
   );
 };
 
+const getInitialTouched = (initialValues) => {
+  if (initialValues.entry === "") return {};
+  else
+    return {
+      entry: true,
+      date: true,
+      description: true,
+      from: true,
+      to: true,
+    };
+};
+
 const DialogForm = ({
   initialValues,
   onSubmit,
@@ -39,6 +51,8 @@ const DialogForm = ({
       enableReinitialize
       onSubmit={onSubmit}
       innerRef={formRef}
+      initialTouched={getInitialTouched(initialValues)}
+      validateOnMount
       validationSchema={Yup.object().shape(
         {
           entry: Yup.string()
@@ -142,7 +156,7 @@ const DialogForm = ({
                         />
                         <ErrorMessage name="from" render={returnErrorMsg} />
                       </div>
-                      <span style={{ margin: "15px 40px" }}>to</span>
+                      <span style={{ margin: "15px 5%" }}>to</span>
                       <div style={{ width: "45%" }}>
                         <DateInput
                           style={{ width: "100%" }}
