@@ -338,13 +338,17 @@ const CreateTimeline = () => {
         // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
         return new Date(parts[0], parts[1] - 1, parts[2]); // months are 0-based
       }
-      let date = parseDate(dateString);
+      try {
+        let date = parseDate(dateString);
 
-      let month = date.getMonth() + 1;
-      let day = date.getDate();
-      return `${month < 10 ? "0" + month : month}/${
-        day < 10 ? "0" + day : day
-      }/${date.getFullYear()}`;
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        return `${month < 10 ? "0" + month : month}/${
+          day < 10 ? "0" + day : day
+        }/${date.getFullYear()}`;
+      } catch {
+        return "";
+      }
     };
     return (
       <div className="questionContainer">
@@ -361,7 +365,8 @@ const CreateTimeline = () => {
                   textAlign: "center",
                 }}
               >
-                {entry.date ? (
+                {/* if date is undefined or empty */}
+                {entry.date !== undefined ? (
                   <p>{formatDate(entry.date)}</p>
                 ) : (
                   <p>{`${

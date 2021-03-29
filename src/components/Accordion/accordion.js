@@ -71,7 +71,7 @@ class Panel extends React.Component {
                   this.props.nextTab();
                 }}
               >
-                <span>Next</span>
+                <span style={{ cursor: "pointer", outline: "none" }}>Next</span>
               </button>
             </div>
           </div>
