@@ -1,12 +1,10 @@
-import React, { useState, createRef } from "react";
-import { Formik, Form, FieldArray, useField } from "formik";
+import React from "react";
+import { Formik, Form } from "formik";
 import {
-  TextField,
   Dialog,
   DialogContent,
   DialogActions,
   Button,
-  IconButton,
 } from "@material-ui/core";
 import { TextInput, DateInput } from "./CreateTimeline";
 

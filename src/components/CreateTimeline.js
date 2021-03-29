@@ -37,16 +37,16 @@ const DateInput = ({ ...props }) => {
 const CreateTimeline = () => {
   const [questionTwo, setQuestionTwo] = useState({
     events: [
-      { event: "", date: "" },
-      { event: "", date: "" },
-      { event: "", date: "" },
+      { entry: "", date: "" },
+      { entry: "", date: "" },
+      { entry: "", date: "" },
     ],
   });
   const [questionThree, setQuestionThree] = useState({
     phases: [
-      { phase: "", from: "", to: "" },
-      { phase: "", from: "", to: "" },
-      { phase: "", from: "", to: "" },
+      { entry: "", from: "", to: "" },
+      { entry: "", from: "", to: "" },
+      { entry: "", from: "", to: "" },
     ],
   });
 
@@ -54,16 +54,16 @@ const CreateTimeline = () => {
     Q1: { location: "" },
     Q2: {
       events: [
-        { event: "", date: "" },
-        { event: "", date: "" },
-        { event: "", date: "" },
+        { entry: "", date: "" },
+        { entry: "", date: "" },
+        { entry: "", date: "" },
       ],
     },
     Q3: {
       phases: [
-        { phase: "", from: "", to: "" },
-        { phase: "", from: "", to: "" },
-        { phase: "", from: "", to: "" },
+        { entry: "", from: "", to: "" },
+        { entry: "", from: "", to: "" },
+        { entry: "", from: "", to: "" },
       ],
     },
     Q4: {
@@ -90,27 +90,25 @@ const CreateTimeline = () => {
     });
   };
 
-  // take answers from Q2 and Q3 and collate them into the initial values for Q4.
+  // take answers from Q2 and Q3 and collate them into the initial values for Q4 (pass objects by reference)
   const setQ4 = () => {
     let events = questionTwo.events;
     let phases = questionThree.phases;
-    let entries = { entries: [] };
+    let entries = [];
     for (let event of events) {
-      if (event.event !== "")
-        entries.entries.push({ ...event, entry: event.event });
+      if (event.entry !== "") entries.push(event);
     }
     for (let phase of phases) {
-      if (phase.phase !== "")
-        entries.entries.push({ ...phase, entry: phase.phase });
+      if (phase.entry !== "") entries.push(phase);
     }
 
-    sortEntries(entries.entries);
+    sortEntries(entries);
 
     setAnswers({
       ...answers,
       Q2: questionTwo,
       Q3: questionThree,
-      Q4: entries,
+      Q4: { entries: entries },
     });
   };
 
@@ -158,8 +156,8 @@ const CreateTimeline = () => {
                     {values.events.map((event, index) => (
                       <div className="inputRow" key={index}>
                         <TextInput
-                          id={`events.${index}.event`}
-                          name={`events.${index}.event`}
+                          id={`events.${index}.entry`}
+                          name={`events.${index}.entry`}
                           placeholder={
                             index === 0 ? "ex. went home, got sick..." : ""
                           }
@@ -179,10 +177,7 @@ const CreateTimeline = () => {
                           id={`events.${index}.date`}
                           name={`events.${index}.date`}
                           // defaultValue={index === 0 ? "2020-01-01" : ""}
-                          // {figure out this lastdate thing later}
-                          lastdate={
-                            index !== 0 ? values.events[index - 1].date : null
-                          }
+
                           classnames={"date-input"}
                         />
                       </div>
@@ -225,8 +220,8 @@ const CreateTimeline = () => {
                     {values.phases.map((phase, index) => (
                       <div className="inputRow" key={index}>
                         <TextInput
-                          id={`phases.${index}.phase`}
-                          name={`phases.${index}.phase`}
+                          id={`phases.${index}.entry`}
+                          name={`phases.${index}.entry`}
                           placeholder={
                             index === 0
                               ? "ex. in quarantine, working from home..."
@@ -397,28 +392,44 @@ const CreateTimeline = () => {
         <DialogForm
           initialValues={selectedEntry}
           onSubmit={(values) => {
-            let newEntries = [...answers.Q4.entries];
-            newEntries[selectedEntryIndex] = values;
-            sortEntries(newEntries);
-            setAnswers({
-              ...answers,
-              Q4: {
-                entries: newEntries,
-              },
-            });
+            //update Q2 or Q3, which will automatically update Q4
+
+            if (values.date !== undefined) {
+              // update Q2
+              // make copy of q2, replace updated entry, set q2 to copy of q2
+              let newEvents = [...questionTwo.events];
+              let eventIndex = questionTwo.events.indexOf(selectedEntry);
+              newEvents.splice(eventIndex, 1, values);
+              setQuestionTwo({ events: newEvents });
+            } else {
+              // update Q3
+              // make copy of q2, replace updated entry, set q2 to copy of q2
+              let newPhases = [...questionThree.phases];
+              let phaseIndex = questionThree.phases.indexOf(selectedEntry);
+              newPhases.splice(phaseIndex, 1, values);
+              setQuestionThree({ phases: newPhases });
+            }
           }}
           isOpen={isOpen}
           setIsOpen={setIsOpen}
           formRef={formRef}
           deleteEntry={() => {
-            let newEntries = [...answers.Q4.entries];
-            newEntries.splice(selectedEntryIndex, 1);
-            setAnswers({
-              ...answers,
-              Q4: {
-                entries: newEntries,
-              },
-            });
+            // delete from Q2/Q3, which will automatically delete from Q4
+            if (selectedEntry.date !== undefined) {
+              // delete from Q2
+              // make copy of q2, replace updated entry, set q2 to copy of q2
+              let newEvents = [...questionTwo.events];
+              let eventIndex = questionTwo.events.indexOf(selectedEntry);
+              newEvents.splice(eventIndex, 1);
+              setQuestionTwo({ events: newEvents });
+            } else {
+              // delete from Q3
+              // make copy of q2, replace updated entry, set q2 to copy of q2
+              let newPhases = [...questionThree.phases];
+              let phaseIndex = questionThree.phases.indexOf(selectedEntry);
+              newPhases.splice(phaseIndex, 1);
+              setQuestionThree({ phases: newPhases });
+            }
             setIsOpen(false);
           }}
         />
@@ -462,15 +473,19 @@ const CreateTimeline = () => {
         <DialogForm
           initialValues={selectedEntry}
           onSubmit={(values) => {
-            let newEntries = [...answers.Q4.entries];
-            newEntries.push(values);
-            sortEntries(newEntries);
-            setAnswers({
-              ...answers,
-              Q4: {
-                entries: newEntries,
-              },
-            });
+            if (selectedEntry.date !== undefined) {
+              // add to Q2
+              // make copy of q2, replace updated entry, set q2 to copy of q2
+              let newEvents = [...questionTwo.events];
+              newEvents.unshift(values);
+              setQuestionTwo({ events: newEvents });
+            } else {
+              // add to Q3
+              // make copy of q2, replace updated entry, set q2 to copy of q2
+              let newPhases = [...questionThree.phases];
+              newPhases.unshift(values);
+              setQuestionThree({ phases: newPhases });
+            }
             props.update();
           }}
           isOpen={isNewEntryFormOpen}
