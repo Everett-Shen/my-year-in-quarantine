@@ -24,6 +24,15 @@ class Panel extends React.Component {
     }, 333);
   }
 
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.activeTab === this.props.index &&
+      this.props.activeTab !== this.props.index
+    ) {
+      this.inputElement.click();
+    }
+  }
+
   forceUpdateHandler() {
     setTimeout(() => {
       this.forceUpdate();
@@ -73,6 +82,12 @@ class Panel extends React.Component {
               >
                 <span style={{ cursor: "pointer", outline: "none" }}>Next</span>
               </button>
+              <button
+                form={id ? id : ""}
+                type="submit"
+                style={{ display: "none" }}
+                ref={(input) => (this.inputElement = input)}
+              ></button>
             </div>
           </div>
         </div>

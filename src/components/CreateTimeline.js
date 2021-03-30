@@ -53,7 +53,7 @@ const CreateTimeline = () => {
   });
 
   const [answers, setAnswers] = useState({
-    Q1: { location: "", label: "" },
+    Q1: { location: "" },
     Q2: {
       events: [
         { entry: "", date: "" },
