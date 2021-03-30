@@ -1,11 +1,13 @@
 import React, { useState, createRef, useEffect } from "react";
 import MetaTags from "react-meta-tags";
-import { Formik, Form, FieldArray, useField } from "formik";
+import { Formik, Form, FieldArray, useField, ErrorMessage } from "formik";
 import Accordion from "./Accordion/accordion.js";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { TextField, IconButton, Menu, MenuItem } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
-import DialogForm from "./dialogForm";
+import DialogForm, { returnErrorMsg, entrySchema } from "./dialogForm";
+import * as Yup from "yup";
+
 const TextInput = ({ ...props }) => {
   const [field] = useField(props);
   return (
@@ -80,6 +82,7 @@ const CreateTimeline = () => {
     Q6: { name: "" },
   });
   const [isOpen, setIsOpen] = useState(false);
+  const [errors, setErrors] = useState([]);
   const [isNewEntryFormOpen, setIsNewEntryFormOpen] = useState(false);
 
   const sortEntries = (entries) => {
@@ -126,13 +129,30 @@ const CreateTimeline = () => {
     return (
       <div className="questionContainer">
         <div className="locationInput">
-          <GooglePlacesAutocomplete
-            apiKey="AIzaSyCeVWbfSffGK19HP7Tg-GY_nFfZ-sP7ASw"
-            selectProps={{
-              value: answers.Q1.location,
-              onChange: setLocation,
+          <Formik
+            initialValues={{ location: "" }}
+            validationSchema={Yup.object({
+              location: Yup.string().required("required"),
+            })}
+            onSubmit={(values) => {
+              console.log(values);
             }}
-          />
+          >
+            {() => (
+              <Form id="Q1">
+                <GooglePlacesAutocomplete
+                  apiKey="AIzaSyCeVWbfSffGK19HP7Tg-GY_nFfZ-sP7ASw"
+                  selectProps={{
+                    value: answers.Q1.location,
+                    onChange: setLocation,
+                    id: "location",
+                    name: "location",
+                  }}
+                />
+                {/* <ErrorMessage name="location" render={returnErrorMsg} /> */}
+              </Form>
+            )}
+          </Formik>
         </div>
       </div>
     );
@@ -292,11 +312,19 @@ const CreateTimeline = () => {
     questionNumber,
     questionName,
     initialValues,
+    required,
   }) => {
     return (
       <div className="questionContainer">
         <Formik
           initialValues={initialValues}
+          validationSchema={
+            required
+              ? Yup.object({
+                  [questionName]: Yup.string().required("required"),
+                })
+              : Yup.object({})
+          }
           onSubmit={(values) => {
             setAnswers({ ...answers, [questionNumber]: values });
           }}
@@ -309,6 +337,7 @@ const CreateTimeline = () => {
                 placeholder={"ex. My Year in Quarantine"}
                 classnames={"text-input-wide"}
               />
+              <ErrorMessage name={questionName} render={returnErrorMsg} />
             </Form>
           )}
         </Formik>
@@ -515,6 +544,7 @@ const CreateTimeline = () => {
         questionNumber={"Q6"}
         questionName={"name"}
         initialValues={answers.Q6}
+        required={true}
       />
     );
   };
@@ -522,6 +552,7 @@ const CreateTimeline = () => {
   const panels = [
     {
       label: "1. Where were you located when COVID-19 began?",
+      id: "Q1",
       component: <Q1 />,
     },
     {
@@ -542,16 +573,34 @@ const CreateTimeline = () => {
       component: <Q4 />,
     },
     {
-      label: "5. Give your timeline a title",
+      label: "5. Give your timeline a title (optional)",
       id: "Q5",
       component: <Q5 />,
     },
     {
-      label: "6. Your name (optional)",
+      label: "6. Your name",
       id: "Q6",
       component: <Q6 />,
     },
   ];
+
+  const schema = Yup.object().shape({
+    Q1: Yup.object().shape({
+      location: Yup.object()
+        .typeError("q1: location is required")
+        .shape({
+          label: Yup.string().ensure().required("q1: location is required"),
+        }),
+    }),
+    Q4: Yup.object().shape({
+      entries: Yup.array()
+        .of(entrySchema)
+        .min(3, "q4: please include at least 3 timeline entries"),
+    }),
+    Q6: Yup.object().shape({
+      name: Yup.string().required("q6: name is required"),
+    }),
+  });
 
   return (
     <div className="createForm">
@@ -570,9 +619,35 @@ const CreateTimeline = () => {
         </h2>
         <Accordion panels={panels} />
         <div style={{ margin: "20px", height: "100px" }}>
-          <button className="finish" onClick={() => {}}>
+          <button
+            className="finish"
+            onClick={() => {
+              schema
+                .validate(answers, { abortEarly: false })
+                .then((valid) => {
+                  setErrors([]);
+                  console.log(answers);
+                })
+                .catch((err) => {
+                  setErrors(err.errors);
+                });
+            }}
+          >
             <span style={{ cursor: "pointer", outline: "none" }}>Finish</span>
           </button>
+          <div className="errorContainer">
+            {errors.map((error) => (
+              <div
+                style={{
+                  color: "red",
+                  fontSize: "0.8em",
+                  marginLeft: "5px",
+                }}
+              >
+                {error}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

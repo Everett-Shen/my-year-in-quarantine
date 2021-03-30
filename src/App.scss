@@ -6,6 +6,7 @@ $primary-color-darker: rgb(236, 95, 95);
 $intro-block-width: 250px;
 $timeline-margin: 50px;
 $timeline-width: 4px;
+$accordion-width: 470px;
 
 * {
   box-sizing: border-box;
@@ -235,6 +236,14 @@ $timeline-width: 4px;
         color: white;
         background-color: $primary-color;
       }
+    }
+
+    .errorContainer {
+      width: min(#{$accordion-width}, 100%);
+      text-align: center;
+      margin: auto;
+      margin-top: 30px;
+      height: 200px;
     }
   }
 }

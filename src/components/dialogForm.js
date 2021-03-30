@@ -37,6 +37,42 @@ const getInitialTouched = (initialValues) => {
     };
 };
 
+const entrySchema = Yup.object().shape(
+  {
+    entry: Yup.string().max(100, "max 100 characters").required("required"),
+    date: Yup.date().when("from", {
+      // date is required when from is undefined (i.e. for events)
+      is: (val) => val === undefined,
+      then: Yup.date().typeError("q4: date is required").required("required"),
+      otherwise: Yup.date().notRequired(),
+    }),
+    from: Yup.date().when("date", {
+      // required when date is undefined (i.e. for phases)
+      is: (val) => val === undefined,
+      then: Yup.date().typeError("q4: date is required").required("required"),
+      otherwise: Yup.date().notRequired(),
+    }),
+    to: Yup.date()
+      .when("date", {
+        // required when date is undefined (i.e. for phases)
+        is: (val) => val === undefined,
+        then: Yup.date().typeError("q4: date is required").required("required"),
+        otherwise: Yup.date().notRequired(),
+      })
+      .when("from", (from, schema) => {
+        return schema.test({
+          test: (to) => !to || !from || to > from,
+          message: "end date should be after start date",
+        });
+      }),
+  },
+  [
+    ["date", "from"],
+    ["date", "to"],
+    ["to", "from"],
+  ]
+);
+
 const DialogForm = ({
   initialValues,
   onSubmit,
@@ -53,43 +89,7 @@ const DialogForm = ({
       innerRef={formRef}
       initialTouched={getInitialTouched(initialValues)}
       validateOnMount
-      validationSchema={Yup.object().shape(
-        {
-          entry: Yup.string()
-            .max(100, "max 100 characters")
-            .required("required"),
-          date: Yup.date().when("from", {
-            // date is required when from is undefined (i.e. for events)
-            is: (val) => val === undefined,
-            then: Yup.date().required("required"),
-            otherwise: Yup.date().notRequired(),
-          }),
-          from: Yup.date().when("date", {
-            // required when date is undefined (i.e. for phases)
-            is: (val) => val === undefined,
-            then: Yup.date().required("required"),
-            otherwise: Yup.date().notRequired(),
-          }),
-          to: Yup.date()
-            .when("date", {
-              // required when date is undefined (i.e. for phases)
-              is: (val) => val === undefined,
-              then: Yup.date().required("required"),
-              otherwise: Yup.date().notRequired(),
-            })
-            .when("from", (from, schema) => {
-              return schema.test({
-                test: (to) => !to || !from || to > from,
-                message: "end date should be after start",
-              });
-            }),
-        },
-        [
-          ["date", "from"],
-          ["date", "to"],
-          ["to", "from"],
-        ]
-      )}
+      validationSchema={entrySchema}
     >
       {(formik) => (
         <Form>
@@ -237,3 +237,4 @@ const DialogForm = ({
 };
 
 export default DialogForm;
+export { returnErrorMsg, entrySchema };

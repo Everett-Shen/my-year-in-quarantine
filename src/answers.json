@@ -1,0 +1,107 @@
+{
+  "Q1": {
+    "location": {
+      "label": "Princeton, NJ, USA",
+      "value": {
+        "description": "Princeton, NJ, USA",
+        "matched_substrings": [
+          {
+            "length": 6,
+            "offset": 0
+          }
+        ],
+        "place_id": "ChIJ8VnQcsHmw4kRwtYTSpNJzT8",
+        "reference": "ChIJ8VnQcsHmw4kRwtYTSpNJzT8",
+        "structured_formatting": {
+          "main_text": "Princeton",
+          "main_text_matched_substrings": [
+            {
+              "length": 6,
+              "offset": 0
+            }
+          ],
+          "secondary_text": "NJ, USA"
+        },
+        "terms": [
+          {
+            "offset": 0,
+            "value": "Princeton"
+          },
+          {
+            "offset": 11,
+            "value": "NJ"
+          },
+          {
+            "offset": 15,
+            "value": "USA"
+          }
+        ],
+        "types": ["locality", "political", "geocode"]
+      }
+    }
+  },
+  "Q2": {
+    "events": [
+      {
+        "entry": "everyone gets sent home",
+        "date": "2022-01-01",
+        "description": "was at the squad when it all happened"
+      },
+      {
+        "entry": "built PC",
+        "date": "2021-01-01",
+        "description": "it was fun"
+      },
+      {
+        "entry": "",
+        "date": ""
+      }
+    ]
+  },
+  "Q3": {
+    "phases": [
+      {
+        "entry": "alone in my dorm",
+        "from": "2023-01-02",
+        "to": "2024-01-01",
+        "description": "pain\npain\npain"
+      },
+      {
+        "entry": "",
+        "from": "",
+        "to": ""
+      },
+      {
+        "entry": "",
+        "from": "",
+        "to": ""
+      }
+    ]
+  },
+  "Q4": {
+    "entries": [
+      {
+        "entry": "built PC",
+        "date": "2021-01-01",
+        "description": "it was fun"
+      },
+      {
+        "entry": "everyone gets sent home",
+        "date": "2022-01-01",
+        "description": "was at the squad when it all happened"
+      },
+      {
+        "entry": "alone in my dorm",
+        "from": "2023-01-02",
+        "to": "2024-01-01",
+        "description": "pain\npain\npain"
+      }
+    ]
+  },
+  "Q5": {
+    "title": "my year in quarantine"
+  },
+  "Q6": {
+    "name": "Everett Shen"
+  }
+}
