@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;1,700&display=swap");
 
 $primary-color: rgb(255, 118, 118);
+$primary-color-darker: rgb(236, 95, 95);
 $intro-block-width: 250px;
 $timeline-margin: 50px;
 $timeline-width: 4px;
@@ -47,6 +48,10 @@ $timeline-width: 4px;
   border-radius: 10px;
   padding: 5px 15px;
   font-size: 15px;
+  outline: none;
+  &:active {
+    background-color: $primary-color-darker;
+  }
 }
 
 .getStarted {
@@ -108,6 +113,8 @@ $timeline-width: 4px;
   }
 
   .timelineForm {
+    width: 100%;
+    margin: auto;
     .next {
       @extend %navLink;
       background-color: $primary-color;
@@ -211,6 +218,23 @@ $timeline-width: 4px;
     .dialog-button {
       text-transform: "none";
       color: $primary-color;
+    }
+
+    .finish {
+      @extend %navLink;
+      color: $primary-color;
+      margin: auto;
+      background-color: white;
+      border: 1px solid $primary-color;
+      width: 100px;
+      height: 40px;
+      line-height: 10px;
+      clear: both;
+      display: block;
+      &:active {
+        color: white;
+        background-color: $primary-color;
+      }
     }
   }
 }

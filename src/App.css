@@ -32,7 +32,7 @@
   position: relative;
 }
 
-.createForm .timelineForm .next, .learnMore, .getStarted {
+.createForm .timelineForm .finish, .createForm .timelineForm .next, .learnMore, .getStarted {
   margin-right: 5px;
   text-decoration: none;
   width: 10px;
@@ -41,6 +41,10 @@
   border-radius: 10px;
   padding: 5px 15px;
   font-size: 15px;
+  outline: none;
+}
+.createForm .timelineForm .finish:active, .createForm .timelineForm .next:active, .learnMore:active, .getStarted:active {
+  background-color: #ec5f5f;
 }
 
 .getStarted {
@@ -91,6 +95,10 @@
   background-color: black;
   margin: auto;
   opacity: 0.2;
+}
+.createForm .timelineForm {
+  width: 100%;
+  margin: auto;
 }
 .createForm .timelineForm .next {
   background-color: #ff7676;
@@ -174,6 +182,21 @@
 .createForm .timelineForm .dialog-button {
   text-transform: "none";
   color: #ff7676;
+}
+.createForm .timelineForm .finish {
+  color: #ff7676;
+  margin: auto;
+  background-color: white;
+  border: 1px solid #ff7676;
+  width: 100px;
+  height: 40px;
+  line-height: 10px;
+  clear: both;
+  display: block;
+}
+.createForm .timelineForm .finish:active {
+  color: white;
+  background-color: #ff7676;
 }
 
 /*# sourceMappingURL=app.css.map */

@@ -186,7 +186,7 @@ const CreateTimeline = () => {
                       type="button"
                       className="addButton"
                       onClick={() => {
-                        arrayHelpers.push({ name: "", age: "" });
+                        arrayHelpers.push({ entry: "", date: "" });
                         props.update();
                       }}
                     >
@@ -272,7 +272,7 @@ const CreateTimeline = () => {
                       type="button"
                       className="addButton"
                       onClick={() => {
-                        arrayHelpers.push({ name: "", age: "" });
+                        arrayHelpers.push({ entry: "", from: "", to: "" });
                         props.update();
                       }}
                     >
@@ -514,7 +514,7 @@ const CreateTimeline = () => {
       <FormikTextFieldQuestion
         questionNumber={"Q6"}
         questionName={"name"}
-        initialValues={answers.Q5}
+        initialValues={answers.Q6}
       />
     );
   };
@@ -565,8 +565,15 @@ const CreateTimeline = () => {
       </nav> */}
 
       <div className="timelineForm">
-        <h2>Let's get started</h2>
+        <h2 style={{ textAlign: "center", margin: "50px", fontSize: "2em" }}>
+          Let's get started
+        </h2>
         <Accordion panels={panels} />
+        <div style={{ margin: "20px", height: "100px" }}>
+          <button className="finish" onClick={() => {}}>
+            <span style={{ cursor: "pointer", outline: "none" }}>Finish</span>
+          </button>
+        </div>
       </div>
     </div>
   );

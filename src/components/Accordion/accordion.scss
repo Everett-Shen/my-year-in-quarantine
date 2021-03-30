@@ -16,8 +16,9 @@ $primary-color: rgb(255, 118, 118);
   color: $black;
   box-sizing: border-box;
   overflow-y: clip;
-  width: 100%;
+  width: 95%;
   max-width: 470px;
+  margin: auto;
 }
 .panel {
   background-color: $brown;

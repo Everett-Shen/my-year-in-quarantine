@@ -15,6 +15,7 @@
   overflow-y: clip;
   width: 100%;
   max-width: 470px;
+  margin: auto;
 }
 
 .panel {
