@@ -53,7 +53,7 @@ const CreateTimeline = () => {
   });
 
   const [answers, setAnswers] = useState({
-    Q1: { location: "" },
+    Q1: { location: "", label: "" },
     Q2: {
       events: [
         { entry: "", date: "" },
@@ -119,7 +119,7 @@ const CreateTimeline = () => {
     setQ4();
   }, [questionTwo, questionThree]);
 
-  const Q1 = () => {
+  const Q1 = (props) => {
     const setLocation = (value) => {
       setAnswers({
         ...answers,
@@ -130,26 +130,28 @@ const CreateTimeline = () => {
       <div className="questionContainer">
         <div className="locationInput">
           <Formik
-            initialValues={{ location: "" }}
-            validationSchema={Yup.object({
-              location: Yup.string().required("required"),
-            })}
+            initialValues={answers.Q1}
             onSubmit={(values) => {
-              console.log(values);
+              setLocation(values.location);
             }}
+            // validationSchema={Yup.object({
+            //   label: Yup.string().required("required"),
+            // })}
           >
-            {() => (
+            {(props) => (
               <Form id="Q1">
                 <GooglePlacesAutocomplete
                   apiKey="AIzaSyCeVWbfSffGK19HP7Tg-GY_nFfZ-sP7ASw"
                   selectProps={{
-                    value: answers.Q1.location,
-                    onChange: setLocation,
-                    id: "location",
-                    name: "location",
+                    value: props.values.location,
+                    onChange: (location) => {
+                      props.setFieldValue("location", location);
+                      props.setFieldValue("label", location.label);
+                    },
+                    onBlur: props.handleBlur,
                   }}
                 />
-                {/* <ErrorMessage name="location" render={returnErrorMsg} /> */}
+                {/* <ErrorMessage name="label" render={returnErrorMsg} /> */}
               </Form>
             )}
           </Formik>
@@ -636,8 +638,9 @@ const CreateTimeline = () => {
             <span style={{ cursor: "pointer", outline: "none" }}>Finish</span>
           </button>
           <div className="errorContainer">
-            {errors.map((error) => (
+            {errors.map((error, index) => (
               <div
+                key={index}
                 style={{
                   color: "red",
                   fontSize: "0.8em",
