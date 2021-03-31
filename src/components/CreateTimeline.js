@@ -13,6 +13,7 @@ import {
 import EditIcon from "@material-ui/icons/Edit";
 import DialogForm, { returnErrorMsg, entrySchema } from "./dialogForm";
 import * as Yup from "yup";
+import { DatePicker, KeyboardDatePicker } from "@material-ui/pickers";
 
 const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
 
@@ -26,37 +27,69 @@ const TextInput = ({ ...props }) => {
 };
 
 const DateInput = ({ ...props }) => {
-  const [field] = useField(props);
+  const mobile = useMediaQuery("(max-width:600px)");
+  const [field, meta, helpers] = useField(props);
   const inputProps = {
     disableUnderline: true,
   };
-  field.value = field.value ? field.value : props.defaultValue;
+  // field.value = field.value ? field.value : props.defaultValue;
   return (
     <>
-      <TextField
+      {/* <DatePicker
+        openTo="month"
+        className={props.classnames}
+        InputProps={inputProps}
+        placeholder="01/07/2000"
+        format="MM/dd/yyyy"
+        // label="Date of birth"
+        views={["month", "year", "date"]}
+        {...props}
+        {...field}
+      /> */}
+      <KeyboardDatePicker
+        // clearable
+        disableToolbar
+        autoOk
+        disableFuture
+        openTo="year"
+        className={props.classnames}
+        variant={mobile ? "dialog" : "inline"}
+        // invalidDateMessage={<></>}
+        InputProps={inputProps}
+        placeholder="mm/dd/yyyy"
+        format="MM/dd/yyyy"
+        // label="Date of birth"
+        {...props}
+        {...field}
+        onChange={(date) => {
+          helpers.setValue(date);
+        }}
+        views={["year", "month", "date"]}
+      />
+      {/* <TextField
         className={props.classnames}
         type="date"
         InputProps={inputProps}
         // label="date"
         {...props}
         {...field}
-      />
+      /> */}
     </>
   );
 };
 const CreateTimeline = () => {
   const [questionTwo, setQuestionTwo] = useState({
     events: [
-      { entry: "", date: "" },
-      { entry: "", date: "" },
-      { entry: "", date: "" },
+      { entry: "", date: null },
+      { entry: "", date: null },
+      { entry: "", date: null },
     ],
   });
   const [questionThree, setQuestionThree] = useState({
     phases: [
-      { entry: "", from: "", to: "" },
-      { entry: "", from: "", to: "" },
-      { entry: "", from: "", to: "" },
+      { entry: "", from: null, to: null },
+      { entry: "", from: null, to: null },
+      { entry: "", from: null, to: null },
     ],
   });
 
@@ -64,16 +97,16 @@ const CreateTimeline = () => {
     Q1: { location: "" },
     Q2: {
       events: [
-        { entry: "", date: "" },
-        { entry: "", date: "" },
-        { entry: "", date: "" },
+        { entry: "", date: null },
+        { entry: "", date: null },
+        { entry: "", date: null },
       ],
     },
     Q3: {
       phases: [
-        { entry: "", from: "", to: "" },
-        { entry: "", from: "", to: "" },
-        { entry: "", from: "", to: "" },
+        { entry: "", from: null, to: null },
+        { entry: "", from: null, to: null },
+        { entry: "", from: null, to: null },
       ],
     },
     Q4: {
@@ -131,7 +164,7 @@ const CreateTimeline = () => {
   useEffect(() => {
     const storageAnswers = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
     if (storageAnswers) {
-      setAnswers(storageAnswers);
+      // setAnswers(storageAnswers);
     }
   }, []);
 
@@ -226,8 +259,6 @@ const CreateTimeline = () => {
                         <DateInput
                           id={`events.${index}.date`}
                           name={`events.${index}.date`}
-                          // defaultValue={index === 0 ? "2020-01-01" : ""}
-
                           classnames={"date-input"}
                           label={mobile ? "date" : null}
                         />
@@ -237,7 +268,7 @@ const CreateTimeline = () => {
                       type="button"
                       className="addButton"
                       onClick={() => {
-                        arrayHelpers.push({ entry: "", date: "" });
+                        arrayHelpers.push({ entry: "", date: null });
                         props.update();
                       }}
                     >
@@ -301,13 +332,6 @@ const CreateTimeline = () => {
                             <DateInput
                               id={`phases.${index}.from`}
                               name={`phases.${index}.from`}
-                              // defaultValue={index === 0 ? "2020-01-01" : ""}
-                              // {figure out this lastdate thing later}
-                              lastdate={
-                                index !== 0
-                                  ? values.phases[index - 1].from
-                                  : null
-                              }
                               classnames={"date-input"}
                               label={mobile ? "start date" : null}
                             />
@@ -315,8 +339,6 @@ const CreateTimeline = () => {
                             <DateInput
                               id={`phases.${index}.to`}
                               name={`phases.${index}.to`}
-                              // defaultValue={index === 0 ? "2020-01-01" : ""}
-                              // {figure out this lastdate thing later}
                               lastdate={
                                 index !== 0 ? values.phases[index - 1].to : null
                               }
@@ -331,7 +353,7 @@ const CreateTimeline = () => {
                       type="button"
                       className="addButton"
                       onClick={() => {
-                        arrayHelpers.push({ entry: "", from: "", to: "" });
+                        arrayHelpers.push({ entry: "", from: null, to: null });
                         props.update();
                       }}
                     >
@@ -533,7 +555,7 @@ const CreateTimeline = () => {
           <MenuItem
             onClick={() => {
               handleClose();
-              setSelectedEntry({ entry: "", date: "" });
+              setSelectedEntry({ entry: "", date: null });
               setIsNewEntryFormOpen(true);
             }}
           >
@@ -542,7 +564,7 @@ const CreateTimeline = () => {
           <MenuItem
             onClick={() => {
               handleClose();
-              setSelectedEntry({ entry: "", from: "", to: "" });
+              setSelectedEntry({ entry: "", from: null, to: null });
               setIsNewEntryFormOpen(true);
             }}
           >
@@ -671,8 +693,7 @@ const CreateTimeline = () => {
           <p>1. this section usually takes about 5-10 minutes to complete</p>
           <p>2. feel free to take breaks. your work will be saved</p>
           <p>
-            3. yours answers will be used to generate your personal timeline,
-            which you can preview and edit before publishing
+            3. your answers will be used to generate your personal timeline. You will be able to preview your timeline before publishing
           </p>
         </div> */}
         <Accordion panels={panels} />
