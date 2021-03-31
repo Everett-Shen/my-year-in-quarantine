@@ -3,10 +3,18 @@ import MetaTags from "react-meta-tags";
 import { Formik, Form, FieldArray, useField, ErrorMessage } from "formik";
 import Accordion from "./Accordion/accordion.js";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
-import { TextField, IconButton, Menu, MenuItem } from "@material-ui/core";
+import {
+  TextField,
+  IconButton,
+  Menu,
+  MenuItem,
+  useMediaQuery,
+} from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import DialogForm, { returnErrorMsg, entrySchema } from "./dialogForm";
 import * as Yup from "yup";
+
+const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
 
 const TextInput = ({ ...props }) => {
   const [field] = useField(props);
@@ -84,6 +92,7 @@ const CreateTimeline = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [errors, setErrors] = useState([]);
   const [isNewEntryFormOpen, setIsNewEntryFormOpen] = useState(false);
+  const mobile = useMediaQuery("(max-width:600px)");
 
   const sortEntries = (entries) => {
     entries.sort((entryA, entryB) => {
@@ -119,6 +128,17 @@ const CreateTimeline = () => {
     setQ4();
   }, [questionTwo, questionThree]);
 
+  useEffect(() => {
+    const storageAnswers = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    if (storageAnswers) {
+      setAnswers(storageAnswers);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(answers));
+  }, [answers]);
+
   const Q1 = (props) => {
     const setLocation = (value) => {
       setAnswers({
@@ -149,6 +169,7 @@ const CreateTimeline = () => {
                       props.setFieldValue("label", location.label);
                     },
                     onBlur: props.handleBlur,
+                    placeholder: "ex. New York City",
                   }}
                 />
                 {/* <ErrorMessage name="label" render={returnErrorMsg} /> */}
@@ -163,6 +184,13 @@ const CreateTimeline = () => {
   const Q2 = (props) => {
     return (
       <div className="questionContainer">
+        <h4>note</h4>
+        <div className="notes">
+          <p>1. events can be in any order</p>
+          <p>2. approximate dates are fine</p>
+          <p>3. click the "+" icon to add additional events</p>
+        </div>
+
         <Formik
           initialValues={answers.Q2}
           onSubmit={(values) => {
@@ -201,6 +229,7 @@ const CreateTimeline = () => {
                           // defaultValue={index === 0 ? "2020-01-01" : ""}
 
                           classnames={"date-input"}
+                          label={mobile ? "date" : null}
                         />
                       </div>
                     ))}
@@ -227,6 +256,12 @@ const CreateTimeline = () => {
   const Q3 = (props) => {
     return (
       <div className="questionContainer">
+        <h4>note</h4>
+        <div className="notes">
+          <p>1. time periods can be in any order</p>
+          <p>2. approximate dates are fine</p>
+          <p>3. click the "+" icon to add additional entries</p>
+        </div>
         <Formik
           initialValues={answers.Q3}
           onSubmit={(values) => {
@@ -274,6 +309,7 @@ const CreateTimeline = () => {
                                   : null
                               }
                               classnames={"date-input"}
+                              label={mobile ? "start date" : null}
                             />
                             <span style={{ margin: "5px" }}>to</span>
                             <DateInput
@@ -285,6 +321,7 @@ const CreateTimeline = () => {
                                 index !== 0 ? values.phases[index - 1].to : null
                               }
                               classnames={"date-input"}
+                              label={mobile ? "end date" : null}
                             />
                           </div>
                         </div>
@@ -315,6 +352,7 @@ const CreateTimeline = () => {
     questionName,
     initialValues,
     required,
+    placeholder,
   }) => {
     return (
       <div className="questionContainer">
@@ -336,7 +374,7 @@ const CreateTimeline = () => {
               <TextInput
                 id={questionName}
                 name={questionName}
-                placeholder={"ex. My Year in Quarantine"}
+                placeholder={placeholder}
                 classnames={"text-input-wide"}
               />
               <ErrorMessage name={questionName} render={returnErrorMsg} />
@@ -383,6 +421,12 @@ const CreateTimeline = () => {
     };
     return (
       <div className="questionContainer">
+        <h4>note</h4>
+        <div className="notes">
+          <p>1. click the pencil icon to add notes or edit/delete entries</p>
+          <p>2. use the notes section to provide additional details</p>
+          <p>3. click the "+" icon to add entries</p>
+        </div>
         {answers.Q4.entries.map((entry, index) => (
           <div className="inputRow" key={index}>
             <div className="entry-container">
@@ -537,6 +581,7 @@ const CreateTimeline = () => {
         questionNumber={"Q5"}
         questionName={"title"}
         initialValues={answers.Q5}
+        placeholder={"ex. My Year in Quarantine"}
       />
     );
   };
@@ -547,13 +592,14 @@ const CreateTimeline = () => {
         questionName={"name"}
         initialValues={answers.Q6}
         required={true}
+        placeholder={""}
       />
     );
   };
 
   const panels = [
     {
-      label: "1. Where were you located when COVID-19 began?",
+      label: "1. Where were you located when COVID-19 began? ",
       id: "Q1",
       component: <Q1 />,
     },
@@ -570,7 +616,7 @@ const CreateTimeline = () => {
       component: <Q3 />,
     },
     {
-      label: "4. Elaborate on your experiences",
+      label: "4. Elaborate on your experiences ",
       id: "Q4",
       component: <Q4 />,
     },
@@ -580,7 +626,7 @@ const CreateTimeline = () => {
       component: <Q5 />,
     },
     {
-      label: "6. Your name",
+      label: "6. Your name ",
       id: "Q6",
       component: <Q6 />,
     },
@@ -619,6 +665,16 @@ const CreateTimeline = () => {
         <h2 style={{ textAlign: "center", margin: "50px", fontSize: "2em" }}>
           Let's get started
         </h2>
+
+        {/* <div className="notes">
+          <h4>note</h4>
+          <p>1. this section usually takes about 5-10 minutes to complete</p>
+          <p>2. feel free to take breaks. your work will be saved</p>
+          <p>
+            3. yours answers will be used to generate your personal timeline,
+            which you can preview and edit before publishing
+          </p>
+        </div> */}
         <Accordion panels={panels} />
         <div style={{ margin: "20px", height: "100px" }}>
           <button

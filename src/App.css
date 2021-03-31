@@ -115,6 +115,13 @@
   margin-top: 50px;
   margin-bottom: 50px;
 }
+.createForm .timelineForm .notes {
+  font-size: 0.9em;
+  margin: 10px;
+  margin-bottom: 15px;
+  width: min(470px, 100%);
+  margin: auto;
+}
 .createForm .timelineForm .locationInput {
   height: 150px;
 }
