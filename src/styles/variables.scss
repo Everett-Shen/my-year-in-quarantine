@@ -1,10 +1,11 @@
 $primary-color: rgb(255, 118, 118);
-$primary-color-darker: rgb(236, 95, 95);
+$primary-color-darker: rgb(255, 109, 109);
 $intro-block-width: 250px;
 $timeline-container-width: 250px;
-$timeline-margin: 30px; // edit this to shift timeline position
+$timeline-margin: 20px; // edit this to shift timeline position
 $timeline-width: 4px;
 $accordion-width: 470px;
-$timeline-distance-to-top: 200px;
+$timeline-distance-to-top: 50%;
 $circle-diameter: 50px;
-$shift-container-to-right-distance: 20px; // edit this to shift central container
+$shift-container-to-right-distance: 40px; // edit this to shift central container
+$entry-distance-from-circle: 10px; // change this to move entry up/down relative to circle

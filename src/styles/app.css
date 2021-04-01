@@ -4,14 +4,17 @@
   width: min(500px, 100%);
   margin: auto;
 }
+.preview-page .timeline-container {
+  position: relative;
+}
 .preview-page .timeline-container::after {
   content: "";
   position: absolute;
   background-color: #ff7676;
   width: 4px;
   height: 100%;
-  left: calc(50% - 155px);
-  top: 200px;
+  left: calc(50% - 145px);
+  top: 0;
 }
 .preview-page .timeline-container .entry-container {
   width: 250px;
@@ -28,18 +31,36 @@
   z-index: 10;
   border-radius: 25px;
   top: 0px;
-  left: calc( 50% - 198px );
+  left: calc( 50% - 208px );
 }
 .preview-page .timeline-container h1 {
   font-family: "Nunito", sans-serif;
-  line-height: 110%;
+  line-height: 100%;
   font-size: 3em;
 }
-.preview-page .timeline-container .timeline-content {
-  margin-top: 150px;
-  position: relative;
-  left: 20px;
+.preview-page .timeline-container h2 {
+  font-family: "Nunito", sans-serif;
+  line-height: 100%;
+  font-size: 2.9em;
+  font-weight: 600;
 }
+.preview-page .timeline-container h3 {
+  font-weight: 500;
+  color: #ff7676;
+}
+.preview-page .timeline-container .timeline-content {
+  margin-top: calc(50% - 50px);
+  position: relative;
+  left: 40px;
+}
+.preview-page .timeline-container .entry-content {
+  position: relative;
+  top: 10px;
+}
+.preview-page .timeline-container .divider {
+  height: 400px;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -70,7 +91,7 @@
   margin-left: auto;
   margin-right: auto;
   position: relative;
-  left: 20px;
+  left: 40px;
 }
 
 .createForm .timelineForm .finish, .createForm .timelineForm .next, .learnMore, .getStarted {
@@ -85,7 +106,7 @@
   outline: none;
 }
 .createForm .timelineForm .finish:active, .createForm .timelineForm .next:active, .learnMore:active, .getStarted:active {
-  background-color: #ec5f5f;
+  background-color: #ff6d6d;
 }
 
 .getStarted {
@@ -102,7 +123,7 @@
   background-color: #ff7676;
   width: 4px;
   height: 100%;
-  left: calc(50% - 155px);
+  left: calc(50% - 145px);
   top: 0px;
 }
 
@@ -115,7 +136,7 @@
   z-index: 10;
   border-radius: 25px;
   top: 0px;
-  left: calc( 50% - 198px );
+  left: calc( 50% - 208px );
 }
 
 .createForm h1 {

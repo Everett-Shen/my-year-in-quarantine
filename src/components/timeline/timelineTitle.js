@@ -10,6 +10,11 @@ const TimelineTitle = ({ title, name }) => {
           <br />
           <br />
           <p style={{ float: "right" }}>{`by ${name}`}</p>
+          <br />
+          <br />
+          <br />
+          <br />
+          {/* <p style={{ textAlign: "center" }}> click or tap to begin</p> */}
         </div>
       }
     </EntryContainer>
