@@ -132,7 +132,7 @@ const DialogForm = ({
                         name={"date"}
                         classnames={"date-input date-input-wide"}
                         required={true}
-                        variant="outlined"
+                        inputVariant="outlined"
                         label="date"
                       />
                       <ErrorMessage name="date" render={returnErrorMsg} />
@@ -151,7 +151,7 @@ const DialogForm = ({
                           style={{ width: "100%" }}
                           classnames={"date-input date-input-wide"}
                           required={true}
-                          variant="outlined"
+                          inputVariant="outlined"
                           label="start date"
                         />
                         <ErrorMessage name="from" render={returnErrorMsg} />
@@ -163,7 +163,7 @@ const DialogForm = ({
                           name={"to"}
                           classnames={"date-input date-input-wide"}
                           required={true}
-                          variant="outlined"
+                          inputVariant="outlined"
                           label="end date"
                         />
                         <ErrorMessage name="to" render={returnErrorMsg} />

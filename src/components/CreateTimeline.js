@@ -14,6 +14,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import DialogForm, { returnErrorMsg, entrySchema } from "./dialogForm";
 import * as Yup from "yup";
 import { DatePicker, KeyboardDatePicker } from "@material-ui/pickers";
+import { useHistory } from "react-router-dom";
 
 const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
 
@@ -35,30 +36,17 @@ const DateInput = ({ ...props }) => {
   // field.value = field.value ? field.value : props.defaultValue;
   return (
     <>
-      {/* <DatePicker
-        openTo="month"
-        className={props.classnames}
-        InputProps={inputProps}
-        placeholder="01/07/2000"
-        format="MM/dd/yyyy"
-        // label="Date of birth"
-        views={["month", "year", "date"]}
-        {...props}
-        {...field}
-      /> */}
       <KeyboardDatePicker
-        // clearable
+        clearable
         disableToolbar
         autoOk
         disableFuture
         openTo="year"
         className={props.classnames}
         variant={mobile ? "dialog" : "inline"}
-        // invalidDateMessage={<></>}
         InputProps={inputProps}
         placeholder="mm/dd/yyyy"
         format="MM/dd/yyyy"
-        // label="Date of birth"
         {...props}
         {...field}
         onChange={(date) => {
@@ -66,18 +54,11 @@ const DateInput = ({ ...props }) => {
         }}
         views={["year", "month", "date"]}
       />
-      {/* <TextField
-        className={props.classnames}
-        type="date"
-        InputProps={inputProps}
-        // label="date"
-        {...props}
-        {...field}
-      /> */}
     </>
   );
 };
 const CreateTimeline = () => {
+  const history = useHistory();
   const [questionTwo, setQuestionTwo] = useState({
     events: [
       { entry: "", date: null },
@@ -221,7 +202,8 @@ const CreateTimeline = () => {
         <div className="notes">
           <p>1. events can be in any order</p>
           <p>2. approximate dates are fine</p>
-          <p>3. click the "+" icon to add additional events</p>
+          <p>3. click the calendar icon to open date picker</p>
+          <p>4. click the "+" icon to add additional entries</p>
         </div>
 
         <Formik
@@ -249,6 +231,7 @@ const CreateTimeline = () => {
                         <button
                           className="deleteButton"
                           type="button"
+                          tabIndex="-1"
                           onClick={() => {
                             arrayHelpers.remove(index);
                             props.update();
@@ -291,7 +274,8 @@ const CreateTimeline = () => {
         <div className="notes">
           <p>1. time periods can be in any order</p>
           <p>2. approximate dates are fine</p>
-          <p>3. click the "+" icon to add additional entries</p>
+          <p>3. click the calendar icon to open date picker</p>
+          <p>4. click the "+" icon to add additional entries</p>
         </div>
         <Formik
           initialValues={answers.Q3}
@@ -321,6 +305,7 @@ const CreateTimeline = () => {
                           <button
                             className="deleteButton"
                             type="button"
+                            tabIndex="-1"
                             onClick={() => {
                               arrayHelpers.remove(index);
                               props.update();
@@ -424,13 +409,13 @@ const CreateTimeline = () => {
       setAnchorEl(null);
     };
     const formatDate = (dateString) => {
-      function parseDate(input) {
-        var parts = input.match(/(\d+)/g);
-        // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
-        return new Date(parts[0], parts[1] - 1, parts[2]); // months are 0-based
-      }
+      // function parseDate(input) {
+      //   var parts = input.match(/(\d+)/g);
+      //   // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
+      //   return new Date(parts[0], parts[1] - 1, parts[2]); // months are 0-based
+      // }
       try {
-        let date = parseDate(dateString);
+        let date = new Date(dateString);
 
         let month = date.getMonth() + 1;
         let day = date.getDate();
@@ -447,7 +432,8 @@ const CreateTimeline = () => {
         <div className="notes">
           <p>1. click the pencil icon to add notes or edit/delete entries</p>
           <p>2. use the notes section to provide additional details</p>
-          <p>3. click the "+" icon to add entries</p>
+          <p>3. click the calendar icon to open date picker</p>
+          <p>4. click the "+" icon to add additional entries</p>
         </div>
         {answers.Q4.entries.map((entry, index) => (
           <div className="inputRow" key={index}>
@@ -621,13 +607,13 @@ const CreateTimeline = () => {
 
   const panels = [
     {
-      label: "1. Where were you located when COVID-19 began? ",
+      label: "1. Where were you located when the COVID-19 pandemic began? ",
       id: "Q1",
       component: <Q1 />,
     },
     {
       label:
-        "2. List the most significant things that have happened to you since then, along with their approximate dates",
+        "2. List the most significant things that have happened in your life since then, along with their approximate dates",
       id: "Q2",
       component: <Q2 />,
     },
@@ -648,7 +634,7 @@ const CreateTimeline = () => {
       component: <Q5 />,
     },
     {
-      label: "6. Your name ",
+      label: "6. Your preferred name ",
       id: "Q6",
       component: <Q6 />,
     },
@@ -675,7 +661,7 @@ const CreateTimeline = () => {
   return (
     <div className="createForm">
       <MetaTags>
-        <title>My Year in Quarantine - Create Timeline</title>
+        <title>Create Timeline - My Year in Quarantine </title>
       </MetaTags>
 
       {/* <nav>
@@ -684,8 +670,14 @@ const CreateTimeline = () => {
       </nav> */}
 
       <div className="timelineForm">
-        <h2 style={{ textAlign: "center", margin: "50px", fontSize: "2em" }}>
-          Let's get started
+        <h2
+          style={{
+            textAlign: "center",
+            margin: "50px",
+            fontSize: "2em",
+          }}
+        >
+          let's get started!
         </h2>
 
         {/* <div className="notes">
@@ -706,6 +698,7 @@ const CreateTimeline = () => {
                 .then((valid) => {
                   setErrors([]);
                   console.log(answers);
+                  history.push("/preview");
                 })
                 .catch((err) => {
                   setErrors(err.errors);

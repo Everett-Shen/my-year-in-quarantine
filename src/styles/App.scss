@@ -1,12 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;1,700&display=swap");
-
-$primary-color: rgb(255, 118, 118);
-$primary-color-darker: rgb(236, 95, 95);
-$intro-block-width: 250px;
-$timeline-margin: 50px;
-$timeline-width: 4px;
-$accordion-width: 470px;
+@import "./timeline.scss";
+@import "./variables.scss";
 
 * {
   box-sizing: border-box;

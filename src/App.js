@@ -1,8 +1,9 @@
-import "./app.css";
+import "./styles/app.css";
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import CreateTimeline from "./components/CreateTimeline";
+import PreviewPage from "./components/previewPage";
 import MetaTags from "react-meta-tags";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
@@ -37,6 +38,7 @@ function App() {
           <Switch>
             <Route path={"/"} exact component={LandingPage} />
             <Route path={"/create"} exact component={CreateTimeline} />
+            <Route path={"/preview"} exact component={PreviewPage} />
             <Redirect to={"/"} />
           </Switch>
         </MuiPickersUtilsProvider>

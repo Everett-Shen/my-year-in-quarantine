@@ -1,0 +1,20 @@
+@import "./variables.scss";
+
+.preview-page {
+  .timeline-container {
+    width: min(500px, 100%);
+    margin: auto;
+  }
+
+  .timeline-container {
+  }
+  .timeline-container::after {
+    content: "";
+    position: absolute;
+    background-color: $primary-color;
+    width: $timeline-width;
+    height: 90%;
+    left: calc(50% - #{$timeline-container-width / 2 + $timeline-margin});
+    bottom: 0px;
+  }
+}
