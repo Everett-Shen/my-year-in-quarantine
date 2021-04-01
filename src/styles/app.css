@@ -9,11 +9,37 @@
   position: absolute;
   background-color: #ff7676;
   width: 4px;
-  height: 90%;
-  left: calc(50% - 175px);
-  bottom: 0px;
+  height: 100%;
+  left: calc(50% - 155px);
+  top: 200px;
 }
-
+.preview-page .timeline-container .entry-container {
+  width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+.preview-page .timeline-container .circle {
+  background-color: white;
+  border: 3px solid #ff7676;
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  z-index: 10;
+  border-radius: 25px;
+  top: 0px;
+  left: calc( 50% - 198px );
+}
+.preview-page .timeline-container h1 {
+  font-family: "Nunito", sans-serif;
+  line-height: 110%;
+  font-size: 3em;
+}
+.preview-page .timeline-container .timeline-content {
+  margin-top: 150px;
+  position: relative;
+  left: 20px;
+}
 * {
   box-sizing: border-box;
   margin: 0;
@@ -44,6 +70,7 @@
   margin-left: auto;
   margin-right: auto;
   position: relative;
+  left: 20px;
 }
 
 .createForm .timelineForm .finish, .createForm .timelineForm .next, .learnMore, .getStarted {
@@ -75,7 +102,7 @@
   background-color: #ff7676;
   width: 4px;
   height: 100%;
-  left: calc(50% - 175px);
+  left: calc(50% - 155px);
   top: 0px;
 }
 
@@ -87,7 +114,7 @@
   position: absolute;
   z-index: 10;
   border-radius: 25px;
-  top: 16px;
+  top: 0px;
   left: calc( 50% - 198px );
 }
 

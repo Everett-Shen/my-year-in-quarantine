@@ -1,4 +1,5 @@
 @import "./variables.scss";
+@import "./mixins.scss";
 
 .preview-page {
   .timeline-container {
@@ -7,14 +8,41 @@
   }
 
   .timeline-container {
-  }
-  .timeline-container::after {
-    content: "";
-    position: absolute;
-    background-color: $primary-color;
-    width: $timeline-width;
-    height: 90%;
-    left: calc(50% - #{$timeline-container-width / 2 + $timeline-margin});
-    bottom: 0px;
+    &::after {
+      content: "";
+      position: absolute;
+      background-color: $primary-color;
+      width: $timeline-width;
+      height: 100%;
+      left: calc(50% - #{$timeline-container-width / 2 + $timeline-margin});
+      top: $timeline-distance-to-top;
+    }
+    .entry-container {
+      width: $timeline-container-width;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      //   border: 1px solid red;
+    }
+
+    .circle {
+      @include circle($timeline-container-width);
+    }
+
+    h1 {
+      font-family: "Nunito", sans-serif;
+      line-height: 110%;
+      font-size: 3em;
+    }
+
+    .timeline-content {
+      margin-top: $timeline-distance-to-top - $circle-diameter;
+      position: relative;
+      left: $shift-container-to-right-distance;
+    }
+    .entry-content {
+      //   position: relative;
+      //   top: 10px;
+    }
   }
 }

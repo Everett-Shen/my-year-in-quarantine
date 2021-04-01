@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;1,700&display=swap");
 @import "./timeline.scss";
 @import "./variables.scss";
+@import "./mixins.scss";
 
 * {
   box-sizing: border-box;
@@ -33,6 +34,7 @@
   margin-left: auto;
   margin-right: auto;
   position: relative;
+  left: $shift-container-to-right-distance;
 }
 
 %navLink {
@@ -71,19 +73,7 @@
 }
 
 .intro-block .circle {
-  $diameter: 50px;
-  background-color: white;
-  border: 3px solid $primary-color;
-  height: $diameter;
-  width: $diameter;
-  position: absolute;
-  z-index: 10;
-  border-radius: $diameter / 2;
-  top: 16px;
-  left: calc(
-    50% - #{$intro-block-width / 2 + $timeline-margin + $diameter / 2 -
-      $timeline-width / 2}
-  );
+  @include circle($intro-block-width);
 }
 
 // CreateTimeline styles

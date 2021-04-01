@@ -1,0 +1,16 @@
+@import "./variables.scss";
+
+@mixin circle($width) {
+  background-color: white;
+  border: 3px solid $primary-color;
+  height: $circle-diameter;
+  width: $circle-diameter;
+  position: absolute;
+  z-index: 10;
+  border-radius: $circle-diameter / 2;
+  top: 0px;
+  left: calc(
+    50% - #{$width / 2 + $timeline-margin + $circle-diameter / 2 -
+      $timeline-width / 2 + $shift-container-to-right-distance}
+  );
+}

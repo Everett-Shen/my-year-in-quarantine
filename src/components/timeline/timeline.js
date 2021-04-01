@@ -1,11 +1,15 @@
 import React from "react";
+import TimelineTitle from "./timelineTitle";
 
 const Timeline = ({ answers }) => {
   return (
     <div className="timeline-container">
       {/* title block*/}
-      {/* location block */}
-      {/* entry blocks */}
+      <div className="timeline-content">
+        <TimelineTitle title={answers.title} name={answers.name} />
+        {/* location block */}
+        {/* entry blocks */}
+      </div>
     </div>
   );
 };
