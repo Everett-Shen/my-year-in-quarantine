@@ -3,6 +3,8 @@ import MetaTags from "react-meta-tags";
 import Timeline from "./timeline/timeline";
 import * as defaultAnswers from "../answers.json";
 import _ from "lodash";
+import ScrollAnimation from "react-animate-on-scroll";
+import "animate.css/animate.min.css";
 
 const PreviewPage = () => {
   const [answers, setAnswers] = useState({});
@@ -36,9 +38,17 @@ const PreviewPage = () => {
         <title>Preview Timeline - My Year in Quarantine </title>
         <meta name="viewport" content="width=device-width, user-scalable=no" />
       </MetaTags>
-      <div className="timeline-container-outer">
-        <Timeline answers={answers} />
-      </div>
+      <ScrollAnimation
+        animateIn="animate__fadeInUpBig"
+        duration={1.2}
+        animateOnce={true}
+        offset={150}
+        delay={10}
+      >
+        <div className="timeline-container-outer">
+          <Timeline answers={answers} />
+        </div>
+      </ScrollAnimation>
     </div>
 
     // timeline
