@@ -1,11 +1,11 @@
 import React from "react";
 import EntryContainer from "./entryContainer";
 
-const Entry = ({ date, title, content }) => {
+const Entry = ({ date, title, content, id }) => {
   return (
     <EntryContainer>
       {
-        <div className="entry-content">
+        <div className="entry-content" id={id}>
           <h3>{date}</h3>
           <h2 style={{ marginTop: "6px" }}>{title}</h2>
 

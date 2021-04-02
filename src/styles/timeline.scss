@@ -1,10 +1,16 @@
 @import "./variables.scss";
 @import "./mixins.scss";
-
+// body {
+//   -ms-overflow-style: none;
+// }
+// ::-webkit-scrollbar {
+//   display: none;
+// }
 .preview-page {
   .timeline-container {
     width: min(500px, 100%);
     margin: auto;
+    height: 100%;
   }
 
   .timeline-container {
@@ -13,10 +19,11 @@
       content: "";
       position: absolute;
       background-color: $primary-color;
+      //   border: 3px solid $primary-color;
       width: $timeline-width;
       height: 100%;
       left: calc(50% - #{$timeline-container-width / 2 + $timeline-margin});
-      top: 0;
+      top: $timeline-distance-to-top;
     }
     .entry-container {
       width: $timeline-container-width;
@@ -51,7 +58,7 @@
     }
 
     .timeline-content {
-      margin-top: calc(#{$timeline-distance-to-top} - #{$circle-diameter});
+      top: calc(#{$timeline-distance-to-top} - #{$circle-diameter});
       position: relative;
       left: $shift-container-to-right-distance;
     }

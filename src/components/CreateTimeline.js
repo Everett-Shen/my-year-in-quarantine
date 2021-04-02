@@ -662,6 +662,7 @@ const CreateTimeline = () => {
     <div className="createForm">
       <MetaTags>
         <title>Create Timeline - My Year in Quarantine </title>
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
       </MetaTags>
 
       {/* <nav>

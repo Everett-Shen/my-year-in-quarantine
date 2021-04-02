@@ -1,11 +1,11 @@
 import React from "react";
 import EntryContainer from "./entryContainer";
 
-const TimelineTitle = ({ title, name }) => {
+const TimelineTitle = ({ title, name, id }) => {
   return (
     <EntryContainer>
       {
-        <div className="entry-content">
+        <div className="entry-content" id={id}>
           <h1 style={{ wordSpacing: "99999px" }}>{title}</h1>
           <br />
           <br />

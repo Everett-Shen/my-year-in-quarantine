@@ -34,6 +34,7 @@ const PreviewPage = () => {
     <div className="preview-page">
       <MetaTags>
         <title>Preview Timeline - My Year in Quarantine </title>
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
       </MetaTags>
       <div className="timeline-container-outer">
         <Timeline answers={answers} />

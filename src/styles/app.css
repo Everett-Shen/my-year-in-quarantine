@@ -3,6 +3,7 @@
 .preview-page .timeline-container {
   width: min(500px, 100%);
   margin: auto;
+  height: 100%;
 }
 .preview-page .timeline-container {
   position: relative;
@@ -13,8 +14,8 @@
   background-color: #ff7676;
   width: 4px;
   height: 100%;
-  left: calc(50% - 145px);
-  top: 0;
+  left: calc(50% - 155px);
+  top: 35vh;
 }
 .preview-page .timeline-container .entry-container {
   width: 250px;
@@ -31,7 +32,7 @@
   z-index: 10;
   border-radius: 25px;
   top: 0px;
-  left: calc( 50% - 208px );
+  left: calc( 50% - 213px );
 }
 .preview-page .timeline-container h1 {
   font-family: "Nunito", sans-serif;
@@ -49,9 +50,9 @@
   color: #ff7676;
 }
 .preview-page .timeline-container .timeline-content {
-  margin-top: calc(50% - 50px);
+  top: calc(35vh - 50px);
   position: relative;
-  left: 40px;
+  left: 35px;
 }
 .preview-page .timeline-container .entry-content {
   position: relative;
@@ -91,7 +92,7 @@
   margin-left: auto;
   margin-right: auto;
   position: relative;
-  left: 40px;
+  left: 35px;
 }
 
 .createForm .timelineForm .finish, .createForm .timelineForm .next, .learnMore, .getStarted {
@@ -123,7 +124,7 @@
   background-color: #ff7676;
   width: 4px;
   height: 100%;
-  left: calc(50% - 145px);
+  left: calc(50% - 155px);
   top: 0px;
 }
 
@@ -136,7 +137,7 @@
   z-index: 10;
   border-radius: 25px;
   top: 0px;
-  left: calc( 50% - 208px );
+  left: calc( 50% - 213px );
 }
 
 .createForm h1 {
