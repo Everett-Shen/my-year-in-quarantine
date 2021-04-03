@@ -17,7 +17,7 @@ const PreviewPage = () => {
     let localStorageAnswers = JSON.parse(
       localStorage.getItem(LOCAL_STORAGE_KEY)
     );
-    if (localStorageAnswers) organizeAnswers(setAnswers(localStorageAnswers));
+    if (localStorageAnswers) setAnswers(organizeAnswers(localStorageAnswers));
     // setAnswers(organizeAnswers(defaultAnswers.default));
   }, []);
 
