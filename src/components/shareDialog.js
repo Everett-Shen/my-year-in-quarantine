@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -7,6 +7,8 @@ import {
   FormControl,
   OutlinedInput,
   Tooltip,
+  Menu,
+  MenuItem,
 } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
@@ -18,6 +20,7 @@ import {
   WhatsappShareButton,
 } from "react-share";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
+import GetAppIcon from "@material-ui/icons/GetApp";
 import {
   FacebookIcon,
   LinkedinIcon,
@@ -26,6 +29,14 @@ import {
 } from "react-share";
 
 const ShareDialog = ({ isOpen, setIsOpen, shareURL }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleClose = () => {
+    // for closing save menu
+    setAnchorEl(null);
+  };
+  const openSaveMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
   return (
     <Dialog
       onClose={() => {
@@ -70,6 +81,39 @@ const ShareDialog = ({ isOpen, setIsOpen, shareURL }) => {
               <TwitterShareButton url={shareURL}>
                 <TwitterIcon size={50} round />
               </TwitterShareButton>
+              <IconButton
+                aria-label="copy link to clipboard"
+                onClick={openSaveMenu}
+                size="large"
+              >
+                <Tooltip title="download">
+                  <GetAppIcon fontSize="large" />
+                </Tooltip>
+              </IconButton>
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem
+                  onClick={() => {
+                    handleClose();
+                  }}
+                >
+                  Save as single image
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    handleClose();
+                  }}
+                >
+                  <p>
+                    <pre>{"Save as multiple images"}</pre>
+                  </p>
+                </MenuItem>
+              </Menu>
               <LinkedinShareButton url={shareURL}>
                 <LinkedinIcon size={50} round />
               </LinkedinShareButton>
@@ -77,6 +121,33 @@ const ShareDialog = ({ isOpen, setIsOpen, shareURL }) => {
                 <WhatsappIcon size={50} round />
               </WhatsappShareButton>
             </div>
+            {/* <div
+              style={{
+                display: "flex",
+                justifyContent: "space-evenly",
+                height: "50px",
+                margin: "40px 0px",
+              }}
+            >
+              {/* <IconButton
+                aria-label="copy link to clipboard"
+                onClick={() => {}}
+                size="large"
+              >
+                <Tooltip title="save as single image">
+                  <GetAppIcon fontSize="large" />
+                </Tooltip>
+              </IconButton> *
+              <IconButton
+                aria-label="copy link to clipboard"
+                onClick={() => {}}
+                size="large"
+              >
+                <Tooltip title="save as single image">
+                  <GetAppIcon fontSize="large" />
+                </Tooltip>
+              </IconButton>
+            </div> 
             {/* link */}
             <div
               style={{
