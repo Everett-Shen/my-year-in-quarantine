@@ -27,7 +27,6 @@ import {
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
-
 const ShareDialog = ({ isOpen, setIsOpen, shareURL }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClose = () => {
@@ -78,9 +77,6 @@ const ShareDialog = ({ isOpen, setIsOpen, shareURL }) => {
               <FacebookShareButton url={shareURL}>
                 <FacebookIcon size={50} round />
               </FacebookShareButton>
-              <TwitterShareButton url={shareURL}>
-                <TwitterIcon size={50} round />
-              </TwitterShareButton>
               <IconButton
                 aria-label="copy link to clipboard"
                 onClick={openSaveMenu}
@@ -90,6 +86,9 @@ const ShareDialog = ({ isOpen, setIsOpen, shareURL }) => {
                   <GetAppIcon fontSize="large" />
                 </Tooltip>
               </IconButton>
+              <TwitterShareButton url={shareURL}>
+                <TwitterIcon size={50} round />
+              </TwitterShareButton>
               <Menu
                 id="simple-menu"
                 anchorEl={anchorEl}
@@ -114,14 +113,8 @@ const ShareDialog = ({ isOpen, setIsOpen, shareURL }) => {
                   </p>
                 </MenuItem>
               </Menu>
-              <LinkedinShareButton url={shareURL}>
-                <LinkedinIcon size={50} round />
-              </LinkedinShareButton>
-              <WhatsappShareButton url={shareURL}>
-                <WhatsappIcon size={50} round />
-              </WhatsappShareButton>
             </div>
-            {/* <div
+            <div
               style={{
                 display: "flex",
                 justifyContent: "space-evenly",
@@ -129,26 +122,13 @@ const ShareDialog = ({ isOpen, setIsOpen, shareURL }) => {
                 margin: "40px 0px",
               }}
             >
-              {/* <IconButton
-                aria-label="copy link to clipboard"
-                onClick={() => {}}
-                size="large"
-              >
-                <Tooltip title="save as single image">
-                  <GetAppIcon fontSize="large" />
-                </Tooltip>
-              </IconButton> *
-              <IconButton
-                aria-label="copy link to clipboard"
-                onClick={() => {}}
-                size="large"
-              >
-                <Tooltip title="save as single image">
-                  <GetAppIcon fontSize="large" />
-                </Tooltip>
-              </IconButton>
-            </div> 
-            {/* link */}
+              <LinkedinShareButton url={shareURL}>
+                <LinkedinIcon size={50} round />
+              </LinkedinShareButton>
+              <WhatsappShareButton url={shareURL}>
+                <WhatsappIcon size={50} round />
+              </WhatsappShareButton>
+            </div>
             <div
               style={{
                 height: "90px",
@@ -198,5 +178,4 @@ const ShareDialog = ({ isOpen, setIsOpen, shareURL }) => {
     </Dialog>
   );
 };
-
 export default ShareDialog;
