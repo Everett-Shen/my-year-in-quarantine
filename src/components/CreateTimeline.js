@@ -1,4 +1,4 @@
-import React, { useState, createRef, useEffect } from "react";
+import React, { useState, createRef, useEffect, useRef } from "react";
 import MetaTags from "react-meta-tags";
 import { Formik, Form, FieldArray, useField, ErrorMessage } from "formik";
 import Accordion from "./Accordion/accordion.js";
@@ -146,10 +146,16 @@ const CreateTimeline = () => {
     const storageAnswers = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
     if (storageAnswers) {
       setAnswers(storageAnswers);
+      setQuestionTwo(storageAnswers.Q2);
+      setQuestionThree(storageAnswers.Q3);
     }
   }, []);
-
+  const firstUpdate = useRef(true);
   useEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(answers));
   }, [answers]);
 

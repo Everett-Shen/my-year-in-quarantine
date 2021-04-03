@@ -14,11 +14,17 @@ const PreviewPage = () => {
   const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
 
   useEffect(() => {
+    setTimeout(() => window.scrollTo(0, 0), 150); // ugly solution, but kinda works
+
     let localStorageAnswers = JSON.parse(
       localStorage.getItem(LOCAL_STORAGE_KEY)
     );
     if (localStorageAnswers) setAnswers(organizeAnswers(localStorageAnswers));
     // setAnswers(organizeAnswers(defaultAnswers.default));
+    // localStorage.setItem(
+    //   LOCAL_STORAGE_KEY,
+    //   JSON.stringify(defaultAnswers.default)
+    // );
   }, []);
 
   const organizeAnswers = (answers) => {
@@ -43,6 +49,7 @@ const PreviewPage = () => {
       </MetaTags>
 
       <div className="timeline-container-outer">
+        {/* <Timeline answers={answers} /> */}
         <ScrollAnimation
           animateIn="animate__fadeInUpBig"
           duration={1.2}

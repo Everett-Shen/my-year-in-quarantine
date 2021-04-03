@@ -9,8 +9,6 @@ import { useDoubleTap } from "use-double-tap";
 
 const Timeline = ({ answers }) => {
   const [scrollTarget, setScrollTarget] = useState(0);
-  const [oldScroll, setOldScroll] = useState(0);
-  const [isScrolling, setIsScrolling] = useState(false);
 
   useEffect(() => {
     var supportsPassive = false;
@@ -36,7 +34,6 @@ const Timeline = ({ answers }) => {
       },
       wheelOpt
     );
-    setOldScroll(window.scrollY);
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);

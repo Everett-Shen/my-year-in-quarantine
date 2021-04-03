@@ -1,0 +1,42 @@
+{
+  "Q1": {
+    "location": {
+      "label": "Princeton University, Princeton, NJ, USA",
+      "value": {
+        "description": "Princeton University, Princeton, NJ, USA",
+        "matched_substrings": [{ "length": 12, "offset": 0 }],
+        "place_id": "ChIJ6baYzdjmw4kRTwKQ-tZ-ugI",
+        "reference": "ChIJ6baYzdjmw4kRTwKQ-tZ-ugI",
+        "structured_formatting": {
+          "main_text": "Princeton University",
+          "main_text_matched_substrings": [{ "length": 12, "offset": 0 }],
+          "secondary_text": "Princeton, NJ, USA"
+        },
+        "terms": [
+          { "offset": 0, "value": "Princeton University" },
+          { "offset": 22, "value": "Princeton" },
+          { "offset": 33, "value": "NJ" },
+          { "offset": 37, "value": "USA" }
+        ],
+        "types": ["university", "point_of_interest", "establishment"]
+      }
+    }
+  },
+  "Q2": {
+    "events": [
+      { "entry": "", "date": null },
+      { "entry": "", "date": null },
+      { "entry": "", "date": null }
+    ]
+  },
+  "Q3": {
+    "phases": [
+      { "entry": "", "from": null, "to": null },
+      { "entry": "", "from": null, "to": null },
+      { "entry": "", "from": null, "to": null }
+    ]
+  },
+  "Q4": { "entries": [] },
+  "Q5": { "title": "" },
+  "Q6": { "name": "Everett" }
+}
