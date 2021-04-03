@@ -14,11 +14,11 @@ const PreviewPage = () => {
   const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
 
   useEffect(() => {
-    // let localStorageAnswers = JSON.parse(
-    //   localStorage.getItem(LOCAL_STORAGE_KEY)
-    // );
-    // if (localStorageAnswers) setAnswers(localStorageAnswers);
-    setAnswers(organizeAnswers(defaultAnswers.default));
+    let localStorageAnswers = JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_KEY)
+    );
+    if (localStorageAnswers) organizeAnswers(setAnswers(localStorageAnswers));
+    // setAnswers(organizeAnswers(defaultAnswers.default));
   }, []);
 
   const organizeAnswers = (answers) => {
