@@ -1,8 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;1,700&display=swap");
-.preview-page .timeline-container {
+.preview-page .button-container, .preview-page .timeline-container {
   width: min(500px, 100%);
   margin: auto;
+}
+.preview-page .timeline-container {
   height: 100%;
 }
 .preview-page .timeline-container {
@@ -61,6 +63,14 @@
 .preview-page .timeline-container .divider {
   height: 400px;
 }
+.iconContainer {
+  height: 40px;
+  width: 40px;
+}
+
+.link-container {
+  height: 20px;
+}
 
 * {
   box-sizing: border-box;
@@ -95,7 +105,7 @@
   left: 35px;
 }
 
-.createForm .timelineForm .finish, .createForm .timelineForm .next, .learnMore, .getStarted {
+.primaryButton, .createForm .timelineForm .finish, .createForm .timelineForm .next, .learnMore, .getStarted {
   margin-right: 5px;
   text-decoration: none;
   width: 10px;
@@ -105,13 +115,14 @@
   padding: 5px 15px;
   font-size: 15px;
   outline: none;
-}
-.createForm .timelineForm .finish:active, .createForm .timelineForm .next:active, .learnMore:active, .getStarted:active {
-  background-color: #ff6d6d;
+  cursor: pointer;
 }
 
 .getStarted {
   background-color: #ff7676;
+}
+.getStarted:active {
+  background-color: #ff6d6d;
 }
 
 .learnMore {
@@ -172,6 +183,9 @@
   line-height: 10px;
   clear: both;
   display: block;
+}
+.createForm .timelineForm .next:active {
+  background-color: #ff6d6d;
 }
 .createForm .timelineForm .nextContainer {
   height: 100px;
@@ -274,6 +288,17 @@
   margin: auto;
   margin-top: 30px;
   height: 200px;
+}
+
+.primaryButton {
+  background-color: #ff7676;
+  border: 0px;
+  width: auto;
+  height: 40px;
+  line-height: 10px;
+}
+.primaryButton:active {
+  background-color: #ff6d6d;
 }
 
 /*# sourceMappingURL=app.css.map */

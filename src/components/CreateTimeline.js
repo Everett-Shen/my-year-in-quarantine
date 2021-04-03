@@ -145,7 +145,7 @@ const CreateTimeline = () => {
   useEffect(() => {
     const storageAnswers = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
     if (storageAnswers) {
-      // setAnswers(storageAnswers);
+      setAnswers(storageAnswers);
     }
   }, []);
 

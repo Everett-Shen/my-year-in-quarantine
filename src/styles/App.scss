@@ -47,14 +47,15 @@
   padding: 5px 15px;
   font-size: 15px;
   outline: none;
-  &:active {
-    background-color: $primary-color-darker;
-  }
+  cursor: pointer;
 }
 
 .getStarted {
   @extend %navLink;
   background-color: $primary-color;
+  &:active {
+    background-color: $primary-color-darker;
+  }
 }
 
 .learnMore {
@@ -111,6 +112,9 @@
       line-height: 10px;
       clear: both;
       display: block;
+      &:active {
+        background-color: $primary-color-darker;
+      }
     }
 
     .nextContainer {
@@ -238,5 +242,16 @@
       margin-top: 30px;
       height: 200px;
     }
+  }
+}
+.primaryButton {
+  @extend %navLink;
+  background-color: $primary-color;
+  border: 0px;
+  width: auto;
+  height: 40px;
+  line-height: 10px;
+  &:active {
+    background-color: $primary-color-darker;
   }
 }

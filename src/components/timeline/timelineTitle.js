@@ -10,7 +10,7 @@ const TimelineTitle = ({ title, name, id }) => {
         <div className="entry-content" id={id}>
           <ScrollAnimation
             animateIn="animate__fadeInRight"
-            duration={1.0}
+            duration={0.9}
             animateOnce={true}
             offset={150}
             delay={1300}
@@ -18,7 +18,17 @@ const TimelineTitle = ({ title, name, id }) => {
             <h1 style={{ wordSpacing: "99999px" }}>{title}</h1>
             <br />
             <br />
-            <p style={{ float: "right" }}>{`by ${name}`}</p>
+            <ScrollAnimation
+              animateIn="animate__fadeInUp"
+              duration={0.4}
+              animateOnce={true}
+              offset={150}
+              delay={2300}
+            >
+              <div style={{ height: "100px" }}>
+                <p style={{ float: "right" }}>{`by ${name}`}</p>
+              </div>
+            </ScrollAnimation>
             <br />
             <br />
             <br />

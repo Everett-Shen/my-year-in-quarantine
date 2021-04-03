@@ -7,9 +7,12 @@
 //   display: none;
 // }
 .preview-page {
-  .timeline-container {
+  %centered-container {
     width: min(500px, 100%);
     margin: auto;
+  }
+  .timeline-container {
+    @extend %centered-container;
     height: 100%;
   }
 
@@ -71,4 +74,20 @@
       height: 400px;
     }
   }
+  .button-container {
+    @extend %centered-container;
+  }
+
+  //   .timeline-container-outer {
+  //     width: 100%;
+  //     margin: auto;
+  //   }
+}
+.iconContainer {
+  height: 40px;
+  width: 40px;
+}
+
+.link-container {
+  height: 20px;
 }
