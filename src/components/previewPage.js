@@ -10,6 +10,7 @@ import ShareDialog from "./shareDialog";
 import domtoimage from "dom-to-image";
 import html2canvas from "html2canvas";
 import Divider from "@material-ui/core/Divider";
+import watermark from "watermarkjs";
 
 const PreviewPage = () => {
   const [answers, setAnswers] = useState({});
@@ -59,10 +60,27 @@ const PreviewPage = () => {
         },
       })
       .then(function (dataUrl) {
-        var link = document.createElement("a");
-        link.download = "My Year in Quarantine timeline.jpeg";
-        link.href = dataUrl;
-        link.click();
+        var x = function (canvas, metrics, context) {
+          return canvas.width - 1000;
+        };
+
+        var y = function (canvas, metrics, context) {
+          return canvas.height - 70;
+        };
+        let pos = watermark.text.atPos;
+        let watermarkContent = "See more at MyYearInQuarantine.com";
+        const image = new Image();
+        image.src = dataUrl;
+        watermark([image])
+          .image(pos(x, y, watermarkContent, "48px Montserrat", "#000", 1))
+          // .image(watermark.text.lowerRight(watermarkContent, "48px Montserrat", "#000", 1))
+          .then((img) => {
+            // document.getElementById("preview-page").appendChild(img);
+            var link = document.createElement("a");
+            link.download = "My Year in Quarantine timeline.jpeg";
+            link.href = img.src;
+            link.click();
+          });
       })
       .catch(function (error) {
         console.error("oops, something went wrong!", error);
@@ -70,7 +88,7 @@ const PreviewPage = () => {
   };
 
   return (
-    <div className="preview-page">
+    <div className="preview-page" id="preview-page">
       {/* necessary for getting the right font in downloaded image */}
       <link
         rel="preconnect"

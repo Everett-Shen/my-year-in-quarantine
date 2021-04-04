@@ -15,7 +15,7 @@
     @extend %centered-container;
     // height: 100%;
     // width: calc(#{$timeline-container-width + $timeline-container-margin});
-    width: 100%;
+    width: min(100%, 600px);
     margin: auto;
     height: auto;
     padding: 50px;
