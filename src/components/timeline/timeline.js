@@ -10,6 +10,9 @@ import { useDoubleTap } from "use-double-tap";
 const Timeline = ({ answers }) => {
   const [scrollTarget, setScrollTarget] = useState(0);
 
+  const preventDefault = (e) => {
+    e.preventDefault();
+  };
   useEffect(() => {
     var supportsPassive = false;
     try {
@@ -27,26 +30,20 @@ const Timeline = ({ answers }) => {
     var wheelOpt = supportsPassive ? { passive: false } : false;
     document.addEventListener("keydown", handleKeyDown);
     window.addEventListener("wheel", handleScroll, wheelOpt);
-    window.addEventListener(
-      "touchmove",
-      (e) => {
-        e.preventDefault();
-      },
-      wheelOpt
-    );
+    window.addEventListener("touchmove", preventDefault, wheelOpt);
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("wheel", handleScroll, wheelOpt);
+
       window.removeEventListener(
+        // not being removed for some reason
         "touchmove",
-        (e) => {
-          e.preventDefault();
-        },
+        preventDefault,
         wheelOpt
       );
     };
-  });
+  }, []);
 
   const formatDate = (date) => {
     return format(new Date(date), "MMM dd yyyy");
