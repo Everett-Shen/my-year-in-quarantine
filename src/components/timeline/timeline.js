@@ -57,7 +57,7 @@ const Timeline = ({ answers }) => {
     return format(new Date(date), "MMM dd yyyy");
   };
 
-  const dividerHeight = "600px";
+  const dividerHeight = "100px";
 
   const scrollToTarget = (targetID) => {
     scroller.scrollTo(String(targetID), {
@@ -107,7 +107,7 @@ const Timeline = ({ answers }) => {
       }
     }
   };
-  const handlers = useSwipeable({
+  const swipeHandlers = useSwipeable({
     onSwipedUp: (eventData) => scrollToTarget(scrollTarget + 1),
     onSwipedDown: (eventData) => scrollToTarget(scrollTarget - 1),
     delta: 10, // min distance(px) before a swipe starts
@@ -117,18 +117,23 @@ const Timeline = ({ answers }) => {
     rotationAngle: 0, // set a rotation angle
   });
 
-  const bind = useDoubleTap((e) => {
+  const doubleTapBind = useDoubleTap((e) => {
     if (e.clientY < window.innerWidth * 0.4) scrollToTarget(scrollTarget - 1);
     else if (e.clientY > window.innerWidth * 0.6)
       scrollToTarget(scrollTarget + 1);
   });
 
   return (
-    <div className="timeline-container" {...handlers} {...bind} id={"0"}>
+    <div
+      id="capture"
+      className="timeline-container"
+      {...swipeHandlers}
+      {...doubleTapBind}
+    >
       {/* title block*/}
       <div className="timeline-content">
-        <TimelineTitle title={answers.title} name={answers.name} />
-        <Divider height={dividerHeight} />
+        <TimelineTitle title={answers.title} name={answers.name} id={"0"} />
+        <Divider height={"0px"} />
 
         {/* introduction block */}
         <Entry
@@ -147,7 +152,7 @@ const Timeline = ({ answers }) => {
         {answers.entries &&
           answers.entries.map((entry, index) => {
             return (
-              <div key={index}>
+              <div key={index} className="divider">
                 <Entry
                   date={
                     entry.date
@@ -169,6 +174,7 @@ const Timeline = ({ answers }) => {
               </div>
             );
           })}
+        <Divider height={dividerHeight} />
       </div>
     </div>
   );

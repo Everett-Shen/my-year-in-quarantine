@@ -7,10 +7,14 @@ import ScrollAnimation from "react-animate-on-scroll";
 import "animate.css/animate.min.css";
 import { NavLink } from "react-router-dom";
 import ShareDialog from "./shareDialog";
+import domtoimage from "dom-to-image";
+import html2canvas from "html2canvas";
+import Divider from "@material-ui/core/Divider";
 
 const PreviewPage = () => {
   const [answers, setAnswers] = useState({});
   const [isOpen, setIsOpen] = useState(false);
+  const [makePublic, setMakePublic] = useState(true);
   const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
 
   useEffect(() => {
@@ -41,8 +45,48 @@ const PreviewPage = () => {
     return toReturn;
   };
 
+  const downloadTimelineAsSingleJPEG = () => {
+    var node = document.getElementById("capture");
+    let scale = 3;
+    domtoimage
+      .toPng(node, {
+        bgcolor: "white",
+        width: node.clientWidth * scale,
+        height: node.clientHeight * scale,
+        style: {
+          transform: "scale(" + scale + ")",
+          transformOrigin: "top left",
+        },
+      })
+      .then(function (dataUrl) {
+        var link = document.createElement("a");
+        link.download = "My Year in Quarantine timeline.jpeg";
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch(function (error) {
+        console.error("oops, something went wrong!", error);
+      });
+  };
+
   return (
     <div className="preview-page">
+      {/* necessary for getting the right font in downloaded image */}
+      <link
+        rel="preconnect"
+        crossOrigin="anonymous"
+        href="https://fonts.gstatic.com"
+      ></link>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300&display=swap"
+        rel="stylesheet"
+        crossOrigin="anonymous"
+      ></link>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;1,700&display=swap"
+        rel="stylesheet"
+        crossOrigin="anonymous"
+      ></link>
       <MetaTags>
         <title>Preview Timeline - My Year in Quarantine </title>
         <meta name="viewport" content="width=device-width, user-scalable=no" />
@@ -60,33 +104,32 @@ const PreviewPage = () => {
           <Timeline answers={answers} />
         </ScrollAnimation>
       </div>
-      <div
-        className="button-container"
-        style={{ position: "relative", top: "-200px" }}
-      >
+      <Divider style={{ margin: "20px auto 40px auto", width: "95%" }} />
+      <div className="button-container">
         <div
           style={{
-            float: "right",
+            // float: "right",
             marginRight: "5%",
             position: "relative",
             textAlign: "center",
             zIndex: "100",
+            height: "140px",
           }}
         >
           <p>end of preview</p>
           <br />
           <br />
-          <br />
-
+          <div></div>
           <NavLink className="learnMore" to={"/create"}>
-            continue editing
+            keep editing
           </NavLink>
           <button
             className="primaryButton"
+            style={{ marginLeft: "10px" }}
             onClick={() => setIsOpen(true)}
             to={"/create"}
           >
-            export and share
+            continue
           </button>
         </div>
       </div>
@@ -94,6 +137,9 @@ const PreviewPage = () => {
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         shareURL={"https://myyearinquarantine.com"}
+        makePublic={makePublic}
+        setMakePublic={setMakePublic}
+        downloadTimelineAsSingleJPEG={downloadTimelineAsSingleJPEG}
       />
     </div>
   );

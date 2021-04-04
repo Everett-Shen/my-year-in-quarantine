@@ -9,6 +9,9 @@ import {
   Tooltip,
   Menu,
   MenuItem,
+  FormControlLabel,
+  Checkbox,
+  withStyles,
 } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
@@ -27,7 +30,14 @@ import {
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
-const ShareDialog = ({ isOpen, setIsOpen, shareURL }) => {
+const ShareDialog = ({
+  isOpen,
+  setIsOpen,
+  shareURL,
+  makePublic,
+  setMakePublic,
+  downloadTimelineAsSingleJPEG,
+}) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClose = () => {
     // for closing save menu
@@ -36,6 +46,19 @@ const ShareDialog = ({ isOpen, setIsOpen, shareURL }) => {
   const openSaveMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const updateMakePublic = (e) => {
+    setMakePublic(e.target.checked);
+  };
+  const ColoredCheckbox = withStyles({
+    root: {
+      // color: "rgb(255, 118, 118)",
+      "&$checked": {
+        color: "rgb(255, 118, 118)",
+      },
+    },
+    checked: {},
+  })((props) => <Checkbox color="default" {...props} />);
   return (
     <Dialog
       onClose={() => {
@@ -98,6 +121,7 @@ const ShareDialog = ({ isOpen, setIsOpen, shareURL }) => {
               >
                 <MenuItem
                   onClick={() => {
+                    downloadTimelineAsSingleJPEG();
                     handleClose();
                   }}
                 >
@@ -134,7 +158,7 @@ const ShareDialog = ({ isOpen, setIsOpen, shareURL }) => {
                 height: "90px",
                 margin: "auto",
                 marginTop: "50px",
-                width: "90%",
+                width: "95%",
               }}
             >
               <FormControl
@@ -160,17 +184,18 @@ const ShareDialog = ({ isOpen, setIsOpen, shareURL }) => {
                   }
                 />
               </FormControl>
-              {/* <TextField
-                style={{ margin: "10px auto", width: "100%" }}
-                InputProps={{
-                  readOnly: true,
-                  style: { height: "40px", borderRadius: "0px" },
-                }}
-                defaultValue={shareURL}
-                variant="outlined"
-                color="none"
-              >
-              </TextField> */}
+              <FormControlLabel
+                // style={{ float: "right", marginRight: "0px" }}
+                label="make timeline public"
+                control={
+                  <ColoredCheckbox
+                    checked={makePublic}
+                    onChange={updateMakePublic}
+                    name="checkedB"
+                    color="primary"
+                  />
+                }
+              />
             </div>
           </div>
         </DialogContent>

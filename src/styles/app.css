@@ -5,7 +5,11 @@
   margin: auto;
 }
 .preview-page .timeline-container {
-  height: 100%;
+  width: 100%;
+  margin: auto;
+  height: auto;
+  padding: 50px;
+  padding-top: 35vh;
 }
 .preview-page .timeline-container {
   position: relative;
@@ -52,17 +56,23 @@
   color: #ff7676;
 }
 .preview-page .timeline-container .timeline-content {
-  top: calc(35vh - 50px);
   position: relative;
   left: 35px;
+  width: 250px;
+  margin: auto;
 }
 .preview-page .timeline-container .entry-content {
   position: relative;
   top: 10px;
 }
-.preview-page .timeline-container .divider {
-  height: 400px;
+.preview-page .timeline-container-outer {
+  height: auto;
 }
+.preview-page .divider {
+  width: 250px;
+  margin: auto;
+}
+
 .iconContainer {
   height: 40px;
   width: 40px;
