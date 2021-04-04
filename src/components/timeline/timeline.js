@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import TimelineTitle from "./timelineTitle";
 import Entry from "./entry";
 import Divider from "./divider";
@@ -9,10 +9,18 @@ import { useDoubleTap } from "use-double-tap";
 
 const Timeline = ({ answers }) => {
   const [scrollTarget, setScrollTarget] = useState(0);
-
+  const answersRef = useRef(answers);
+  const scrollTargetRef = useRef(scrollTarget);
   const preventDefault = (e) => {
     e.preventDefault();
   };
+  useEffect(() => {
+    answersRef.current = answers;
+  }, [answers]);
+  useEffect(() => {
+    scrollTargetRef.current = scrollTarget;
+  }, [scrollTarget]);
+
   useEffect(() => {
     var supportsPassive = false;
     try {
@@ -65,15 +73,18 @@ const Timeline = ({ answers }) => {
     switch (e.key) {
       case "ArrowUp":
         e.preventDefault();
-        if (scrollTarget >= 1) {
-          scrollToTarget(scrollTarget - 1);
+        if (scrollTargetRef.current >= 1) {
+          scrollToTarget(scrollTargetRef.current - 1);
         }
         break;
       case "ArrowDown":
         e.preventDefault();
         // 1 less than the total number of timeline entries
-        if (scrollTarget < answers.entries.length + 2 - 1) {
-          scrollToTarget(scrollTarget + 1);
+        if (
+          scrollTargetRef.current <
+          answersRef.current.entries.length + 2 - 1
+        ) {
+          scrollToTarget(scrollTargetRef.current + 1);
         }
         break;
       default:
@@ -86,13 +97,13 @@ const Timeline = ({ answers }) => {
     // add isScrolling stuff
 
     if (e.wheelDelta > 0) {
-      if (scrollTarget >= 1) {
-        scrollToTarget(scrollTarget - 1);
+      if (scrollTargetRef.current >= 1) {
+        scrollToTarget(scrollTargetRef.current - 1);
       }
     } else if (e.wheelDelta < 0) {
       // 1 less than the total number of timeline entries
-      if (scrollTarget < answers.entries.length + 2 - 1) {
-        scrollToTarget(scrollTarget + 1);
+      if (scrollTargetRef.current < answersRef.current.entries.length + 2 - 1) {
+        scrollToTarget(scrollTargetRef.current + 1);
       }
     }
   };
