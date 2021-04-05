@@ -3,7 +3,7 @@ import EntryContainer from "./entryContainer";
 import ScrollAnimation from "react-animate-on-scroll";
 import "animate.css/animate.min.css";
 
-const Entry = ({ date, title, content, id }) => {
+const Entry = ({ date, title, content, id, compressed }) => {
   return (
     <EntryContainer>
       {
@@ -14,6 +14,7 @@ const Entry = ({ date, title, content, id }) => {
             animateOnce={true}
             offset={-200}
             delay={900}
+            initiallyVisible={compressed ? true : false}
           >
             <h3>{date}</h3>
             <h2 style={{ marginTop: "6px" }}>{title}</h2>
@@ -23,6 +24,7 @@ const Entry = ({ date, title, content, id }) => {
               animateOnce={true}
               offset={-200}
               delay={1600}
+              initiallyVisible={compressed ? true : false}
             >
               <div style={{ marginTop: "15px" }}>{content}</div>
             </ScrollAnimation>

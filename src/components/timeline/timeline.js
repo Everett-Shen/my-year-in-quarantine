@@ -7,8 +7,9 @@ import { animateScroll as scroll, scrollSpy, scroller } from "react-scroll";
 import { useSwipeable } from "react-swipeable";
 import { useDoubleTap } from "use-double-tap";
 
-const Timeline = ({ answers }) => {
+const Timeline = ({ answers, compressed, id }) => {
   const [scrollTarget, setScrollTarget] = useState(0);
+  const dividerHeight = compressed ? "200px" : "700px";
   const answersRef = useRef(answers);
   const scrollTargetRef = useRef(scrollTarget);
   const preventDefault = (e) => {
@@ -56,8 +57,6 @@ const Timeline = ({ answers }) => {
   const formatDate = (date) => {
     return format(new Date(date), "MMM dd yyyy");
   };
-
-  const dividerHeight = "100px";
 
   const scrollToTarget = (targetID) => {
     scroller.scrollTo(String(targetID), {
@@ -125,15 +124,20 @@ const Timeline = ({ answers }) => {
 
   return (
     <div
-      id="capture"
+      id={id}
       className="timeline-container"
       {...swipeHandlers}
       {...doubleTapBind}
     >
       {/* title block*/}
       <div className="timeline-content">
-        <TimelineTitle title={answers.title} name={answers.name} id={"0"} />
-        <Divider height={"0px"} />
+        <TimelineTitle
+          title={answers.title}
+          name={answers.name}
+          id={"0"}
+          compressed={compressed}
+        />
+        {!compressed && <Divider height={dividerHeight} />}
 
         {/* introduction block */}
         <Entry
@@ -146,6 +150,7 @@ const Timeline = ({ answers }) => {
             </div>
           }
           id={"1"}
+          compressed={compressed}
         />
         <Divider height={dividerHeight} />
 
@@ -168,13 +173,19 @@ const Timeline = ({ answers }) => {
                     </div>
                   }
                   id={String(index + 2)}
+                  compressed={compressed}
                 />
 
-                <Divider height={dividerHeight} />
+                <Divider
+                  height={
+                    index === answers.entries.length - 1
+                      ? "200px"
+                      : dividerHeight
+                  }
+                />
               </div>
             );
           })}
-        <Divider height={dividerHeight} />
       </div>
     </div>
   );

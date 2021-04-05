@@ -3,7 +3,7 @@ import EntryContainer from "./entryContainer";
 import ScrollAnimation from "react-animate-on-scroll";
 import "animate.css/animate.min.css";
 
-const TimelineTitle = ({ title, name, id }) => {
+const TimelineTitle = ({ title, name, id, compressed }) => {
   return (
     <EntryContainer>
       {
@@ -14,6 +14,7 @@ const TimelineTitle = ({ title, name, id }) => {
             animateOnce={true}
             offset={150}
             delay={1300}
+            initiallyVisible={compressed ? true : false}
           >
             <h1 style={{ wordSpacing: "99999px" }}>{title}</h1>
             <br />
@@ -24,6 +25,7 @@ const TimelineTitle = ({ title, name, id }) => {
               animateOnce={true}
               offset={150}
               delay={2300}
+              initiallyVisible={compressed ? true : false}
             >
               <div style={{ height: "100px" }}>
                 <p style={{ float: "right" }}>{`by ${name}`}</p>

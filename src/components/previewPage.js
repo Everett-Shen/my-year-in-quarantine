@@ -16,6 +16,7 @@ const PreviewPage = () => {
   const [answers, setAnswers] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   const [makePublic, setMakePublic] = useState(true);
+  const [showDownloadTimeline, setShowDownloadTimeline] = useState(false);
   const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
 
   useEffect(() => {
@@ -61,7 +62,7 @@ const PreviewPage = () => {
       })
       .then(function (dataUrl) {
         var x = function (canvas, metrics, context) {
-          return canvas.width - 1000;
+          return canvas.width - 970;
         };
 
         var y = function (canvas, metrics, context) {
@@ -85,8 +86,14 @@ const PreviewPage = () => {
       .catch(function (error) {
         console.error("oops, something went wrong!", error);
       });
+    setTimeout(() => {
+      setShowDownloadTimeline(false);
+    }, 300);
   };
 
+  useEffect(() => {
+    if (showDownloadTimeline) downloadTimelineAsSingleJPEG();
+  }, [showDownloadTimeline]);
   return (
     <div className="preview-page" id="preview-page">
       {/* necessary for getting the right font in downloaded image */}
@@ -119,7 +126,7 @@ const PreviewPage = () => {
           offset={150}
           delay={10}
         >
-          <Timeline answers={answers} />
+          <Timeline answers={answers} compressed={false} />
         </ScrollAnimation>
       </div>
       <Divider style={{ margin: "20px auto 40px auto", width: "95%" }} />
@@ -158,7 +165,11 @@ const PreviewPage = () => {
         makePublic={makePublic}
         setMakePublic={setMakePublic}
         downloadTimelineAsSingleJPEG={downloadTimelineAsSingleJPEG}
+        setShowDownloadTimeline={setShowDownloadTimeline}
       />
+      {showDownloadTimeline && (
+        <Timeline answers={answers} compressed={true} id={"capture"} />
+      )}
     </div>
   );
 };
