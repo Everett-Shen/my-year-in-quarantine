@@ -135,7 +135,7 @@ const HorizontalTimeline = ({ answers, compressed, id }) => {
         {/* {!compressed && <Divider height={dividerHeight} />} */}
 
         {/* introduction block */}
-        {/* <Entry
+        <Entry
           date={"2020"}
           title={"The COVID-19 pandemic begins"}
           content={
@@ -147,12 +147,12 @@ const HorizontalTimeline = ({ answers, compressed, id }) => {
           id={"1"}
           compressed={compressed}
         />
-        <Divider height={dividerHeight} />
+        {/* <Divider height={dividerHeight} />*/}
 
         {answers.entries &&
           answers.entries.map((entry, index) => {
             return (
-              <div key={index} className="divider">
+              <div key={index}>
                 <Entry
                   date={
                     entry.date
@@ -171,16 +171,16 @@ const HorizontalTimeline = ({ answers, compressed, id }) => {
                   compressed={compressed}
                 />
 
-                <Divider
+                {/* <Divider
                   height={
                     index === answers.entries.length - 1
                       ? "200px"
                       : dividerHeight
                   }
-                />
+                /> */}
               </div>
             );
-          })}*/}
+          })}
       </div>
     </div>
   );

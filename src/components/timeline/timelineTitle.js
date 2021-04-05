@@ -27,7 +27,8 @@ const TimelineTitle = ({ title, name, id, compressed }) => {
               delay={2300}
               initiallyVisible={compressed ? true : false}
             >
-              <div style={{ height: "100px" }}>
+              {/* <div style={{ height: "100px" }}> */}
+              <div style={{}}>
                 <p style={{ float: "right" }}>{`by ${name}`}</p>
               </div>
             </ScrollAnimation>

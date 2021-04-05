@@ -69,6 +69,7 @@
   position: relative;
   margin-top: 300px;
   height: 500px;
+  width: 2000px;
 }
 .preview-page .timeline-container-horizontal::after {
   content: "";
@@ -82,16 +83,17 @@
 .preview-page .timeline-container-horizontal .timeline-content {
   position: relative;
   height: 500px;
-  margin-left: 35vh;
+  margin-left: calc( 35vh - 125px );
   display: flex;
   align-items: flex-end;
 }
 .preview-page .timeline-container-horizontal .entry-content {
   position: relative;
+  bottom: 50px;
 }
 .preview-page .timeline-container-horizontal .entry-container {
   width: 250px;
-  margin: 0px 30px 0px 0px;
+  margin: 0px 150px 100px 0px;
   position: relative;
 }
 .preview-page .timeline-container-horizontal .circle {
@@ -108,8 +110,8 @@
   position: absolute;
   margin: auto;
   top: initial;
-  bottom: calc( 77px );
-  left: calc(50% - 125px);
+  bottom: calc(-23px);
+  left: calc(50% - 25px);
 }
 .preview-page .timeline-container-horizontal h1 {
   font-family: "Nunito", sans-serif;

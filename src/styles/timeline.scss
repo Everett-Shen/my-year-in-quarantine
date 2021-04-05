@@ -85,6 +85,7 @@
     position: relative;
     margin-top: 300px;
     height: $horizontal-timeline-height;
+    width: 2000px;
     &::after {
       content: "";
       position: absolute;
@@ -101,16 +102,19 @@
       position: relative;
       height: $horizontal-timeline-height;
       //   width: auto;
-      margin-left: $timeline-distance-to-top;
+      margin-left: calc(
+        #{$timeline-distance-to-top} - #{$timeline-container-width / 2}
+      );
       display: flex;
       align-items: flex-end;
     }
     .entry-content {
       position: relative;
+      bottom: 50px;
     }
     .entry-container {
       width: $timeline-container-width;
-      margin: 0px 30px 0px 0px;
+      margin: 0px 150px $horizontal-timeline-distance-from-bottom 0px;
       position: relative;
       //   border: 1px solid red;
     }

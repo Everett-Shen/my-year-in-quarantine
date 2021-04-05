@@ -21,9 +21,6 @@
   position: absolute;
   margin: auto;
   top: initial;
-  bottom: calc(
-    #{$horizontal-timeline-distance-from-bottom - $circle-diameter / 2 +
-      $timeline-width / 2}
-  );
-  left: calc(50% - #{$width / 2});
+  bottom: calc(#{- $circle-diameter / 2 + $timeline-width / 2});
+  left: calc(50% - #{$circle-diameter / 2});
 }
