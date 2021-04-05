@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MetaTags from "react-meta-tags";
 import Timeline from "./timeline/timeline";
+import HorizontalTimeline from "./timeline/horizontalTimeline";
 import * as defaultAnswers from "../answers.json";
 import _ from "lodash";
 import ScrollAnimation from "react-animate-on-scroll";
@@ -170,6 +171,7 @@ const PreviewPage = () => {
       {showDownloadTimeline && (
         <Timeline answers={answers} compressed={true} id={"capture"} />
       )}
+      <HorizontalTimeline answers={answers} compressed={false} id={"capture"} />
     </div>
   );
 };

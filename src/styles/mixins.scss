@@ -14,3 +14,16 @@
       $timeline-width / 2 + $shift-container-to-right-distance}
   );
 }
+
+@mixin circle-horizontal($width) {
+  @include circle($width);
+  position: static;
+  position: absolute;
+  margin: auto;
+  top: initial;
+  bottom: calc(
+    #{$horizontal-timeline-distance-from-bottom - $circle-diameter / 2 +
+      $timeline-width / 2}
+  );
+  left: calc(50% - #{$width / 2});
+}

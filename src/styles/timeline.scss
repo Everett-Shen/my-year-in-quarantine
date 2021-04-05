@@ -79,6 +79,65 @@
       top: $entry-distance-from-circle;
     }
   }
+  .timeline-container-horizontal {
+    // display: flex;
+    // justify-content: space-between;
+    position: relative;
+    margin-top: 300px;
+    height: $horizontal-timeline-height;
+    &::after {
+      content: "";
+      position: absolute;
+      background-color: $primary-color;
+      //   border: 3px solid $primary-color;
+      width: 100%;
+      height: $timeline-width;
+      margin-left: $timeline-distance-to-top;
+      bottom: $horizontal-timeline-distance-from-bottom;
+    }
+
+    .timeline-content {
+      //   top: calc(#{$timeline-distance-to-top} - #{$circle-diameter});
+      position: relative;
+      height: $horizontal-timeline-height;
+      //   width: auto;
+      margin-left: $timeline-distance-to-top;
+      display: flex;
+      align-items: flex-end;
+    }
+    .entry-content {
+      position: relative;
+    }
+    .entry-container {
+      width: $timeline-container-width;
+      margin: 0px 30px 0px 0px;
+      position: relative;
+      //   border: 1px solid red;
+    }
+
+    .circle {
+      @include circle-horizontal($timeline-container-width);
+    }
+    h1 {
+      font-family: "Nunito", sans-serif;
+      line-height: 100%;
+      font-size: 3em;
+    }
+    h2 {
+      font-family: "Nunito", sans-serif;
+      line-height: 100%;
+      font-size: 2.9em;
+      font-weight: 600;
+      //   font-size: 2.8em;
+      //   font-weight: 600;
+    }
+
+    h3 {
+      //   font-weight: 600;
+      font-weight: 500;
+      color: $primary-color;
+    }
+  }
   .button-container {
     @extend %centered-container;
   }
