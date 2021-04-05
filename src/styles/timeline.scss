@@ -9,16 +9,16 @@
 .preview-page {
   %centered-container {
     width: min(500px, 100%);
-    margin: auto;
+    // margin: auto;
   }
   .timeline-container {
     @extend %centered-container;
     // height: 100%;
     // width: calc(#{$timeline-container-width + $timeline-container-margin});
-    width: 100%;
-    margin: auto;
+    // width: 100%;
+    margin: auto; // this line is causing certain issues with the dom-to-image cropping. e.g, getting rid of margin: auto in timeline-container makes the cropping correct
     height: auto;
-    padding: 50px;
+    // padding: 50px;
     padding-top: $timeline-distance-to-top;
   }
 
@@ -83,7 +83,7 @@
     // display: flex;
     // justify-content: space-between;
     position: relative;
-    margin-top: 300px;
+    margin-top: 100px;
     height: $horizontal-timeline-height;
     width: 2000px;
     &::after {
@@ -144,6 +144,7 @@
   }
   .button-container {
     @extend %centered-container;
+    margin: auto;
   }
 
   .timeline-container-outer {

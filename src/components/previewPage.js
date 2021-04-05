@@ -18,6 +18,10 @@ const PreviewPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [makePublic, setMakePublic] = useState(true);
   const [showDownloadTimeline, setShowDownloadTimeline] = useState(false);
+  const [
+    showDownloadTimelineHorizontal,
+    setShowDownloadTimelineHorizontal,
+  ] = useState(false);
   const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
 
   useEffect(() => {
@@ -47,6 +51,13 @@ const PreviewPage = () => {
 
     return toReturn;
   };
+  useEffect(() => {
+    if (showDownloadTimeline) downloadTimelineAsSingleJPEG();
+  }, [showDownloadTimeline]);
+
+  useEffect(() => {
+    if (showDownloadTimelineHorizontal) downloadTimelineAsMultipleJPEG();
+  }, [showDownloadTimelineHorizontal]);
 
   const downloadTimelineAsSingleJPEG = () => {
     var node = document.getElementById("capture");
@@ -92,9 +103,50 @@ const PreviewPage = () => {
     }, 300);
   };
 
-  useEffect(() => {
-    if (showDownloadTimeline) downloadTimelineAsSingleJPEG();
-  }, [showDownloadTimeline]);
+  const downloadTimelineAsMultipleJPEG = () => {
+    var node = document.getElementById("captureHorizontal");
+    let scale = 3;
+    domtoimage
+      .toPng(node, {
+        bgcolor: "white",
+        width: node.clientWidth * scale,
+        height: node.clientHeight * scale,
+        style: {
+          transform: "scale(" + scale + ")",
+          transformOrigin: "top left",
+        },
+      })
+      .then(function (dataUrl) {
+        var x = function (canvas, metrics, context) {
+          return canvas.width - 970;
+        };
+
+        var y = function (canvas, metrics, context) {
+          return canvas.height - 70;
+        };
+        let pos = watermark.text.atPos;
+        let watermarkContent = "See more at MyYearInQuarantine.com";
+        const image = new Image();
+        image.src = dataUrl;
+        watermark([image])
+          .image(pos(x, y, watermarkContent, "48px Montserrat", "#000", 1))
+          // .image(watermark.text.lowerRight(watermarkContent, "48px Montserrat", "#000", 1))
+          .then((img) => {
+            // document.getElementById("preview-page").appendChild(img);
+            var link = document.createElement("a");
+            link.download = "My Year in Quarantine timeline.jpeg";
+            link.href = img.src;
+            link.click();
+          });
+      })
+      .catch(function (error) {
+        console.error("oops, something went wrong!", error);
+      });
+    setTimeout(() => {
+      setShowDownloadTimeline(false);
+    }, 300);
+  };
+
   return (
     <div className="preview-page" id="preview-page">
       {/* necessary for getting the right font in downloaded image */}
@@ -167,11 +219,19 @@ const PreviewPage = () => {
         setMakePublic={setMakePublic}
         downloadTimelineAsSingleJPEG={downloadTimelineAsSingleJPEG}
         setShowDownloadTimeline={setShowDownloadTimeline}
+        setShowDownloadTimelineHorizontal={setShowDownloadTimelineHorizontal}
+        downloadTimelineAsMultipleJPEG={downloadTimelineAsMultipleJPEG}
       />
       {showDownloadTimeline && (
         <Timeline answers={answers} compressed={true} id={"capture"} />
       )}
-      <HorizontalTimeline answers={answers} compressed={false} id={"capture"} />
+      {showDownloadTimelineHorizontal && (
+        <HorizontalTimeline
+          answers={answers}
+          compressed={true}
+          id={"captureHorizontal"}
+        />
+      )}
     </div>
   );
 };

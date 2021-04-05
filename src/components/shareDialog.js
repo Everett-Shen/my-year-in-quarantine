@@ -38,6 +38,8 @@ const ShareDialog = ({
   setMakePublic,
   downloadTimelineAsSingleJPEG,
   setShowDownloadTimeline,
+  downloadTimelineAsMultipleJPEG,
+  setShowDownloadTimelineHorizontal,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClose = () => {
@@ -131,6 +133,7 @@ const ShareDialog = ({
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
+                    setShowDownloadTimelineHorizontal(true);
                     handleClose();
                   }}
                 >

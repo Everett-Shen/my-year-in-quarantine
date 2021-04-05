@@ -2,13 +2,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;1,700&display=swap");
 .preview-page .button-container, .preview-page .timeline-container {
   width: min(500px, 100%);
-  margin: auto;
 }
 .preview-page .timeline-container {
-  width: 100%;
   margin: auto;
   height: auto;
-  padding: 50px;
   padding-top: 35vh;
 }
 .preview-page .timeline-container {
@@ -67,7 +64,7 @@
 }
 .preview-page .timeline-container-horizontal {
   position: relative;
-  margin-top: 300px;
+  margin-top: 100px;
   height: 500px;
   width: 2000px;
 }
@@ -127,6 +124,9 @@
 .preview-page .timeline-container-horizontal h3 {
   font-weight: 500;
   color: #ff7676;
+}
+.preview-page .button-container {
+  margin: auto;
 }
 .preview-page .timeline-container-outer {
   height: auto;
