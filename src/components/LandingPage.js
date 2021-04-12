@@ -2,6 +2,7 @@ import React from "react";
 import MetaTags from "react-meta-tags";
 import { NavLink } from "react-router-dom";
 import Menu from "./menu.js";
+import variables from "../styles/variables.module.scss";
 
 const LandingPage = () => {
   return (
@@ -15,7 +16,15 @@ const LandingPage = () => {
       <div className="intro-block">
         <h1>
           my <br />{" "}
-          <span style={{ position: "relative", top: "-5px" }}>year</span> <br />
+          <span
+            style={{
+              position: "relative",
+              top: "-5px",
+            }}
+          >
+            year
+          </span>{" "}
+          <br />
           <span style={{ position: "relative", top: "4px" }}>in</span> <br />
           <span style={{ position: "relative", top: "-5px" }}>quarantine</span>
         </h1>
