@@ -10,7 +10,7 @@ const LandingPage = () => {
         <title>My Year in Quarantine - Home</title>
         <meta name="viewport" content="width=device-width, user-scalable=no" />
       </MetaTags>
-      <Menu />
+
       {/* intro block */}
       <div className="intro-block">
         <h1>

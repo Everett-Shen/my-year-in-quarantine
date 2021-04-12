@@ -190,7 +190,7 @@ const PreviewPage = () => {
             marginRight: "5%",
             position: "relative",
             textAlign: "center",
-            zIndex: "100",
+            zIndex: "8",
             height: "140px",
           }}
         >

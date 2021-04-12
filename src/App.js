@@ -9,6 +9,7 @@ import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import Menu from "./components/menu.js";
 
 function App() {
   const THEME = createMuiTheme({
@@ -33,6 +34,7 @@ function App() {
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
       </MetaTags>
+      <Menu />
       <ThemeProvider theme={THEME}>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Switch>
