@@ -1,19 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FloatingMenu,
   MainButton,
   ChildButton,
   Directions,
 } from "react-floating-button-menu";
+import { Tooltip } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import ClearIcon from "@material-ui/icons/Clear";
-import FavoriteIcon from "@material-ui/icons/Favorite";
+import ShareIcon from "@material-ui/icons/Share";
+import EditIcon from "@material-ui/icons/Edit";
 import variables from "../../styles/variables.module.scss";
 
-const FloatingMenuButton = () => {
+const FloatingMenuButton = ({ continueEditing, saveAndExport }) => {
   const [isFloatingButtonMenuOpen, setIsFloatingButtonMenuOpen] = useState(
     false
   );
+  const [areTooltipsOpen, setAreTooltipsOpen] = useState(false);
+
+  useEffect(() => {
+    if (isFloatingButtonMenuOpen) {
+      setTimeout(() => {
+        setAreTooltipsOpen(isFloatingButtonMenuOpen);
+      }, 400);
+    } else setAreTooltipsOpen(isFloatingButtonMenuOpen);
+  }, [isFloatingButtonMenuOpen]);
   return (
     <div className="floating-menu-button-container">
       <FloatingMenu
@@ -42,15 +53,39 @@ const FloatingMenuButton = () => {
           size={56}
         />
         <ChildButton
-          icon={<FavoriteIcon style={{ fontSize: 20, color: "white" }} />}
+          icon={
+            <Tooltip
+              title="Save and export"
+              placement="left"
+              open={areTooltipsOpen}
+            >
+              <ShareIcon style={{ fontSize: 20, color: "white" }} />
+            </Tooltip>
+          }
           background={variables.primaryColor}
           size={40}
-          onClick={() => console.log("First button clicked")}
+          onClick={() => {
+            saveAndExport();
+            setIsFloatingButtonMenuOpen(false);
+          }}
         />
+
         <ChildButton
-          icon={<FavoriteIcon style={{ fontSize: 20, color: "white" }} />}
+          icon={
+            <Tooltip
+              title="Continue editing"
+              placement="left"
+              open={areTooltipsOpen}
+            >
+              <EditIcon style={{ fontSize: 20, color: "white" }} />
+            </Tooltip>
+          }
           background={variables.primaryColor}
           size={40}
+          onClick={() => {
+            continueEditing();
+            setIsFloatingButtonMenuOpen(false);
+          }}
         />
       </FloatingMenu>
     </div>

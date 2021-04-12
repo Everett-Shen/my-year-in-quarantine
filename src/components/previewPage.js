@@ -13,6 +13,7 @@ import html2canvas from "html2canvas";
 import Divider from "@material-ui/core/Divider";
 import watermark from "watermarkjs";
 import FloatingMenuButton from "./timeline/floatingMenuButton";
+import { useHistory } from "react-router-dom";
 
 const PreviewPage = () => {
   const [answers, setAnswers] = useState({});
@@ -20,6 +21,7 @@ const PreviewPage = () => {
   const [isFloatingButtonMenuOpen, setIsFloatingButtonMenuOpen] = useState(
     false
   );
+  const history = useHistory();
   const [makePublic, setMakePublic] = useState(true);
   const [showDownloadTimeline, setShowDownloadTimeline] = useState(false);
   const [
@@ -186,7 +188,7 @@ const PreviewPage = () => {
           <Timeline answers={answers} compressed={false} />
         </ScrollAnimation>
       </div>
-      <Divider style={{ margin: "20px auto 40px auto", width: "95%" }} />
+      {/* <Divider style={{ margin: "20px auto 40px auto", width: "95%" }} /> */}
       <div className="button-container">
         <div
           style={{
@@ -201,8 +203,7 @@ const PreviewPage = () => {
           <p>end of preview</p>
           <br />
           <br />
-          <div></div>
-          <NavLink className="learnMore" to={"/create"}>
+          {/* <NavLink className="learnMore" to={"/create"}>
             keep editing
           </NavLink>
           <button
@@ -212,10 +213,13 @@ const PreviewPage = () => {
             to={"/create"}
           >
             continue
-          </button>
+          </button> */}
         </div>
       </div>
-      <FloatingMenuButton />
+      <FloatingMenuButton
+        saveAndExport={() => setIsOpen(true)}
+        continueEditing={() => history.push("/create")}
+      />
       <ShareDialog
         isOpen={isOpen}
         setIsOpen={setIsOpen}
