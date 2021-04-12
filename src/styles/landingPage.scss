@@ -1,0 +1,69 @@
+@import "./variables.scss";
+@import "./mixins.scss";
+
+.landing-page h1 {
+  position: relative;
+  line-height: 1.1;
+  font-size: 50px;
+  margin-top: 70px;
+  font-family: "Nunito", sans-serif;
+}
+
+.landing-page h1 span {
+  font-family: "Nunito", sans-serif;
+}
+
+.landing-page p {
+  margin: 20px 0px;
+  /* hyphens: auto; */
+}
+
+/* positioning */
+.intro-block {
+  width: $intro-block-width;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  left: $shift-container-to-right-distance;
+}
+
+%navLink {
+  margin-right: 5px;
+  text-decoration: none;
+  width: 10px;
+  height: 10px;
+  color: black;
+  border-radius: 10px;
+  padding: 5px 15px;
+  font-size: 15px;
+  outline: none;
+  cursor: pointer;
+}
+
+.getStarted {
+  @extend %navLink;
+  background-color: $primary-color;
+  &:active {
+    background-color: $primary-color-darker;
+  }
+}
+
+.learnMore {
+  @extend %navLink;
+  color: gray;
+}
+
+.landing-page::after {
+  content: "";
+  position: absolute;
+  background-color: $primary-color;
+  width: $timeline-width;
+  height: 100%;
+  left: calc(50% - #{$intro-block-width / 2 + $timeline-margin});
+  top: 0px;
+  z-index: $timeline-line-z-index;
+}
+
+.intro-block .circle {
+  @include circle($intro-block-width);
+}

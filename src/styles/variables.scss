@@ -12,3 +12,9 @@ $entry-distance-from-circle: 10px; // change this to move entry up/down relative
 $timeline-container-width-full: 500px;
 $horizontal-timeline-height: 500px;
 $horizontal-timeline-distance-from-bottom: 100px;
+
+// z-indexes
+$timeline-line-z-index: 1;
+$timeline-circle-z-index: 5;
+$menu-z-index: 10;
+$close-menu-z-index: 15;

@@ -34,6 +34,7 @@
       height: 100%;
       left: calc(50% - #{$timeline-container-width / 2 + $timeline-margin});
       top: $timeline-distance-to-top;
+      z-index: $timeline-line-z-index;
     }
     .entry-container {
       width: $timeline-container-width;
@@ -95,6 +96,7 @@
       height: $timeline-width;
       margin-left: $timeline-distance-to-top;
       bottom: $horizontal-timeline-distance-from-bottom;
+      z-index: $timeline-line-z-index;
     }
 
     .timeline-content {

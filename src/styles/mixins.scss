@@ -6,7 +6,7 @@
   height: $circle-diameter;
   width: $circle-diameter;
   position: absolute;
-  z-index: 10;
+  z-index: $timeline-circle-z-index;
   border-radius: $circle-diameter / 2;
   top: 0px;
   left: calc(

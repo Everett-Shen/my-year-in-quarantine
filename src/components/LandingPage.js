@@ -1,6 +1,7 @@
 import React from "react";
 import MetaTags from "react-meta-tags";
 import { NavLink } from "react-router-dom";
+import Menu from "./menu.js";
 
 const LandingPage = () => {
   return (
@@ -9,6 +10,7 @@ const LandingPage = () => {
         <title>My Year in Quarantine - Home</title>
         <meta name="viewport" content="width=device-width, user-scalable=no" />
       </MetaTags>
+      <Menu />
       {/* intro block */}
       <div className="intro-block">
         <h1>
