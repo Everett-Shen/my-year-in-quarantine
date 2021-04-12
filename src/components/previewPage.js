@@ -12,10 +12,14 @@ import domtoimage from "dom-to-image";
 import html2canvas from "html2canvas";
 import Divider from "@material-ui/core/Divider";
 import watermark from "watermarkjs";
+import FloatingMenuButton from "./timeline/floatingMenuButton";
 
 const PreviewPage = () => {
   const [answers, setAnswers] = useState({});
   const [isOpen, setIsOpen] = useState(false);
+  const [isFloatingButtonMenuOpen, setIsFloatingButtonMenuOpen] = useState(
+    false
+  );
   const [makePublic, setMakePublic] = useState(true);
   const [showDownloadTimeline, setShowDownloadTimeline] = useState(false);
   const [
@@ -211,6 +215,7 @@ const PreviewPage = () => {
           </button>
         </div>
       </div>
+      <FloatingMenuButton />
       <ShareDialog
         isOpen={isOpen}
         setIsOpen={setIsOpen}
