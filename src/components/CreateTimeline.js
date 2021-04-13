@@ -15,6 +15,9 @@ import DialogForm, { returnErrorMsg, entrySchema } from "./dialogForm";
 import * as Yup from "yup";
 import { DatePicker, KeyboardDatePicker } from "@material-ui/pickers";
 import { useHistory } from "react-router-dom";
+import ScrollAnimation from "react-animate-on-scroll";
+import "animate.css/animate.min.css";
+import Fade from "@material-ui/core/Fade";
 
 const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
 
@@ -677,25 +680,34 @@ const CreateTimeline = () => {
       </nav> */}
 
       <div className="timelineForm">
-        <h2
-          style={{
-            textAlign: "center",
-            margin: "50px",
-            fontSize: "2em",
-          }}
+        <ScrollAnimation
+          animateIn="animate__fadeInLeftBig"
+          duration={0.7}
+          animateOnce={true}
+          delay={0}
         >
-          let's get started!
-        </h2>
+          <div>
+            <h2
+              style={{
+                textAlign: "center",
+                margin: "50px",
+                fontSize: "2em",
+              }}
+            >
+              let's get started!
+            </h2>
+          </div>
 
-        {/* <div className="notes">
-          <h4>note</h4>
-          <p>1. this section usually takes about 5-10 minutes to complete</p>
-          <p>2. feel free to take breaks. your work will be saved</p>
-          <p>
-            3. your answers will be used to generate your personal timeline. You will be able to preview your timeline before publishing
-          </p>
-        </div> */}
-        <Accordion panels={panels} />
+          <ScrollAnimation
+            animateIn="animate__fadeIn"
+            duration={0.8}
+            animateOnce={true}
+            offset={150}
+            delay={1300}
+          >
+            <Accordion panels={panels} />
+          </ScrollAnimation>
+        </ScrollAnimation>
         <div style={{ margin: "20px", height: "100px" }}>
           <button
             className="finish"
