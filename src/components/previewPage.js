@@ -33,15 +33,15 @@ const PreviewPage = () => {
   useEffect(() => {
     setTimeout(() => window.scrollTo(0, 0), 150); // ugly solution, but kinda works
 
-    let localStorageAnswers = JSON.parse(
-      localStorage.getItem(LOCAL_STORAGE_KEY)
-    );
-    if (localStorageAnswers) setAnswers(organizeAnswers(localStorageAnswers));
-    // setAnswers(organizeAnswers(defaultAnswers.default));
-    // localStorage.setItem(
-    //   LOCAL_STORAGE_KEY,
-    //   JSON.stringify(defaultAnswers.default)
+    // let localStorageAnswers = JSON.parse(
+    //   localStorage.getItem(LOCAL_STORAGE_KEY)
     // );
+    // if (localStorageAnswers) setAnswers(organizeAnswers(localStorageAnswers));
+    setAnswers(organizeAnswers(defaultAnswers.default));
+    localStorage.setItem(
+      LOCAL_STORAGE_KEY,
+      JSON.stringify(defaultAnswers.default)
+    );
   }, []);
 
   const organizeAnswers = (answers) => {
@@ -67,7 +67,7 @@ const PreviewPage = () => {
 
   const downloadTimelineAsSingleJPEG = () => {
     var node = document.getElementById("capture");
-    let scale = 3;
+    let scale = 4;
     domtoimage
       .toPng(node, {
         bgcolor: "white",
@@ -232,7 +232,7 @@ const PreviewPage = () => {
         downloadTimelineAsMultipleJPEG={downloadTimelineAsMultipleJPEG}
       />
       {showDownloadTimeline && (
-        <Timeline answers={answers} compressed={true} id={"capture"} />
+        <Timeline answers={answers} compressed={true} captureID={"capture"} />
       )}
       {showDownloadTimelineHorizontal && (
         <HorizontalTimeline

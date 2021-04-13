@@ -17,7 +17,6 @@ import { DatePicker, KeyboardDatePicker } from "@material-ui/pickers";
 import { useHistory } from "react-router-dom";
 import ScrollAnimation from "react-animate-on-scroll";
 import "animate.css/animate.min.css";
-import Fade from "@material-ui/core/Fade";
 
 const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
 

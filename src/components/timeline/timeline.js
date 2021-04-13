@@ -7,9 +7,9 @@ import { animateScroll as scroll, scrollSpy, scroller } from "react-scroll";
 import { useSwipeable } from "react-swipeable";
 import { useDoubleTap } from "use-double-tap";
 
-const Timeline = ({ answers, compressed, id }) => {
+const Timeline = ({ answers, compressed, captureID }) => {
   const [scrollTarget, setScrollTarget] = useState(0);
-  const dividerHeight = compressed ? "200px" : "700px";
+  const dividerHeight = compressed ? "100px" : "700px";
   const answersRef = useRef(answers);
   const scrollTargetRef = useRef(scrollTarget);
   const preventDefault = (e) => {
@@ -124,8 +124,9 @@ const Timeline = ({ answers, compressed, id }) => {
 
   return (
     <div
-      id={id}
+      id={captureID}
       className="timeline-container"
+      style={compressed ? { margin: "0px" } : {}}
       {...swipeHandlers}
       {...doubleTapBind}
     >

@@ -168,21 +168,3 @@
     }
   }
 }
-@keyframes fadeIn {
-  0% {
-    width: 0%;
-  }
-  25% {
-    width: 0%;
-  }
-  100% {
-    width: 100%;
-  }
-}
-
-.fadeIn {
-  animation-fill-mode: both;
-  animation-name: fadeIn;
-  animation-delay: 0.2s;
-  animation-duration: 1s;
-}
