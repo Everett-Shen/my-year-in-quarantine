@@ -24,7 +24,7 @@ const Menu = (props) => {
       </div>
       <Fade in={isOpen} timeout={400}>
         <div id="myNav" class="overlay" onClick={() => setIsOpen(!isOpen)}>
-          <div class="overlay-content">
+          <div className="overlay-content">
             {/* {props.render()} */}
             <a href="/">Home</a>
             <a

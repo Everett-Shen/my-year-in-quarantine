@@ -105,7 +105,7 @@ const ShareDialog = ({
               <IconButton
                 aria-label="copy link to clipboard"
                 onClick={openSaveMenu}
-                size="large"
+                size="medium"
               >
                 <Tooltip title="download">
                   <GetAppIcon fontSize="large" />
@@ -135,9 +135,7 @@ const ShareDialog = ({
                     handleClose();
                   }}
                 >
-                  <p>
-                    <pre>{"Save as horizontal image"}</pre>
-                  </p>
+                  Save as horizontal image
                 </MenuItem>
                 <MenuItem
                   onClick={() => {

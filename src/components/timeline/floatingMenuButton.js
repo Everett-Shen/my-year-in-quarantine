@@ -34,18 +34,8 @@ const FloatingMenuButton = ({ continueEditing, saveAndExport }) => {
         isOpen={isFloatingButtonMenuOpen}
       >
         <MainButton
-          iconResting={
-            <AddIcon
-              style={{ fontSize: 20, color: "white" }}
-              nativeColor="white"
-            />
-          }
-          iconActive={
-            <ClearIcon
-              style={{ fontSize: 20, color: "white" }}
-              nativeColor="white"
-            />
-          }
+          iconResting={<AddIcon style={{ fontSize: 20, color: "white" }} />}
+          iconActive={<ClearIcon style={{ fontSize: 20, color: "white" }} />}
           background={variables.primaryColor}
           onClick={() => {
             setIsFloatingButtonMenuOpen(!isFloatingButtonMenuOpen);

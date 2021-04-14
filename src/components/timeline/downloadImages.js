@@ -1,5 +1,7 @@
 import domtoimage from "dom-to-image";
 import watermark from "watermarkjs";
+import JSZip from "jszip";
+import { saveAs } from "file-saver";
 
 const scale = 4;
 
@@ -61,7 +63,63 @@ const downloadImage = (img) => {
   link.click();
 };
 
-const splitImageAndDownload = (img) => {};
+const splitImageAndDownload = (img) => {
+  // split image into pieces using canvas
+  let images = cutImageUp(img);
+  // download as zip
+  downloadAsZip(images);
+};
+
+function cutImageUp(
+  image,
+  numColsToCut = 10,
+  widthOfOnePiece = 300,
+  heightOfOnePiece = 1000
+) {
+  var imagePieces = [];
+  for (var x = 0; x < numColsToCut; x++) {
+    var canvas = document.createElement("canvas");
+    canvas.width = widthOfOnePiece;
+    canvas.height = heightOfOnePiece;
+    var context = canvas.getContext("2d");
+    context.drawImage(
+      image,
+      x * widthOfOnePiece,
+      0,
+      widthOfOnePiece,
+      heightOfOnePiece,
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+    imagePieces.push(canvas.toDataURL());
+  }
+  // imagePieces now contains data urls of all the pieces of the image
+  return imagePieces;
+}
+
+const downloadAsZip = (imgs) => {
+  var zip = new JSZip();
+
+  for (let i = 0; i < imgs.length; i++) {
+    // var link = document.createElement("a");
+    // link.download = "My Year in Quarantine timeline.jpg";
+    // link.href = imgs[i];
+    // link.click();
+    // var image = new Image();
+    // image.src = imgs[i];
+    zip.file(`${String(i + 1)}.jpg`, imgs[i].split("base64,")[1], {
+      base64: true,
+    });
+  }
+
+  //Generate the zip file asynchronously
+  zip.generateAsync({ type: "blob" }).then(function (content) {
+    // download the Zip file
+    saveAs(content, "MyYearInQuarantine.zip");
+  });
+};
 
 export {
   downloadTimelineAsVerticalJPEG,
