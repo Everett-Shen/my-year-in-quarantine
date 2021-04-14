@@ -3,7 +3,7 @@ import watermark from "watermarkjs";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
 
-const scale = 4;
+const scale = 3;
 
 const downloadTimelineAsVerticalJPEG = () => {
   getJPEG("capture").then((img) => {
@@ -103,12 +103,6 @@ const downloadAsZip = (imgs) => {
   var zip = new JSZip();
 
   for (let i = 0; i < imgs.length; i++) {
-    // var link = document.createElement("a");
-    // link.download = "My Year in Quarantine timeline.jpg";
-    // link.href = imgs[i];
-    // link.click();
-    // var image = new Image();
-    // image.src = imgs[i];
     zip.file(`${String(i + 1)}.jpg`, imgs[i].split("base64,")[1], {
       base64: true,
     });

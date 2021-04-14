@@ -12,7 +12,7 @@ import ShareIcon from "@material-ui/icons/Share";
 import EditIcon from "@material-ui/icons/Edit";
 import variables from "../../styles/variables.module.scss";
 
-const FloatingMenuButton = ({ continueEditing, saveAndExport }) => {
+const FloatingMenuButtons = ({ continueEditing, saveAndExport }) => {
   const [isFloatingButtonMenuOpen, setIsFloatingButtonMenuOpen] = useState(
     false
   );
@@ -82,4 +82,4 @@ const FloatingMenuButton = ({ continueEditing, saveAndExport }) => {
   );
 };
 
-export default FloatingMenuButton;
+export default FloatingMenuButtons;

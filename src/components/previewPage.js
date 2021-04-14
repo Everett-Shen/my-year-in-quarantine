@@ -6,25 +6,18 @@ import * as defaultAnswers from "../answers.json";
 import _ from "lodash";
 import ScrollAnimation from "react-animate-on-scroll";
 import "animate.css/animate.min.css";
-import { NavLink } from "react-router-dom";
 import ShareDialog from "./shareDialog";
-import domtoimage from "dom-to-image";
-import watermark from "watermarkjs";
-import FloatingMenuButton from "./timeline/floatingMenuButton";
+import FloatingMenuButtons from "./timeline/FloatingMenuButtons";
 import { useHistory } from "react-router-dom";
 import {
   downloadTimelineAsVerticalJPEG,
   downloadTimelineAsHorizontalJPEG,
   downloadTimelineAsImageSet,
 } from "./timeline/downloadImages";
-import { TrafficRounded } from "@material-ui/icons";
 
 const PreviewPage = () => {
   const [answers, setAnswers] = useState({});
   const [isOpen, setIsOpen] = useState(false);
-  const [isFloatingButtonMenuOpen, setIsFloatingButtonMenuOpen] = useState(
-    false
-  );
   const history = useHistory();
   const [makePublic, setMakePublic] = useState(true);
   const [showDownloadTimeline, setShowDownloadTimeline] = useState(false);
@@ -154,7 +147,7 @@ const PreviewPage = () => {
           <br />
         </div>
       </div>
-      <FloatingMenuButton
+      <FloatingMenuButtons
         saveAndExport={() => setIsOpen(true)}
         continueEditing={() => history.push("/create")}
       />
