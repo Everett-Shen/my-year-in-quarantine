@@ -7,7 +7,7 @@ import { format } from "date-fns";
 // import { useSwipeable } from "react-swipeable";
 // import { useDoubleTap } from "use-double-tap";
 
-const HorizontalTimeline = ({ answers, compressed, id }) => {
+const HorizontalTimeline = ({ answers, compressed, captureID }) => {
   const [scrollTarget, setScrollTarget] = useState(0);
   const dividerHeight = compressed ? "200px" : "700px";
   const answersRef = useRef(answers);
@@ -15,117 +15,15 @@ const HorizontalTimeline = ({ answers, compressed, id }) => {
   const preventDefault = (e) => {
     e.preventDefault();
   };
-  //   useEffect(() => {
-  //     answersRef.current = answers;
-  //   }, [answers]);
-  //   useEffect(() => {
-  //     scrollTargetRef.current = scrollTarget;
-  //   }, [scrollTarget]);
-
-  //   useEffect(() => {
-  //     var supportsPassive = false;
-  //     try {
-  //       window.addEventListener(
-  //         "test",
-  //         null,
-  //         Object.defineProperty({}, "passive", {
-  //           get: function () {
-  //             supportsPassive = true;
-  //           },
-  //         })
-  //       );
-  //     } catch (e) {}
-
-  //     var wheelOpt = supportsPassive ? { passive: false } : false;
-  //     document.addEventListener("keydown", handleKeyDown);
-  //     window.addEventListener("wheel", handleScroll, wheelOpt);
-  //     window.addEventListener("touchmove", preventDefault, wheelOpt);
-
-  //     return () => {
-  //       document.removeEventListener("keydown", handleKeyDown);
-  //       window.removeEventListener("wheel", handleScroll, wheelOpt);
-
-  //       window.removeEventListener(
-  //         // not being removed for some reason
-  //         "touchmove",
-  //         preventDefault,
-  //         wheelOpt
-  //       );
-  //     };
-  //   }, []);
 
   const formatDate = (date) => {
     return format(new Date(date), "MMM dd yyyy");
   };
 
-  //   const scrollToTarget = (targetID) => {
-  //     scroller.scrollTo(String(targetID), {
-  //       duration: 1300,
-  //       delay: 0,
-  //       smooth: true,
-  //       offset: -70,
-  //     });
-  //     setScrollTarget(targetID);
-  //   };
-
-  //   const handleKeyDown = (e) => {
-  //     switch (e.key) {
-  //       case "ArrowUp":
-  //         e.preventDefault();
-  //         if (scrollTargetRef.current >= 1) {
-  //           scrollToTarget(scrollTargetRef.current - 1);
-  //         }
-  //         break;
-  //       case "ArrowDown":
-  //         e.preventDefault();
-  //         // 1 less than the total number of timeline entries
-  //         if (
-  //           scrollTargetRef.current <
-  //           answersRef.current.entries.length + 2 - 1
-  //         ) {
-  //           scrollToTarget(scrollTargetRef.current + 1);
-  //         }
-  //         break;
-  //       default:
-  //         return;
-  //     }
-  //   };
-
-  //   const handleScroll = (e) => {
-  //     e.preventDefault();
-  //     // add isScrolling stuff
-
-  //     if (e.wheelDelta > 0) {
-  //       if (scrollTargetRef.current >= 1) {
-  //         scrollToTarget(scrollTargetRef.current - 1);
-  //       }
-  //     } else if (e.wheelDelta < 0) {
-  //       // 1 less than the total number of timeline entries
-  //       if (scrollTargetRef.current < answersRef.current.entries.length + 2 - 1) {
-  //         scrollToTarget(scrollTargetRef.current + 1);
-  //       }
-  //     }
-  //   };
-  //   const swipeHandlers = useSwipeable({
-  //     onSwipedUp: (eventData) => scrollToTarget(scrollTarget + 1),
-  //     onSwipedDown: (eventData) => scrollToTarget(scrollTarget - 1),
-  //     delta: 10, // min distance(px) before a swipe starts
-  //     preventDefaultTouchmoveEvent: false, // call e.preventDefault *See Details*
-  //     trackTouch: true, // track touch input
-  //     trackMouse: false, // track mouse input
-  //     rotationAngle: 0, // set a rotation angle
-  //   });
-
-  //   const doubleTapBind = useDoubleTap((e) => {
-  //     if (e.clientY < window.innerWidth * 0.4) scrollToTarget(scrollTarget - 1);
-  //     else if (e.clientY > window.innerWidth * 0.6)
-  //       scrollToTarget(scrollTarget + 1);
-  //   });
-
   return (
-    <div id={id} className="timeline-container-horizontal">
+    <div id={captureID} className="timeline-container-horizontal">
       {/* title block*/}
-      <div className="timeline-content">
+      <div className="timeline-content-horizontal">
         <TimelineTitle
           title={answers.title}
           name={answers.name}
@@ -152,7 +50,7 @@ const HorizontalTimeline = ({ answers, compressed, id }) => {
         {answers.entries &&
           answers.entries.map((entry, index) => {
             return (
-              <div key={index}>
+              <div key={index} style={{ display: "inline-block" }}>
                 <Entry
                   date={
                     entry.date
@@ -170,14 +68,6 @@ const HorizontalTimeline = ({ answers, compressed, id }) => {
                   id={String(index + 2)}
                   compressed={compressed}
                 />
-
-                {/* <Divider
-                  height={
-                    index === answers.entries.length - 1
-                      ? "200px"
-                      : dividerHeight
-                  }
-                /> */}
               </div>
             );
           })}

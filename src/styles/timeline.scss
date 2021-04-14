@@ -1,35 +1,22 @@
 @import "./variables.module.scss";
 @import "./mixins.scss";
-// body {
-//   -ms-overflow-style: none;
-// }
-// ::-webkit-scrollbar {
-//   display: none;
-// }
+
 .preview-page {
   %centered-container {
     width: min(500px, 100%);
-    // margin: auto;
   }
   .timeline-container {
     @extend %centered-container;
-    // height: 100%;
-    // width: calc(#{$timeline-container-width + $timeline-container-margin});
-    // width: 100%;
     margin: auto; // this line is causing certain issues with the dom-to-image cropping. e.g, getting rid of margin: auto in timeline-container makes the cropping correct
     height: auto;
-    // padding: 50px;
     padding-top: $timeline-distance-to-top;
-  }
 
-  .timeline-container {
     position: relative;
 
     &::after {
       content: "";
       position: absolute;
       background-color: $primary-color;
-      //   border: 3px solid $primary-color;
       width: $timeline-width;
       height: 100%;
       left: calc(50% - #{$timeline-container-width / 2 + $timeline-margin});
@@ -41,7 +28,6 @@
       margin-left: auto;
       margin-right: auto;
       position: relative;
-      //   border: 1px solid red;
     }
 
     .circle {
@@ -58,18 +44,14 @@
       line-height: 100%;
       font-size: 2.9em;
       font-weight: 600;
-      //   font-size: 2.8em;
-      //   font-weight: 600;
     }
 
     h3 {
-      //   font-weight: 600;
       font-weight: 500;
       color: $primary-color;
     }
 
     .timeline-content {
-      //   top: calc(#{$timeline-distance-to-top} - #{$circle-diameter});
       position: relative;
       left: $shift-container-to-right-distance;
       width: $timeline-container-width;
@@ -81,17 +63,14 @@
     }
   }
   .timeline-container-horizontal {
-    // display: flex;
-    // justify-content: space-between;
     position: relative;
     margin-top: 100px;
     height: $horizontal-timeline-height;
-    width: 2000px;
+    width: fit-content;
     &::after {
       content: "";
       position: absolute;
       background-color: $primary-color;
-      //   border: 3px solid $primary-color;
       width: 100%;
       height: $timeline-width;
       margin-left: $timeline-distance-to-top;
@@ -99,28 +78,27 @@
       z-index: $timeline-line-z-index;
     }
 
-    .timeline-content {
-      //   top: calc(#{$timeline-distance-to-top} - #{$circle-diameter});
+    .timeline-content-horizontal {
       position: relative;
       height: $horizontal-timeline-height;
-      //   width: auto;
       margin-left: calc(
         #{$timeline-distance-to-top} - #{$timeline-container-width / 2}
       );
       display: flex;
       align-items: flex-end;
+      width: fit-content;
+    }
+
+    .entry-container {
+      width: $timeline-container-width;
+      margin: 0px 150px $horizontal-timeline-distance-from-bottom 0px;
+      position: relative;
+      display: inline-block;
     }
     .entry-content {
       position: relative;
       bottom: 50px;
     }
-    .entry-container {
-      width: $timeline-container-width;
-      margin: 0px 150px $horizontal-timeline-distance-from-bottom 0px;
-      position: relative;
-      //   border: 1px solid red;
-    }
-
     .circle {
       @include circle-horizontal($timeline-container-width);
     }
@@ -134,12 +112,9 @@
       line-height: 100%;
       font-size: 2.9em;
       font-weight: 600;
-      //   font-size: 2.8em;
-      //   font-weight: 600;
     }
 
     h3 {
-      //   font-weight: 600;
       font-weight: 500;
       color: $primary-color;
     }

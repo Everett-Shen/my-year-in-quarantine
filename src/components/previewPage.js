@@ -29,6 +29,7 @@ const PreviewPage = () => {
     setShowDownloadTimelineHorizontal,
   ] = useState(false);
   const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
+  const scale = 4;
 
   useEffect(() => {
     setTimeout(() => window.scrollTo(0, 0), 150); // ugly solution, but kinda works
@@ -67,7 +68,7 @@ const PreviewPage = () => {
 
   const downloadTimelineAsSingleJPEG = () => {
     var node = document.getElementById("capture");
-    let scale = 4;
+
     domtoimage
       .toPng(node, {
         bgcolor: "white",
@@ -111,7 +112,6 @@ const PreviewPage = () => {
 
   const downloadTimelineAsMultipleJPEG = () => {
     var node = document.getElementById("captureHorizontal");
-    let scale = 3;
     domtoimage
       .toPng(node, {
         bgcolor: "white",
@@ -148,9 +148,9 @@ const PreviewPage = () => {
       .catch(function (error) {
         console.error("oops, something went wrong!", error);
       });
-    setTimeout(() => {
-      setShowDownloadTimeline(false);
-    }, 300);
+    // setTimeout(() => {
+    //   setShowDownloadTimelineHorizontal(false);
+    // }, 300);
   };
 
   return (
@@ -238,7 +238,7 @@ const PreviewPage = () => {
         <HorizontalTimeline
           answers={answers}
           compressed={true}
-          id={"captureHorizontal"}
+          captureID={"captureHorizontal"}
         />
       )}
     </div>
