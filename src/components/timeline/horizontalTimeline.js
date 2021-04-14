@@ -27,7 +27,7 @@ const HorizontalTimeline = ({ answers, compressed, captureID }) => {
         <TimelineTitle
           title={answers.title}
           name={answers.name}
-          id={"0"}
+          id={"capture-1"}
           compressed={compressed}
         />
         <div style={{ width: "100px" }}></div>
