@@ -6,6 +6,8 @@ $timeline-margin: 30px; // edit this to shift timeline position
 $timeline-width: 4px;
 $accordion-width: 470px;
 $timeline-distance-to-top: 35vh;
+$timeline-distance-to-left: 300px;
+$timeline-distance-to-left-compressed: 250px;
 $circle-diameter: 50px;
 $shift-container-to-right-distance: 35px; // edit this to shift central container
 $entry-distance-from-circle: 10px; // change this to move entry up/down relative to circle
@@ -21,4 +23,5 @@ $close-menu-z-index: 15;
 
 :export {
   primaryColor: $primary-color;
+  timelineDistanceToLeftCompressed: $timeline-distance-to-left-compressed;
 }

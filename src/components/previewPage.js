@@ -7,7 +7,7 @@ import _ from "lodash";
 import ScrollAnimation from "react-animate-on-scroll";
 import "animate.css/animate.min.css";
 import ShareDialog from "./shareDialog";
-import FloatingMenuButtons from "./timeline/FloatingMenuButtons";
+import FloatingMenuButtons from "./timeline/floatingMenuButtons";
 import { useHistory } from "react-router-dom";
 import {
   downloadTimelineAsVerticalJPEG,
@@ -64,7 +64,7 @@ const PreviewPage = () => {
     setShowTimeline,
     downloadFunction
   ) => {
-    if (showTimeline) downloadFunction();
+    if (showTimeline) downloadFunction(answers.entries.length + 2); // this parameter only gets used by downloadTimelineMultiple
     setTimeout(() => {
       setShowTimeline(false);
     }, 300);

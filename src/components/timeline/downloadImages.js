@@ -17,9 +17,9 @@ const downloadTimelineAsHorizontalJPEG = () => {
   });
 };
 
-const downloadTimelineAsImageSet = () => {
+const downloadTimelineAsImageSet = (imageCount) => {
   getJPEG("captureHorizontal").then((img) => {
-    splitImageAndDownload(img);
+    splitImageAndDownload(img, imageCount);
   });
 };
 
@@ -63,27 +63,23 @@ const downloadImage = (img) => {
   link.click();
 };
 
-const splitImageAndDownload = (img) => {
+const splitImageAndDownload = (img, imageCount) => {
   // split image into pieces using canvas
-  let images = cutImageUp(img);
+  let images = cutImageUp(img, imageCount);
   // download as zip
   downloadAsZip(images);
 };
 
-function cutImageUp(
-  image,
-  numColsToCut = 10,
-  widthOfOnePiece = 300,
-  heightOfOnePiece = 1000
-) {
+function cutImageUp(img, imageCount, heightOfOnePiece = img.height) {
+  const widthOfOnePiece = img.width / imageCount;
   var imagePieces = [];
-  for (var x = 0; x < numColsToCut; x++) {
+  for (var x = 0; x < imageCount; x++) {
     var canvas = document.createElement("canvas");
     canvas.width = widthOfOnePiece;
     canvas.height = heightOfOnePiece;
     var context = canvas.getContext("2d");
     context.drawImage(
-      image,
+      img,
       x * widthOfOnePiece,
       0,
       widthOfOnePiece,

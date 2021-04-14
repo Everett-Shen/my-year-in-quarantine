@@ -3,6 +3,7 @@ import TimelineTitle from "./timelineTitle";
 import Entry from "./entry";
 import HorizontalDivider from "./horizontalDivider";
 import { format } from "date-fns";
+import variables from "../../styles/variables.module.scss";
 // import { animateScroll as scroll, scrollSpy, scroller } from "react-scroll";
 // import { useSwipeable } from "react-swipeable";
 // import { useDoubleTap } from "use-double-tap";
@@ -25,10 +26,19 @@ const HorizontalTimeline = ({
     return format(new Date(date), "MMM dd yyyy");
   };
 
-  const dividerWidth = "100px";
+  const dividerWidth = downloadMultipleMode
+    ? variables.timelineDistanceToLeftCompressed
+    : "150px";
 
   return (
-    <div id={captureID} className="timeline-container-horizontal">
+    <div
+      id={captureID}
+      className={
+        downloadMultipleMode
+          ? "timeline-container-horizontal-no-margin-left"
+          : "timeline-container-horizontal"
+      }
+    >
       {/* title block*/}
       <div className="timeline-content-horizontal">
         <TimelineTitle
@@ -37,8 +47,7 @@ const HorizontalTimeline = ({
           id={"capture-1"}
           compressed={compressed}
         />
-        <HorizontalDivider width="150px" />
-        {/* {!compressed && <Divider height={dividerHeight} />} */}
+        <HorizontalDivider width={dividerWidth} />
 
         {/* introduction block */}
         <Entry
@@ -76,7 +85,15 @@ const HorizontalTimeline = ({
                   id={String(index + 2)}
                   compressed={compressed}
                 />
-                <HorizontalDivider width={dividerWidth} />
+                <HorizontalDivider
+                  width={
+                    downloadMultipleMode
+                      ? index === answers.entries.length - 1
+                        ? `calc(${dividerWidth} / 2)`
+                        : dividerWidth
+                      : dividerWidth
+                  }
+                />
               </React.Fragment>
             );
           })}

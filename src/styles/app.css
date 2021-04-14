@@ -2,10 +2,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;1,700&display=swap");
 :export {
   primaryColor: #ff7676;
+  timelineDistanceToLeftCompressed: 250px;
 }
 
 :export {
   primaryColor: #ff7676;
+  timelineDistanceToLeftCompressed: 250px;
 }
 
 .preview-page .button-container, .preview-page .timeline-container {
@@ -27,7 +29,7 @@
   top: 35vh;
   z-index: 1;
 }
-.preview-page .timeline-container .entry-container, .preview-page .timeline-container .timeline-container-horizontal .entry-content-title, .preview-page .timeline-container-horizontal .timeline-container .entry-content-title {
+.preview-page .timeline-container .entry-container, .preview-page .timeline-container .timeline-container-horizontal .entry-content-title, .preview-page .timeline-container-horizontal .timeline-container .entry-content-title, .preview-page .timeline-container .timeline-container-horizontal-no-margin-left .entry-content-title, .preview-page .timeline-container-horizontal-no-margin-left .timeline-container .entry-content-title {
   width: 250px;
   margin-left: auto;
   margin-right: auto;
@@ -69,48 +71,53 @@
   position: relative;
   top: 10px;
 }
-.preview-page .timeline-container-horizontal {
+.preview-page .timeline-container-horizontal, .preview-page .timeline-container-horizontal-no-margin-left {
   position: relative;
   margin-top: 100px;
   height: fit-content;
   width: fit-content;
   padding-top: 100px;
 }
-.preview-page .timeline-container-horizontal::after {
+.preview-page .timeline-container-horizontal::after, .preview-page .timeline-container-horizontal-no-margin-left::after {
   content: "";
   position: absolute;
   background-color: #ff7676;
   width: 100%;
   height: 4px;
-  margin-left: 35vh;
+  margin-left: 300px;
   bottom: 100px;
   z-index: 1;
 }
-.preview-page .timeline-container-horizontal .timeline-content-horizontal {
+.preview-page .timeline-container-horizontal .timeline-content-horizontal, .preview-page .timeline-container-horizontal-no-margin-left .timeline-content-horizontal {
   position: relative;
   height: 500px;
-  margin-left: calc( 35vh - 125px );
+  margin-left: calc( 300px - 125px );
   display: flex;
   align-items: flex-end;
   width: fit-content;
   height: fit-content;
 }
-.preview-page .timeline-container-horizontal .entry-container, .preview-page .timeline-container-horizontal .entry-content-title {
+.preview-page .timeline-container-horizontal-no-margin-left::after {
+  margin-left: calc( 125px + 125px );
+}
+.preview-page .timeline-container-horizontal-no-margin-left .timeline-content-horizontal {
+  margin-left: 125px;
+}
+.preview-page .timeline-container-horizontal .entry-container, .preview-page .timeline-container-horizontal .entry-content-title, .preview-page .timeline-container-horizontal-no-margin-left .entry-container, .preview-page .timeline-container-horizontal-no-margin-left .entry-content-title {
   width: 250px;
-  margin: 0px 150px 100px 0px;
+  margin: 0px 0px 100px 0px;
   position: relative;
   display: inline-block;
   height: fit-content;
 }
-.preview-page .timeline-container-horizontal .entry-content {
+.preview-page .timeline-container-horizontal .entry-content, .preview-page .timeline-container-horizontal-no-margin-left .entry-content {
   position: relative;
   bottom: 100px;
 }
-.preview-page .timeline-container-horizontal .entry-content-title {
-  left: 45%;
+.preview-page .timeline-container-horizontal .entry-content-title, .preview-page .timeline-container-horizontal-no-margin-left .entry-content-title {
   bottom: -50px;
 }
-.preview-page .timeline-container-horizontal .circle {
+.preview-page .timeline-container-horizontal .circle, .preview-page .timeline-container-horizontal-no-margin-left .circle {
   background-color: white;
   border: 3px solid #ff7676;
   height: 50px;
@@ -127,18 +134,18 @@
   bottom: calc(-23px);
   left: calc(50% - 25px);
 }
-.preview-page .timeline-container-horizontal h1 {
+.preview-page .timeline-container-horizontal h1, .preview-page .timeline-container-horizontal-no-margin-left h1 {
   font-family: "Nunito", sans-serif;
   line-height: 100%;
   font-size: 3em;
 }
-.preview-page .timeline-container-horizontal h2 {
+.preview-page .timeline-container-horizontal h2, .preview-page .timeline-container-horizontal-no-margin-left h2 {
   font-family: "Nunito", sans-serif;
   line-height: 100%;
   font-size: 2.9em;
   font-weight: 600;
 }
-.preview-page .timeline-container-horizontal h3 {
+.preview-page .timeline-container-horizontal h3, .preview-page .timeline-container-horizontal-no-margin-left h3 {
   font-weight: 500;
   color: #ff7676;
 }
@@ -171,10 +178,12 @@
 
 :export {
   primaryColor: #ff7676;
+  timelineDistanceToLeftCompressed: 250px;
 }
 
 :export {
   primaryColor: #ff7676;
+  timelineDistanceToLeftCompressed: 250px;
 }
 
 .landing-page h1 {
@@ -252,10 +261,12 @@
 
 :export {
   primaryColor: #ff7676;
+  timelineDistanceToLeftCompressed: 250px;
 }
 
 :export {
   primaryColor: #ff7676;
+  timelineDistanceToLeftCompressed: 250px;
 }
 
 .createForm h1 {
@@ -362,7 +373,7 @@
   display: flex;
   justify-content: flex-end;
 }
-.createForm .timelineForm .entry-container, .createForm .timelineForm .preview-page .timeline-container-horizontal .entry-content-title, .preview-page .timeline-container-horizontal .createForm .timelineForm .entry-content-title {
+.createForm .timelineForm .entry-container, .createForm .timelineForm .preview-page .timeline-container-horizontal .entry-content-title, .preview-page .timeline-container-horizontal .createForm .timelineForm .entry-content-title, .createForm .timelineForm .preview-page .timeline-container-horizontal-no-margin-left .entry-content-title, .preview-page .timeline-container-horizontal-no-margin-left .createForm .timelineForm .entry-content-title {
   display: grid;
   grid-template-columns: 55% 30% 15%;
 }
@@ -399,10 +410,12 @@
 
 :export {
   primaryColor: #ff7676;
+  timelineDistanceToLeftCompressed: 250px;
 }
 
 :export {
   primaryColor: #ff7676;
+  timelineDistanceToLeftCompressed: 250px;
 }
 
 .menu-container {
@@ -479,10 +492,12 @@
 
 :export {
   primaryColor: #ff7676;
+  timelineDistanceToLeftCompressed: 250px;
 }
 
 :export {
   primaryColor: #ff7676;
+  timelineDistanceToLeftCompressed: 250px;
 }
 
 * {
