@@ -4,16 +4,26 @@ import watermark from "watermarkjs";
 const scale = 4;
 
 const downloadTimelineAsVerticalJPEG = () => {
-  downloadAsJPEG("capture");
+  getJPEG("capture").then((img) => {
+    downloadImage(img);
+  });
 };
 
 const downloadTimelineAsHorizontalJPEG = () => {
-  downloadAsJPEG("captureHorizontal");
+  getJPEG("captureHorizontal").then((img) => {
+    downloadImage(img);
+  });
 };
 
-const downloadAsJPEG = (id) => {
+const downloadTimelineAsImageSet = () => {
+  getJPEG("captureHorizontal").then((img) => {
+    splitImageAndDownload(img);
+  });
+};
+
+const getJPEG = (id) => {
   var node = document.getElementById(id);
-  domtoimage
+  return domtoimage
     .toPng(node, {
       bgcolor: "white",
       width: node.clientWidth * scale,
@@ -23,7 +33,7 @@ const downloadAsJPEG = (id) => {
         transformOrigin: "top left",
       },
     })
-    .then(function (dataUrl) {
+    .then((dataUrl) => {
       var x = function (canvas, metrics, context) {
         return canvas.width - 970;
       };
@@ -35,20 +45,26 @@ const downloadAsJPEG = (id) => {
       let watermarkContent = "See more at MyYearInQuarantine.com";
       const image = new Image();
       image.src = dataUrl;
-      watermark([image])
+      return watermark([image])
         .image(pos(x, y, watermarkContent, "48px Montserrat", "#000", 1))
-        // .image(watermark.text.lowerRight(watermarkContent, "48px Montserrat", "#000", 1))
-        .then((img) => {
-          // document.getElementById("preview-page").appendChild(img);
-          var link = document.createElement("a");
-          link.download = "My Year in Quarantine timeline.jpeg";
-          link.href = img.src;
-          link.click();
-        });
+        .then((img) => img);
     })
     .catch(function (error) {
       console.error("oops, something went wrong!", error);
     });
 };
 
-export { downloadTimelineAsVerticalJPEG, downloadTimelineAsHorizontalJPEG };
+const downloadImage = (img) => {
+  var link = document.createElement("a");
+  link.download = "My Year in Quarantine timeline.jpeg";
+  link.href = img.src;
+  link.click();
+};
+
+const splitImageAndDownload = (img) => {};
+
+export {
+  downloadTimelineAsVerticalJPEG,
+  downloadTimelineAsHorizontalJPEG,
+  downloadTimelineAsImageSet,
+};

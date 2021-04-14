@@ -15,7 +15,9 @@ import { useHistory } from "react-router-dom";
 import {
   downloadTimelineAsVerticalJPEG,
   downloadTimelineAsHorizontalJPEG,
+  downloadTimelineAsImageSet,
 } from "./timeline/downloadImages";
+import { TrafficRounded } from "@material-ui/icons";
 
 const PreviewPage = () => {
   const [answers, setAnswers] = useState({});
@@ -29,6 +31,10 @@ const PreviewPage = () => {
   const [
     showDownloadTimelineHorizontal,
     setShowDownloadTimelineHorizontal,
+  ] = useState(false);
+  const [
+    showDownloadTimelineMultiple,
+    setShowDownloadTimelineMultiple,
   ] = useState(false);
   const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
 
@@ -59,106 +65,42 @@ const PreviewPage = () => {
 
     return toReturn;
   };
-  useEffect(() => {
-    if (showDownloadTimeline) downloadTimelineAsVerticalJPEG();
+
+  const downloadTimeline = (
+    showTimeline,
+    setShowTimeline,
+    downloadFunction
+  ) => {
+    if (showTimeline) downloadFunction();
     setTimeout(() => {
-      setShowDownloadTimeline(false);
+      setShowTimeline(false);
     }, 300);
+  };
+
+  // download vertical timeline
+  useEffect(() => {
+    downloadTimeline(
+      showDownloadTimeline,
+      setShowDownloadTimeline,
+      downloadTimelineAsVerticalJPEG
+    );
   }, [showDownloadTimeline]);
-
+  // download horizontal timeline
   useEffect(() => {
-    if (showDownloadTimelineHorizontal) downloadTimelineAsHorizontalJPEG();
-    setTimeout(() => {
-      setShowDownloadTimelineHorizontal(false);
-    }, 300);
+    downloadTimeline(
+      showDownloadTimelineHorizontal,
+      setShowDownloadTimelineHorizontal,
+      downloadTimelineAsHorizontalJPEG
+    );
   }, [showDownloadTimelineHorizontal]);
-
-  // const downloadTimelineAsVerticalJPEG = () => {
-  //   var node = document.getElementById("capture");
-
-  //   domtoimage
-  //     .toPng(node, {
-  //       bgcolor: "white",
-  //       width: node.clientWidth * scale,
-  //       height: node.clientHeight * scale,
-  //       style: {
-  //         transform: "scale(" + scale + ")",
-  //         transformOrigin: "top left",
-  //       },
-  //     })
-  //     .then(function (dataUrl) {
-  //       var x = function (canvas, metrics, context) {
-  //         return canvas.width - 970;
-  //       };
-
-  //       var y = function (canvas, metrics, context) {
-  //         return canvas.height - 70;
-  //       };
-  //       let pos = watermark.text.atPos;
-  //       let watermarkContent = "See more at MyYearInQuarantine.com";
-  //       const image = new Image();
-  //       image.src = dataUrl;
-  //       watermark([image])
-  //         .image(pos(x, y, watermarkContent, "48px Montserrat", "#000", 1))
-  //         // .image(watermark.text.lowerRight(watermarkContent, "48px Montserrat", "#000", 1))
-  //         .then((img) => {
-  //           // document.getElementById("preview-page").appendChild(img);
-  //           var link = document.createElement("a");
-  //           link.download = "My Year in Quarantine timeline.jpeg";
-  //           link.href = img.src;
-  //           link.click();
-  //         });
-  //     })
-  //     .catch(function (error) {
-  //       console.error("oops, something went wrong!", error);
-  //     });
-  //   setTimeout(() => {
-  //     setShowDownloadTimeline(false);
-  //   }, 300);
-  // };
-
-  // const downloadTimelineAsHorizontalJPEG = () => {
-  //   var node = document.getElementById("captureHorizontal");
-  //   domtoimage
-  //     .toPng(node, {
-  //       bgcolor: "white",
-  //       width: node.clientWidth * scale,
-  //       height: node.clientHeight * scale,
-  //       style: {
-  //         transform: "scale(" + scale + ")",
-  //         transformOrigin: "top left",
-  //       },
-  //     })
-  //     .then(function (dataUrl) {
-  //       var x = function (canvas, metrics, context) {
-  //         return canvas.width - 970;
-  //       };
-
-  //       var y = function (canvas, metrics, context) {
-  //         return canvas.height - 70;
-  //       };
-  //       let pos = watermark.text.atPos;
-  //       let watermarkContent = "See more at MyYearInQuarantine.com";
-  //       const image = new Image();
-  //       image.src = dataUrl;
-  //       watermark([image])
-  //         .image(pos(x, y, watermarkContent, "48px Montserrat", "#000", 1))
-  //         // .image(watermark.text.lowerRight(watermarkContent, "48px Montserrat", "#000", 1))
-  //         .then((img) => {
-  //           // document.getElementById("preview-page").appendChild(img);
-  //           var link = document.createElement("a");
-  //           link.download = "My Year in Quarantine timeline.jpeg";
-  //           link.href = img.src;
-  //           link.click();
-  //         });
-  //     })
-  //     .catch(function (error) {
-  //       console.error("oops, something went wrong!", error);
-  //     });
-  // setTimeout(() => {
-  //   setShowDownloadTimelineHorizontal(false);
-  // }, 300);
-  // };
+  // download image set
+  useEffect(() => {
+    downloadTimeline(
+      showDownloadTimelineMultiple,
+      setShowDownloadTimelineMultiple,
+      downloadTimelineAsImageSet
+    );
+  }, [showDownloadTimelineMultiple]);
 
   return (
     <div className="preview-page" id="preview-page">
@@ -224,14 +166,16 @@ const PreviewPage = () => {
         setMakePublic={setMakePublic}
         setShowDownloadTimeline={setShowDownloadTimeline}
         setShowDownloadTimelineHorizontal={setShowDownloadTimelineHorizontal}
+        setShowDownloadTimelineMultiple={setShowDownloadTimelineMultiple}
       />
       {showDownloadTimeline && (
         <Timeline answers={answers} compressed={true} captureID={"capture"} />
       )}
-      {showDownloadTimelineHorizontal && (
+      {(showDownloadTimelineHorizontal || showDownloadTimelineMultiple) && (
         <HorizontalTimeline
           answers={answers}
           compressed={true}
+          downloadMultipleMode={showDownloadTimelineMultiple ? true : false}
           captureID={"captureHorizontal"}
         />
       )}

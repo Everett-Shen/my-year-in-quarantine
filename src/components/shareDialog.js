@@ -38,6 +38,7 @@ const ShareDialog = ({
   setMakePublic,
   setShowDownloadTimeline,
   setShowDownloadTimelineHorizontal,
+  setShowDownloadTimelineMultiple,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClose = () => {
@@ -126,7 +127,7 @@ const ShareDialog = ({
                     handleClose();
                   }}
                 >
-                  Save as single image
+                  Save as vertical image
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
@@ -135,8 +136,16 @@ const ShareDialog = ({
                   }}
                 >
                   <p>
-                    <pre>{"Save as multiple images"}</pre>
+                    <pre>{"Save as horizontal image"}</pre>
                   </p>
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    setShowDownloadTimelineMultiple(true);
+                    handleClose();
+                  }}
+                >
+                  Save as image set (recommended for social media)
                 </MenuItem>
               </Menu>
             </div>

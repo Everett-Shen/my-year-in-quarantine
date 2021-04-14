@@ -1,13 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import TimelineTitle from "./timelineTitle";
 import Entry from "./entry";
-import Divider from "./divider";
+import HorizontalDivider from "./horizontalDivider";
 import { format } from "date-fns";
 // import { animateScroll as scroll, scrollSpy, scroller } from "react-scroll";
 // import { useSwipeable } from "react-swipeable";
 // import { useDoubleTap } from "use-double-tap";
 
-const HorizontalTimeline = ({ answers, compressed, captureID }) => {
+const HorizontalTimeline = ({
+  answers,
+  compressed,
+  captureID,
+  downloadMultipleMode,
+}) => {
   const [scrollTarget, setScrollTarget] = useState(0);
   const dividerHeight = compressed ? "200px" : "700px";
   const answersRef = useRef(answers);
@@ -20,6 +25,8 @@ const HorizontalTimeline = ({ answers, compressed, captureID }) => {
     return format(new Date(date), "MMM dd yyyy");
   };
 
+  const dividerWidth = "100px";
+
   return (
     <div id={captureID} className="timeline-container-horizontal">
       {/* title block*/}
@@ -30,7 +37,7 @@ const HorizontalTimeline = ({ answers, compressed, captureID }) => {
           id={"capture-1"}
           compressed={compressed}
         />
-        <div style={{ width: "100px" }}></div>
+        <HorizontalDivider width="150px" />
         {/* {!compressed && <Divider height={dividerHeight} />} */}
 
         {/* introduction block */}
@@ -46,26 +53,31 @@ const HorizontalTimeline = ({ answers, compressed, captureID }) => {
           id={"1"}
           compressed={compressed}
         />
-        {/* <Divider height={dividerHeight} />*/}
+        <HorizontalDivider width={dividerWidth} />
 
         {answers.entries &&
           answers.entries.map((entry, index) => {
             return (
-              <Entry
-                date={
-                  entry.date
-                    ? formatDate(entry.date)
-                    : `${formatDate(entry.from)} -  \n ${formatDate(entry.to)}`
-                }
-                title={entry.entry}
-                content={
-                  <div>
-                    <p>{entry.description ? entry.description : ""}</p>
-                  </div>
-                }
-                id={String(index + 2)}
-                compressed={compressed}
-              />
+              <React.Fragment key={index}>
+                <Entry
+                  date={
+                    entry.date
+                      ? formatDate(entry.date)
+                      : `${formatDate(entry.from)} -  \n ${formatDate(
+                          entry.to
+                        )}`
+                  }
+                  title={entry.entry}
+                  content={
+                    <div>
+                      <p>{entry.description ? entry.description : ""}</p>
+                    </div>
+                  }
+                  id={String(index + 2)}
+                  compressed={compressed}
+                />
+                <HorizontalDivider width={dividerWidth} />
+              </React.Fragment>
             );
           })}
       </div>
