@@ -65,8 +65,9 @@
   .timeline-container-horizontal {
     position: relative;
     margin-top: 100px;
-    height: $horizontal-timeline-height;
+    height: fit-content;
     width: fit-content;
+    padding-top: $horizontal-timeline-distance-from-bottom;
     &::after {
       content: "";
       position: absolute;
@@ -87,6 +88,7 @@
       display: flex;
       align-items: flex-end;
       width: fit-content;
+      height: fit-content;
     }
 
     .entry-container {
@@ -94,6 +96,7 @@
       margin: 0px 150px $horizontal-timeline-distance-from-bottom 0px;
       position: relative;
       display: inline-block;
+      height: fit-content;
     }
     .entry-content {
       position: relative;

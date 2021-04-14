@@ -50,25 +50,21 @@ const HorizontalTimeline = ({ answers, compressed, captureID }) => {
         {answers.entries &&
           answers.entries.map((entry, index) => {
             return (
-              <div key={index} style={{ display: "inline-block" }}>
-                <Entry
-                  date={
-                    entry.date
-                      ? formatDate(entry.date)
-                      : `${formatDate(entry.from)} -  \n ${formatDate(
-                          entry.to
-                        )}`
-                  }
-                  title={entry.entry}
-                  content={
-                    <div>
-                      <p>{entry.description ? entry.description : ""}</p>
-                    </div>
-                  }
-                  id={String(index + 2)}
-                  compressed={compressed}
-                />
-              </div>
+              <Entry
+                date={
+                  entry.date
+                    ? formatDate(entry.date)
+                    : `${formatDate(entry.from)} -  \n ${formatDate(entry.to)}`
+                }
+                title={entry.entry}
+                content={
+                  <div>
+                    <p>{entry.description ? entry.description : ""}</p>
+                  </div>
+                }
+                id={String(index + 2)}
+                compressed={compressed}
+              />
             );
           })}
       </div>
