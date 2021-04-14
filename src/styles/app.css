@@ -76,7 +76,7 @@
   margin-top: 100px;
   height: fit-content;
   width: fit-content;
-  padding-top: 100px;
+  padding-top: 150px;
 }
 .preview-page .timeline-container-horizontal::after, .preview-page .timeline-container-horizontal-no-margin-left::after {
   content: "";
@@ -85,7 +85,7 @@
   width: 100%;
   height: 4px;
   margin-left: 300px;
-  bottom: 100px;
+  bottom: 150px;
   z-index: 1;
 }
 .preview-page .timeline-container-horizontal .timeline-content-horizontal, .preview-page .timeline-container-horizontal-no-margin-left .timeline-content-horizontal {
@@ -105,7 +105,7 @@
 }
 .preview-page .timeline-container-horizontal .entry-container, .preview-page .timeline-container-horizontal .entry-content-title, .preview-page .timeline-container-horizontal-no-margin-left .entry-container, .preview-page .timeline-container-horizontal-no-margin-left .entry-content-title {
   width: 250px;
-  margin: 0px 0px 100px 0px;
+  margin: 0px 0px 150px 0px;
   position: relative;
   display: inline-block;
   height: fit-content;

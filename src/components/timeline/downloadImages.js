@@ -12,18 +12,18 @@ const downloadTimelineAsVerticalJPEG = () => {
 };
 
 const downloadTimelineAsHorizontalJPEG = () => {
-  getJPEG("captureHorizontal").then((img) => {
+  getJPEG("captureHorizontal", "horizontal").then((img) => {
     downloadImage(img);
   });
 };
 
 const downloadTimelineAsImageSet = (imageCount) => {
-  getJPEG("captureHorizontal").then((img) => {
+  getJPEG("captureHorizontal", "horizontal").then((img) => {
     splitImageAndDownload(img, imageCount);
   });
 };
 
-const getJPEG = (id) => {
+const getJPEG = (id, orientation = "vertical") => {
   var node = document.getElementById(id);
   return domtoimage
     .toPng(node, {
@@ -37,14 +37,14 @@ const getJPEG = (id) => {
     })
     .then((dataUrl) => {
       var x = function (canvas, metrics, context) {
-        return canvas.width - 970;
+        return orientation === "vertical" ? canvas.width - 700 : 100;
       };
 
       var y = function (canvas, metrics, context) {
         return canvas.height - 70;
       };
       let pos = watermark.text.atPos;
-      let watermarkContent = "See more at MyYearInQuarantine.com";
+      let watermarkContent = "MyYearInQuarantine.com";
       const image = new Image();
       image.src = dataUrl;
       return watermark([image])
