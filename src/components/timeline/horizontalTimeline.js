@@ -30,6 +30,7 @@ const HorizontalTimeline = ({ answers, compressed, captureID }) => {
           id={"0"}
           compressed={compressed}
         />
+        <div style={{ width: "100px" }}></div>
         {/* {!compressed && <Divider height={dividerHeight} />} */}
 
         {/* introduction block */}

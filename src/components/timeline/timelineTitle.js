@@ -7,7 +7,7 @@ const TimelineTitle = ({ title, name, id, compressed }) => {
   return (
     <EntryContainer>
       {
-        <div className="entry-content" id={id}>
+        <div className="entry-content-title" id={id}>
           <ScrollAnimation
             animateIn="animate__fadeInRight"
             duration={0.9}

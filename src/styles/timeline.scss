@@ -100,7 +100,12 @@
     }
     .entry-content {
       position: relative;
-      bottom: 50px;
+      bottom: 100px;
+      &-title {
+        @extend .entry-container;
+        left: 45%;
+        bottom: -50px;
+      }
     }
     .circle {
       @include circle-horizontal($timeline-container-width);
