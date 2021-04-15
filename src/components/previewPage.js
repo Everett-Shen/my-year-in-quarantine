@@ -14,6 +14,7 @@ import {
   downloadTimelineAsHorizontalJPEG,
   downloadTimelineAsImageSet,
 } from "./timeline/downloadImages";
+import BaseDialog from "./timeline/baseDialog.js";
 
 const PreviewPage = () => {
   const [answers, setAnswers] = useState({});
@@ -151,16 +152,21 @@ const PreviewPage = () => {
         saveAndExport={() => setIsOpen(true)}
         continueEditing={() => history.push("/create")}
       />
-      <ShareDialog
+      <BaseDialog
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        shareURL={"https://myyearinquarantine.com"}
-        makePublic={makePublic}
-        setMakePublic={setMakePublic}
-        setShowDownloadTimeline={setShowDownloadTimeline}
-        setShowDownloadTimelineHorizontal={setShowDownloadTimelineHorizontal}
-        setShowDownloadTimelineMultiple={setShowDownloadTimelineMultiple}
-      />
+        title={"Export and Share"}
+      >
+        <ShareDialog
+          shareURL={"https://myyearinquarantine.com"}
+          makePublic={makePublic}
+          setMakePublic={setMakePublic}
+          setShowDownloadTimeline={setShowDownloadTimeline}
+          setShowDownloadTimelineHorizontal={setShowDownloadTimelineHorizontal}
+          setShowDownloadTimelineMultiple={setShowDownloadTimelineMultiple}
+        />
+      </BaseDialog>
+
       {showDownloadTimeline && (
         <Timeline answers={answers} compressed={true} captureID={"capture"} />
       )}

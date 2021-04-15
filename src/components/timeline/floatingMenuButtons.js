@@ -10,6 +10,8 @@ import AddIcon from "@material-ui/icons/Add";
 import ClearIcon from "@material-ui/icons/Clear";
 import ShareIcon from "@material-ui/icons/Share";
 import EditIcon from "@material-ui/icons/Edit";
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
+import DoneIcon from "@material-ui/icons/Done";
 import variables from "../../styles/variables.module.scss";
 
 const FloatingMenuButtons = ({ continueEditing, saveAndExport }) => {
@@ -44,12 +46,8 @@ const FloatingMenuButtons = ({ continueEditing, saveAndExport }) => {
         />
         <ChildButton
           icon={
-            <Tooltip
-              title="Save and export"
-              placement="left"
-              open={areTooltipsOpen}
-            >
-              <ShareIcon style={{ fontSize: 20, color: "white" }} />
+            <Tooltip title="Finish" placement="left" open={areTooltipsOpen}>
+              <DoneIcon style={{ fontSize: 20, color: "white" }} />
             </Tooltip>
           }
           background={variables.primaryColor}
