@@ -4,12 +4,24 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import { FirebaseAppProvider } from "reactfire";
+const firebaseConfig = {
+  apiKey: "AIzaSyAS0nBZ7uWDb0_3sY-zemq6bwt_VM7CH9g",
+  authDomain: "my-year-in-quarantine.firebaseapp.com",
+  projectId: "my-year-in-quarantine",
+  storageBucket: "my-year-in-quarantine.appspot.com",
+  messagingSenderId: "769733569759",
+  appId: "1:769733569759:web:7f57cabe98327b37578d6a",
+  measurementId: "G-7PYFL4E4S1",
+};
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </FirebaseAppProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
