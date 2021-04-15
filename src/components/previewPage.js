@@ -15,12 +15,14 @@ import {
   downloadTimelineAsImageSet,
 } from "./timeline/downloadImages";
 import BaseDialog from "./timeline/baseDialog.js";
+import PublishDialog from "./timeline/publishDialog.js";
 
 const PreviewPage = () => {
   const [answers, setAnswers] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   const history = useHistory();
   const [makePublic, setMakePublic] = useState(true);
+  const [makeAnonymous, setMakeAnonymous] = useState(false);
   const [showDownloadTimeline, setShowDownloadTimeline] = useState(false);
   const [
     showDownloadTimelineHorizontal,
@@ -96,6 +98,10 @@ const PreviewPage = () => {
     );
   }, [showDownloadTimelineMultiple]);
 
+  const publishTimeline = () => {
+    console.log("timeline published");
+  };
+
   return (
     <div className="preview-page" id="preview-page">
       {/* necessary for getting the right font in downloaded image */}
@@ -152,16 +158,20 @@ const PreviewPage = () => {
         saveAndExport={() => setIsOpen(true)}
         continueEditing={() => history.push("/create")}
       />
-      <BaseDialog
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        title={"Export and Share"}
-      >
-        <ShareDialog
+      <BaseDialog isOpen={isOpen} setIsOpen={setIsOpen}>
+        {/* <ShareDialog
+          shareURL={"https://myyearinquarantine.com"}
+          setShowDownloadTimeline={setShowDownloadTimeline}
+          setShowDownloadTimelineHorizontal={setShowDownloadTimelineHorizontal}
+          setShowDownloadTimelineMultiple={setShowDownloadTimelineMultiple}
+        /> */}
+        <PublishDialog
           shareURL={"https://myyearinquarantine.com"}
           makePublic={makePublic}
           setMakePublic={setMakePublic}
           setShowDownloadTimeline={setShowDownloadTimeline}
+          makeAnonymous={makeAnonymous}
+          setMakeAnonymous={setMakeAnonymous}
           setShowDownloadTimelineHorizontal={setShowDownloadTimelineHorizontal}
           setShowDownloadTimelineMultiple={setShowDownloadTimelineMultiple}
         />

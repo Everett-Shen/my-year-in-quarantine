@@ -46,17 +46,17 @@ const ShareDialog = ({
   const updateMakePublic = (e) => {
     setMakePublic(e.target.checked);
   };
-  const ColoredCheckbox = withStyles({
-    root: {
-      // color: "rgb(255, 118, 118)",
-      "&$checked": {
-        color: "rgb(255, 118, 118)",
-      },
-    },
-    checked: {},
-  })((props) => <Checkbox color="default" {...props} />);
+  // const ColoredCheckbox = withStyles({
+  //   root: {
+  //     // color: "rgb(255, 118, 118)",
+  //     "&$checked": {
+  //       color: "rgb(255, 118, 118)",
+  //     },
+  //   },
+  //   checked: {},
+  // })((props) => <Checkbox color="default" {...props} />);
   return (
-    <div>
+    <>
       <div
         style={{
           display: "flex",
@@ -159,7 +159,7 @@ const ShareDialog = ({
             }
           />
         </FormControl>
-        <FormControlLabel
+        {/* <FormControlLabel
           // style={{ float: "right", marginRight: "0px" }}
           label="make timeline public"
           control={
@@ -170,9 +170,9 @@ const ShareDialog = ({
               color="primary"
             />
           }
-        />
+        /> */}
       </div>
-    </div>
+    </>
   );
 };
 export default ShareDialog;
