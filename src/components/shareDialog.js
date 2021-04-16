@@ -73,7 +73,7 @@ const ShareDialog = ({
           onClick={openSaveMenu}
           size="medium"
         >
-          <Tooltip title="download">
+          <Tooltip title="download" enterTouchDelay={0}>
             <GetAppIcon fontSize="large" />
           </Tooltip>
         </IconButton>

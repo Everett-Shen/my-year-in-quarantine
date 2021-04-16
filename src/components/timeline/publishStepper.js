@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Stepper, Step, StepLabel, Typography } from "@material-ui/core";
+import {
+  Stepper,
+  Step,
+  StepLabel,
+  Typography,
+  StepButton,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import ActionButton from "../baseComponents/actionButton";
 import SecondaryButton from "../baseComponents/secondaryButton";
@@ -26,14 +32,15 @@ const PublishStepper = ({
   shareDialog,
   finish,
   publishTimeline,
+  formSubmitted,
 }) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
 
-  const publishAndNext = () => {
-    publishTimeline();
-    handleNext();
+  const publishAndNext = async () => {
+    let success = await publishTimeline();
+    if (success) handleNext();
   };
 
   function getStepContent(step) {
@@ -78,10 +85,15 @@ const PublishStepper = ({
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  const handleStep = (step) => () => {
+    setActiveStep(step);
+  };
+
   return (
     <div className="">
       {/* stepper */}
       <Stepper
+        nonLinear
         activeStep={activeStep}
         className={classes.root}
         alternativeLabel
@@ -98,15 +110,13 @@ const PublishStepper = ({
           }
 
           return (
-            <Step key={label} {...stepProps}>
-              <StepLabel
-                {...labelProps}
-                classes={{
-                  labelContainer: "centered-div",
-                }}
+            <Step key={label}>
+              <StepButton
+                onClick={handleStep(index)}
+                // completed={completed[index]}
               >
                 {label}
-              </StepLabel>
+              </StepButton>
             </Step>
           );
         })}
@@ -114,12 +124,7 @@ const PublishStepper = ({
       <div>
         <div>
           {/* content */}
-          {/* <Typography
-            className={classes.instructions}
-            style={{ margin: " 0px 30px" }}
-          >
-            {getStepContent(activeStep).label}
-          </Typography> */}
+
           {getStepContent(activeStep).component}
           {/* button row */}
           <div
@@ -138,6 +143,12 @@ const PublishStepper = ({
             <ActionButton
               text={getStepContent(activeStep).buttonText}
               onClick={getStepContent(activeStep).action}
+              disabled={activeStep === 0 && formSubmitted}
+              disabledMessage={
+                activeStep === 0 && formSubmitted
+                  ? "You've already published this timeline!"
+                  : ""
+              }
             />
           </div>
         </div>

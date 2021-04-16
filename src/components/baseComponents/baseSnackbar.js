@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SuccessSnackbar({ open, setOpen, message }) {
+export default function BaseSnackbar({ open, setOpen, message, severity }) {
   const classes = useStyles();
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -29,7 +29,7 @@ export default function SuccessSnackbar({ open, setOpen, message }) {
   return (
     <div className={classes.root}>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success">
+        <Alert onClose={handleClose} severity={severity}>
           {message}
         </Alert>
       </Snackbar>

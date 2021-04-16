@@ -45,6 +45,13 @@
   &:active {
     background-color: $primary-color-darker;
   }
+  &-disabled {
+    background-color: rgb(134, 134, 134);
+    cursor: default;
+    &:active {
+      background-color: rgb(134, 134, 134);
+    }
+  }
 }
 
 .secondary-button {

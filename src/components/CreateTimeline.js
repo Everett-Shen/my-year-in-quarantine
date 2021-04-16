@@ -19,6 +19,7 @@ import ScrollAnimation from "react-animate-on-scroll";
 import "animate.css/animate.min.css";
 
 const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
+const LOCAL_STORAGE_FORM_SUBMITTED_KEY = "my-year-in-quarantine-form-submitted";
 
 const TextInput = ({ ...props }) => {
   const [field] = useField(props);
@@ -716,6 +717,8 @@ const CreateTimeline = () => {
                 .then((valid) => {
                   setErrors([]);
                   console.log(answers);
+                  // prevent resubmission
+                  localStorage.setItem(LOCAL_STORAGE_FORM_SUBMITTED_KEY, false);
                   history.push("/preview");
                 })
                 .catch((err) => {

@@ -20,6 +20,7 @@ const HelpTooltip = ({ contents }) => {
         title={contents}
         placement="bottom"
         classes={{ tooltip: "centered" }}
+        enterTouchDelay={0}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

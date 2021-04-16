@@ -17,7 +17,9 @@ import {
 import BaseDialog from "./timeline/baseDialog.js";
 import PublishDialog from "./timeline/publishDialog.js";
 import PublishStepper from "./timeline/publishStepper.js";
-import SuccessSnackbar from "./baseComponents/successSnackbar";
+import BaseSnackbar from "./baseComponents/baseSnackbar";
+import "firebase/firestore";
+import { useFirestoreDocData, useFirestore } from "reactfire";
 
 const PreviewPage = () => {
   const [answers, setAnswers] = useState({});
@@ -35,8 +37,12 @@ const PreviewPage = () => {
     setShowDownloadTimelineMultiple,
   ] = useState(false);
   const [published, setPublished] = useState(false);
-
+  const [publishFailed, setPublishFailed] = useState(false);
+  const [docID, setDocID] = useState("");
+  const [formSubmitted, setFormSubmitted] = useState(false);
   const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
+  const LOCAL_STORAGE_FORM_PUBLISHED_KEY =
+    "my-year-in-quarantine-form-submitted";
 
   useEffect(() => {
     setTimeout(() => window.scrollTo(0, 0), 150); // ugly solution, but kinda works
@@ -45,11 +51,15 @@ const PreviewPage = () => {
     //   localStorage.getItem(LOCAL_STORAGE_KEY)
     // );
     // if (localStorageAnswers) setAnswers(organizeAnswers(localStorageAnswers));
-    setAnswers(organizeAnswers(defaultAnswers.default));
-    localStorage.setItem(
-      LOCAL_STORAGE_KEY,
-      JSON.stringify(defaultAnswers.default)
+
+    setFormSubmitted(
+      JSON.parse(localStorage.getItem(LOCAL_STORAGE_FORM_PUBLISHED_KEY))
     );
+
+    setAnswers(organizeAnswers(defaultAnswers.default));
+    // localStorage.setItem(
+    //   LOCAL_STORAGE_KEY,
+    //   JSON.stringify(defaultAnswers.default)
   }, []);
 
   const organizeAnswers = (answers) => {
@@ -78,6 +88,7 @@ const PreviewPage = () => {
   };
 
   // download vertical timeline
+
   useEffect(() => {
     downloadTimeline(
       showDownloadTimeline,
@@ -102,9 +113,24 @@ const PreviewPage = () => {
     );
   }, [showDownloadTimelineMultiple]);
 
-  const publishTimeline = () => {
-    console.log("timeline published");
-    setPublished(true);
+  const timelinesRef = useFirestore().collection("timelines");
+  const fieldValue = useFirestore.FieldValue;
+
+  const publishTimeline = async () => {
+    return timelinesRef
+      .add({ ...answers, created: fieldValue.serverTimestamp() })
+      .then((doc) => {
+        setDocID(doc.id);
+        console.log("doc ID: ", doc.id);
+        setPublished(true);
+        localStorage.setItem(LOCAL_STORAGE_FORM_PUBLISHED_KEY, true);
+        setFormSubmitted(true);
+        return true;
+      })
+      .catch((err) => {
+        setPublishFailed(true);
+        return false;
+      });
   };
 
   return (
@@ -195,6 +221,7 @@ const PreviewPage = () => {
             setIsOpen(false);
           }}
           publishTimeline={publishTimeline}
+          formSubmitted={formSubmitted}
         />
       </BaseDialog>
 
@@ -209,10 +236,19 @@ const PreviewPage = () => {
           captureID={"captureHorizontal"}
         />
       )}
-      <SuccessSnackbar
+      {/* for publish success */}
+      <BaseSnackbar
         open={published}
         setOpen={setPublished}
         message={"Congrats! Your timeline has been published!"}
+        severity={"success"}
+      />
+      {/* for publish failure */}
+      <BaseSnackbar
+        open={publishFailed}
+        setOpen={setPublishFailed}
+        message={"There was an error. Please try again later"}
+        severity={"error"}
       />
     </div>
   );

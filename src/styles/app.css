@@ -546,6 +546,13 @@
 .action-button:active {
   background-color: #ff6d6d;
 }
+.action-button-disabled {
+  background-color: #868686;
+  cursor: default;
+}
+.action-button-disabled:active {
+  background-color: #868686;
+}
 
 .secondary-button {
   margin: 10px;
