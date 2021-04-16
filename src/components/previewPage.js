@@ -118,7 +118,12 @@ const PreviewPage = () => {
 
   const publishTimeline = async () => {
     return timelinesRef
-      .add({ ...answers, created: fieldValue.serverTimestamp() })
+      .add({
+        ...answers,
+        created: fieldValue.serverTimestamp(),
+        public: makePublic,
+        anonymous: makeAnonymous,
+      })
       .then((doc) => {
         setDocID(doc.id);
         console.log("doc ID: ", doc.id);

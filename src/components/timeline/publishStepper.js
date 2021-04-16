@@ -101,8 +101,9 @@ const PublishStepper = ({
         {steps.map((label, index) => {
           const stepProps = {};
           const labelProps = {};
+          const buttonProps = {};
           if (isStepOptional(index)) {
-            labelProps.optional = (
+            buttonProps.optional = (
               <Typography variant="caption" align="center">
                 Optional
               </Typography>
@@ -111,10 +112,7 @@ const PublishStepper = ({
 
           return (
             <Step key={label}>
-              <StepButton
-                onClick={handleStep(index)}
-                // completed={completed[index]}
-              >
+              <StepButton onClick={handleStep(index)} {...buttonProps}>
                 {label}
               </StepButton>
             </Step>

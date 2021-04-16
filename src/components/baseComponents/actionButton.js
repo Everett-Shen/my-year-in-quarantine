@@ -13,13 +13,18 @@ const ActionButton = ({
       disableFocusListener={true}
       enterTouchDelay={0}
     >
-      <button
-        className={`action-button ${disabled ? "action-button-disabled" : ""}`}
-        onClick={onClick}
-        disabled={disabled}
-      >
-        <span style={{ outline: "none" }}>{text}</span>
-      </button>
+      <span>
+        {" "}
+        <button
+          className={`action-button ${
+            disabled ? "action-button-disabled" : ""
+          }`}
+          onClick={onClick}
+          disabled={disabled}
+        >
+          <span style={{ outline: "none" }}>{text}</span>
+        </button>
+      </span>
     </Tooltip>
   );
 };

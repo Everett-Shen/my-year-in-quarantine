@@ -16,11 +16,11 @@ const HelpTooltip = ({ contents }) => {
   return (
     <>
       <LightTooltip
-        disableFocusListener
         title={contents}
         placement="bottom"
         classes={{ tooltip: "centered" }}
         enterTouchDelay={0}
+        leaveTouchDelay={5000}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
