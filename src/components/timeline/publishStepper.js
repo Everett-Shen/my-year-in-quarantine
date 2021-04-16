@@ -25,19 +25,41 @@ function getButtonText() {
   return ["Publish", "Next", "Finish"];
 }
 
-const PublishStepper = ({ publishDialog, shareDialog, finish }) => {
+const PublishStepper = ({
+  publishDialog,
+  shareDialog,
+  finish,
+  publishTimeline,
+}) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
 
+  const publishAndNext = () => {
+    publishTimeline();
+    handleNext();
+  };
+
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return { label: "Publish timeline!", component: publishDialog };
+        return {
+          label: "Publish timeline!",
+          component: publishDialog,
+          action: publishAndNext,
+        };
       case 1:
-        return { label: "Create Account (optional)", component: null };
+        return {
+          label: "Create Account (optional)",
+          component: null,
+          action: handleNext,
+        };
       case 2:
-        return { label: "Export and Share", component: shareDialog };
+        return {
+          label: "Export and Share",
+          component: shareDialog,
+          action: finish,
+        };
       default:
         return "Unknown step";
     }
@@ -105,9 +127,7 @@ const PublishStepper = ({ publishDialog, shareDialog, finish }) => {
 
             <ActionButton
               text={getButtonText()[activeStep]}
-              onClick={
-                activeStep !== getSteps().length - 1 ? handleNext : finish
-              }
+              onClick={getStepContent(activeStep).action}
             />
           </div>
         </div>

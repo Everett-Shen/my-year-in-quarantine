@@ -17,6 +17,7 @@ import {
 import BaseDialog from "./timeline/baseDialog.js";
 import PublishDialog from "./timeline/publishDialog.js";
 import PublishStepper from "./timeline/publishStepper.js";
+import SuccessSnackbar from "./baseComponents/successSnackbar";
 
 const PreviewPage = () => {
   const [answers, setAnswers] = useState({});
@@ -33,6 +34,8 @@ const PreviewPage = () => {
     showDownloadTimelineMultiple,
     setShowDownloadTimelineMultiple,
   ] = useState(false);
+  const [published, setPublished] = useState(false);
+
   const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
 
   useEffect(() => {
@@ -101,6 +104,7 @@ const PreviewPage = () => {
 
   const publishTimeline = () => {
     console.log("timeline published");
+    setPublished(true);
   };
 
   return (
@@ -183,11 +187,14 @@ const PreviewPage = () => {
                 setShowDownloadTimelineHorizontal
               }
               setShowDownloadTimelineMultiple={setShowDownloadTimelineMultiple}
+              published={published}
+              setPublished={setPublished}
             />
           }
           finish={() => {
             setIsOpen(false);
           }}
+          publishTimeline={publishTimeline}
         />
       </BaseDialog>
 
@@ -202,6 +209,11 @@ const PreviewPage = () => {
           captureID={"captureHorizontal"}
         />
       )}
+      <SuccessSnackbar
+        open={published}
+        setOpen={setPublished}
+        message={"Congrats! Your timeline has been published!"}
+      />
     </div>
   );
 };

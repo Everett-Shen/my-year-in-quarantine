@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core";
 import ActionButton from "../baseComponents/actionButton";
 import HelpTooltip from "../baseComponents/helpTooltip";
+import SuccessSnackbar from "../baseComponents/successSnackbar";
 
 const ColoredCheckbox = withStyles({
   root: {
@@ -28,7 +29,6 @@ const PublishDialog = ({
   setMakePublic,
   makeAnonymous,
   setMakeAnonymous,
-  publishTimeline,
 }) => {
   const updateMakePublic = (e) => {
     setMakePublic(e.target.checked);
