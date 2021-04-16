@@ -7,32 +7,19 @@ import "animate.css/animate.min.css";
 import ShareDialog from "../shareDialog";
 import FloatingMenuButtons from "./floatingMenuButtons";
 import BaseDialog from "./baseDialog.js";
-import PublishDialog from "./publishDialog.js";
-import PublishStepper from "./publishStepper.js";
-import BaseSnackbar from "../baseComponents/baseSnackbar";
 
-const PreviewUI = ({
+const ViewUI = ({
   answers,
   isOpen,
   setIsOpen,
   history,
-  makePublic,
-  setMakePublic,
   showDownloadTimeline,
   setShowDownloadTimeline,
-  makeAnonymous,
-  setMakeAnonymous,
   setShowDownloadTimelineHorizontal,
   setShowDownloadTimelineMultiple,
   docID,
-  published,
-  setPublished,
-  publishTimeline,
-  formSubmitted,
   showDownloadTimelineHorizontal,
   showDownloadTimelineMultiple,
-  publishFailed,
-  setPublishFailed,
 }) => {
   return (
     <div className="preview-page" id="preview-page">
@@ -69,11 +56,9 @@ const PreviewUI = ({
           <Timeline answers={answers} compressed={false} />
         </ScrollAnimation>
       </div>
-      {/* <Divider style={{ margin: "20px auto 40px auto", width: "95%" }} /> */}
       <div className="button-container">
         <div
           style={{
-            // float: "right",
             marginRight: "5%",
             position: "relative",
             textAlign: "center",
@@ -81,49 +66,24 @@ const PreviewUI = ({
             height: "140px",
           }}
         >
-          <p>end of preview</p>
-          <br />
-          <br />
+          <p>present</p>
         </div>
       </div>
       <FloatingMenuButtons
         saveAndExport={() => setIsOpen(true)}
         continueEditing={() => history.push("/create")}
+        previewMode={false}
       />
       <BaseDialog isOpen={isOpen} setIsOpen={setIsOpen}>
-        <PublishStepper
-          publishDialog={
-            <PublishDialog
-              shareURL={"https://myyearinquarantine.com"}
-              makePublic={makePublic}
-              setMakePublic={setMakePublic}
-              setShowDownloadTimeline={setShowDownloadTimeline}
-              makeAnonymous={makeAnonymous}
-              setMakeAnonymous={setMakeAnonymous}
-              setShowDownloadTimelineHorizontal={
-                setShowDownloadTimelineHorizontal
-              }
-              setShowDownloadTimelineMultiple={setShowDownloadTimelineMultiple}
-            />
-          }
-          shareDialog={
-            <ShareDialog
-              shareURL={docID ? `${window.location.host}/view/${docID}` : ""}
-              setShowDownloadTimeline={setShowDownloadTimeline}
-              setShowDownloadTimelineHorizontal={
-                setShowDownloadTimelineHorizontal
-              }
-              setShowDownloadTimelineMultiple={setShowDownloadTimelineMultiple}
-            />
-          }
-          finish={() => {
-            setIsOpen(false);
-          }}
-          publishTimeline={publishTimeline}
-          formSubmitted={formSubmitted}
+        <ShareDialog
+          shareURL={docID ? `${window.location.host}/view/${docID}` : ""}
+          setShowDownloadTimeline={setShowDownloadTimeline}
+          setShowDownloadTimelineHorizontal={setShowDownloadTimelineHorizontal}
+          setShowDownloadTimelineMultiple={setShowDownloadTimelineMultiple}
         />
       </BaseDialog>
 
+      {/* for downloading timeline */}
       {showDownloadTimeline && (
         <Timeline answers={answers} compressed={true} captureID={"capture"} />
       )}
@@ -135,22 +95,8 @@ const PreviewUI = ({
           captureID={"captureHorizontal"}
         />
       )}
-      {/* for publish success */}
-      <BaseSnackbar
-        open={published}
-        setOpen={setPublished}
-        message={"Congrats! Your timeline has been published!"}
-        severity={"success"}
-      />
-      {/* for publish failure */}
-      <BaseSnackbar
-        open={publishFailed}
-        setOpen={setPublishFailed}
-        message={"There was an error. Please try again later"}
-        severity={"error"}
-      />
     </div>
   );
 };
 
-export default PreviewUI;
+export default ViewUI;

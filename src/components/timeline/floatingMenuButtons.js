@@ -14,7 +14,11 @@ import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import DoneIcon from "@material-ui/icons/Done";
 import variables from "../../styles/variables.module.scss";
 
-const FloatingMenuButtons = ({ continueEditing, saveAndExport }) => {
+const FloatingMenuButtons = ({
+  continueEditing,
+  saveAndExport,
+  previewMode,
+}) => {
   const [isFloatingButtonMenuOpen, setIsFloatingButtonMenuOpen] = useState(
     false
   );
@@ -57,7 +61,7 @@ const FloatingMenuButtons = ({ continueEditing, saveAndExport }) => {
             setIsFloatingButtonMenuOpen(false);
           }}
         />
-
+        {/* {previewMode && <div></div>} */}
         <ChildButton
           icon={
             <Tooltip
