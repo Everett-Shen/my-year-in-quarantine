@@ -20,6 +20,7 @@ import "animate.css/animate.min.css";
 
 const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
 const LOCAL_STORAGE_FORM_SUBMITTED_KEY = "my-year-in-quarantine-form-submitted";
+const LOCAL_STORAGE_DOC_ID_KEY = "my-year-in-quarantine-doc-id";
 
 const TextInput = ({ ...props }) => {
   const [field] = useField(props);
@@ -719,6 +720,7 @@ const CreateTimeline = () => {
                   console.log(answers);
                   // prevent resubmission
                   localStorage.setItem(LOCAL_STORAGE_FORM_SUBMITTED_KEY, false);
+                  localStorage.setItem(LOCAL_STORAGE_DOC_ID_KEY, null);
                   history.push("/preview");
                 })
                 .catch((err) => {

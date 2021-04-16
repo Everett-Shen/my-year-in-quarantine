@@ -43,6 +43,7 @@ const PreviewPage = () => {
   const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
   const LOCAL_STORAGE_FORM_PUBLISHED_KEY =
     "my-year-in-quarantine-form-submitted";
+  const LOCAL_STORAGE_DOC_ID_KEY = "my-year-in-quarantine-doc-id";
 
   useEffect(() => {
     setTimeout(() => window.scrollTo(0, 0), 150); // ugly solution, but kinda works
@@ -55,11 +56,9 @@ const PreviewPage = () => {
     setFormSubmitted(
       JSON.parse(localStorage.getItem(LOCAL_STORAGE_FORM_PUBLISHED_KEY))
     );
-
+    let docID = localStorage.getItem(LOCAL_STORAGE_DOC_ID_KEY);
+    setDocID(docID);
     setAnswers(organizeAnswers(defaultAnswers.default));
-    // localStorage.setItem(
-    //   LOCAL_STORAGE_KEY,
-    //   JSON.stringify(defaultAnswers.default)
   }, []);
 
   const organizeAnswers = (answers) => {
@@ -126,6 +125,7 @@ const PreviewPage = () => {
       })
       .then((doc) => {
         setDocID(doc.id);
+        localStorage.setItem(LOCAL_STORAGE_DOC_ID_KEY, doc.id);
         console.log("doc ID: ", doc.id);
         setPublished(true);
         localStorage.setItem(LOCAL_STORAGE_FORM_PUBLISHED_KEY, true);
@@ -212,7 +212,7 @@ const PreviewPage = () => {
           }
           shareDialog={
             <ShareDialog
-              shareURL={"https://myyearinquarantine.com"}
+              shareURL={docID ? `${window.location.host}/view/${docID}` : ""}
               setShowDownloadTimeline={setShowDownloadTimeline}
               setShowDownloadTimelineHorizontal={
                 setShowDownloadTimelineHorizontal

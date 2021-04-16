@@ -26,6 +26,9 @@ import {
   TwitterIcon,
   WhatsappIcon,
 } from "react-share";
+import BaseSnackbar from "./baseComponents/baseSnackbar";
+import copy from "copy-to-clipboard";
+
 const ShareDialog = ({
   shareURL,
   makePublic,
@@ -35,6 +38,7 @@ const ShareDialog = ({
   setShowDownloadTimelineMultiple,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [copied, setCopied] = useState(false);
   const handleClose = () => {
     // for closing save menu
     setAnchorEl(null);
@@ -148,7 +152,10 @@ const ShareDialog = ({
               <InputAdornment position="end">
                 <IconButton
                   aria-label="copy link to clipboard"
-                  onClick={() => {}}
+                  onClick={() => {
+                    copy(shareURL);
+                    setCopied(true);
+                  }}
                   edge="end"
                 >
                   <Tooltip title="copy to clipboard">
@@ -172,6 +179,13 @@ const ShareDialog = ({
           }
         /> */}
       </div>
+      <BaseSnackbar
+        open={copied}
+        setOpen={setCopied}
+        message={"Copied"}
+        severity={"success"}
+        autoHideDuration={1500}
+      />
     </>
   );
 };

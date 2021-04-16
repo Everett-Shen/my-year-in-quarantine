@@ -16,7 +16,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BaseSnackbar({ open, setOpen, message, severity }) {
+export default function BaseSnackbar({
+  open,
+  setOpen,
+  message,
+  severity,
+  autoHideDuration = 6000,
+}) {
   const classes = useStyles();
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -28,7 +34,11 @@ export default function BaseSnackbar({ open, setOpen, message, severity }) {
 
   return (
     <div className={classes.root}>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar
+        open={open}
+        autoHideDuration={autoHideDuration}
+        onClose={handleClose}
+      >
         <Alert onClose={handleClose} severity={severity}>
           {message}
         </Alert>
