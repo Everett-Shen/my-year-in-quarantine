@@ -20,6 +20,14 @@ function App() {
       fontWeightRegular: 400,
       fontWeightMedium: 500,
     },
+    palette: {
+      primary: {
+        main: "rgba(255, 118, 118)",
+      },
+      // secondary: {
+      //   main: green[500],
+      // },
+    },
   });
 
   return (

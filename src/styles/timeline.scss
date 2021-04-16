@@ -173,5 +173,8 @@
 }
 
 .checkmarks {
-  margin-left: 10px;
+  width: fit-content;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
 }

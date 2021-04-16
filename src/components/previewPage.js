@@ -16,6 +16,7 @@ import {
 } from "./timeline/downloadImages";
 import BaseDialog from "./timeline/baseDialog.js";
 import PublishDialog from "./timeline/publishDialog.js";
+import PublishStepper from "./timeline/publishStepper.js";
 
 const PreviewPage = () => {
   const [answers, setAnswers] = useState({});
@@ -159,21 +160,34 @@ const PreviewPage = () => {
         continueEditing={() => history.push("/create")}
       />
       <BaseDialog isOpen={isOpen} setIsOpen={setIsOpen}>
-        {/* <ShareDialog
-          shareURL={"https://myyearinquarantine.com"}
-          setShowDownloadTimeline={setShowDownloadTimeline}
-          setShowDownloadTimelineHorizontal={setShowDownloadTimelineHorizontal}
-          setShowDownloadTimelineMultiple={setShowDownloadTimelineMultiple}
-        /> */}
-        <PublishDialog
-          shareURL={"https://myyearinquarantine.com"}
-          makePublic={makePublic}
-          setMakePublic={setMakePublic}
-          setShowDownloadTimeline={setShowDownloadTimeline}
-          makeAnonymous={makeAnonymous}
-          setMakeAnonymous={setMakeAnonymous}
-          setShowDownloadTimelineHorizontal={setShowDownloadTimelineHorizontal}
-          setShowDownloadTimelineMultiple={setShowDownloadTimelineMultiple}
+        <PublishStepper
+          publishDialog={
+            <PublishDialog
+              shareURL={"https://myyearinquarantine.com"}
+              makePublic={makePublic}
+              setMakePublic={setMakePublic}
+              setShowDownloadTimeline={setShowDownloadTimeline}
+              makeAnonymous={makeAnonymous}
+              setMakeAnonymous={setMakeAnonymous}
+              setShowDownloadTimelineHorizontal={
+                setShowDownloadTimelineHorizontal
+              }
+              setShowDownloadTimelineMultiple={setShowDownloadTimelineMultiple}
+            />
+          }
+          shareDialog={
+            <ShareDialog
+              shareURL={"https://myyearinquarantine.com"}
+              setShowDownloadTimeline={setShowDownloadTimeline}
+              setShowDownloadTimelineHorizontal={
+                setShowDownloadTimelineHorizontal
+              }
+              setShowDownloadTimelineMultiple={setShowDownloadTimelineMultiple}
+            />
+          }
+          finish={() => {
+            setIsOpen(false);
+          }}
         />
       </BaseDialog>
 

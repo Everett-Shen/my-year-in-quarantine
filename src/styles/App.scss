@@ -31,18 +31,46 @@
   padding: 5px 15px;
   font-size: 15px;
   outline: none;
-  cursor: "pointer";
+  cursor: pointer;
   text-decoration: none;
   background-color: $primary-color;
   border: 0px;
-  width: 100px;
-  height: 40px;
+  width: 90px;
+  height: 35px;
   line-height: 10px;
   clear: both;
-  display: block;
+  display: inline-block;
   float: right;
   margin: 10px;
   &:active {
     background-color: $primary-color-darker;
   }
+}
+
+.secondary-button {
+  margin: 10px;
+  text-decoration: none;
+  width: 40px;
+  height: 40px;
+  color: gray;
+  border: none;
+  background-color: transparent;
+  font-size: 15px;
+  float: right;
+  outline: none;
+  cursor: pointer;
+}
+
+.align-items-center {
+  display: flex;
+  align-items: center;
+}
+
+.centered {
+  text-align: center;
+}
+
+.centered-div {
+  margin: auto;
+  padding: 0px;
 }

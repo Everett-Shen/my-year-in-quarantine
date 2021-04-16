@@ -177,7 +177,10 @@
 }
 
 .checkmarks {
-  margin-left: 10px;
+  width: fit-content;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 :export {
@@ -528,20 +531,48 @@
   padding: 5px 15px;
   font-size: 15px;
   outline: none;
-  cursor: "pointer";
+  cursor: pointer;
   text-decoration: none;
   background-color: #ff7676;
   border: 0px;
-  width: 100px;
-  height: 40px;
+  width: 90px;
+  height: 35px;
   line-height: 10px;
   clear: both;
-  display: block;
+  display: inline-block;
   float: right;
   margin: 10px;
 }
 .action-button:active {
   background-color: #ff6d6d;
+}
+
+.secondary-button {
+  margin: 10px;
+  text-decoration: none;
+  width: 40px;
+  height: 40px;
+  color: gray;
+  border: none;
+  background-color: transparent;
+  font-size: 15px;
+  float: right;
+  outline: none;
+  cursor: pointer;
+}
+
+.align-items-center {
+  display: flex;
+  align-items: center;
+}
+
+.centered {
+  text-align: center;
+}
+
+.centered-div {
+  margin: auto;
+  padding: 0px;
 }
 
 /*# sourceMappingURL=app.css.map */

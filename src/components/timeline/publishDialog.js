@@ -11,6 +11,7 @@ import {
   withStyles,
 } from "@material-ui/core";
 import ActionButton from "../baseComponents/actionButton";
+import HelpTooltip from "../baseComponents/helpTooltip";
 
 const ColoredCheckbox = withStyles({
   root: {
@@ -26,43 +27,54 @@ const PublishDialog = ({
   makePublic,
   setMakePublic,
   makeAnonymous,
-  updateMakeAnonymous,
+  setMakeAnonymous,
   publishTimeline,
 }) => {
   const updateMakePublic = (e) => {
     setMakePublic(e.target.checked);
   };
 
+  const updateMakeAnonymous = (e) => {
+    setMakeAnonymous(e.target.checked);
+  };
+
   return (
     <>
-      <h4>options</h4>
+      {/* <h4>options</h4> */}
       <br />
       <div className="checkmarks">
-        <FormControlLabel
-          label="make timeline public"
-          control={
-            <ColoredCheckbox
-              checked={makePublic}
-              onChange={updateMakePublic}
-              name="checkedB"
-              color="primary"
-            />
-          }
-        />
-        <FormControlLabel
-          label="make anonymous"
-          control={
-            <ColoredCheckbox
-              checked={makeAnonymous}
-              onChange={updateMakeAnonymous}
-              name="checkedB"
-              color="primary"
-            />
-          }
-        />
+        <div className="align-items-center">
+          <FormControlLabel
+            label="make timeline public"
+            control={
+              <ColoredCheckbox
+                checked={makePublic}
+                onChange={updateMakePublic}
+                name="checkedB"
+                color="primary"
+              />
+            }
+          />
+          <HelpTooltip contents="determines if your timeline will be searchable by others" />
+        </div>
+
+        <div className="align-items-center">
+          <FormControlLabel
+            label="make anonymous"
+            control={
+              <ColoredCheckbox
+                checked={makeAnonymous}
+                onChange={updateMakeAnonymous}
+                name="checkedB"
+                color="primary"
+              />
+            }
+          />
+          <HelpTooltip contents="if checked, your name will be displayed as Anonymous" />
+        </div>
       </div>
       <br />
-      <ActionButton text="Publish" onClick={publishTimeline} />
+      {/* <ActionButton text="Publish" onClick={publishTimeline} /> */}
     </>
   );
 };
