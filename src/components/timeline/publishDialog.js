@@ -88,8 +88,8 @@ const PublishDialog = ({
         </div> */}
       </div>
       <div className="note">
-        Note: you will no longer be able to edit your timeline after publishing
-        unless you create an account in step 3!
+        <strong>Note</strong>: You will no longer be able to edit your timeline
+        after publishing unless you create an account in step 3!{" "}
       </div>
       <br />
       {/* <ActionButton text="Publish" onClick={publishTimeline} /> */}

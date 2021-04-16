@@ -166,18 +166,6 @@ const ShareDialog = ({
             }
           />
         </FormControl>
-        {/* <FormControlLabel
-          // style={{ float: "right", marginRight: "0px" }}
-          label="make timeline public"
-          control={
-            <ColoredCheckbox
-              checked={makePublic}
-              onChange={updateMakePublic}
-              name="checkedB"
-              color="primary"
-            />
-          }
-        /> */}
       </div>
       <BaseSnackbar
         open={copied}
