@@ -12,7 +12,6 @@ import {
 } from "@material-ui/core";
 import ActionButton from "../baseComponents/actionButton";
 import HelpTooltip from "../baseComponents/helpTooltip";
-import SuccessSnackbar from "../baseComponents/successSnackbar";
 
 const ColoredCheckbox = withStyles({
   root: {
@@ -45,7 +44,7 @@ const PublishDialog = ({
       <div className="checkmarks">
         <div className="align-items-center">
           <FormControlLabel
-            label="make timeline public"
+            label="Make timeline public"
             control={
               <ColoredCheckbox
                 checked={makePublic}
@@ -55,12 +54,12 @@ const PublishDialog = ({
               />
             }
           />
-          <HelpTooltip contents="determines if your timeline will be searchable by others" />
+          <HelpTooltip contents="Determines if your timeline will be searchable by others" />
         </div>
 
         <div className="align-items-center">
           <FormControlLabel
-            label="make anonymous"
+            label="Make timeline anonymous"
             control={
               <ColoredCheckbox
                 checked={makeAnonymous}
@@ -70,8 +69,27 @@ const PublishDialog = ({
               />
             }
           />
-          <HelpTooltip contents="if checked, your name will be displayed as Anonymous" />
+          <HelpTooltip contents="If checked, your name will be displayed as Anonymous" />
         </div>
+
+        {/* <div className="align-items-center">
+          <FormControlLabel
+            label="Create an account for future editing"
+            control={
+              <ColoredCheckbox
+                checked={makeAnonymous}
+                onChange={updateMakeAnonymous}
+                name="checkedB"
+                color="primary"
+              />
+            }
+          />
+          <HelpTooltip contents="An account is needed if you want to be able to edit your timeline after publication" />
+        </div> */}
+      </div>
+      <div className="note">
+        Note: you will no longer be able to edit your timeline after publishing
+        unless you create an account in step 3!
       </div>
       <br />
       {/* <ActionButton text="Publish" onClick={publishTimeline} /> */}

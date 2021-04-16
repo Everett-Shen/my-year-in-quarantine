@@ -571,8 +571,16 @@
 }
 
 .centered-div {
-  margin: auto;
-  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.note {
+  font-size: 0.8em;
+  color: gray;
+  margin: 30px 15% 20px 15%;
+  text-align: center;
 }
 
 /*# sourceMappingURL=app.css.map */

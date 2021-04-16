@@ -18,11 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return ["Publish", "Create Account", "Save and Export"];
-}
-
-function getButtonText() {
-  return ["Publish", "Next", "Finish"];
+  return ["Publish!", "Export and Share", "Create Account"];
 }
 
 const PublishStepper = ({
@@ -44,28 +40,34 @@ const PublishStepper = ({
     switch (step) {
       case 0:
         return {
+          stepName: "Publish",
           label: "Publish timeline!",
           component: publishDialog,
           action: publishAndNext,
+          buttonText: "Publish",
         };
       case 1:
         return {
-          label: "Create Account (optional)",
-          component: null,
+          stepName: "Export and Share",
+          label: "Export and Share",
+          component: shareDialog,
           action: handleNext,
+          buttonText: "Next",
         };
       case 2:
         return {
-          label: "Export and Share",
-          component: shareDialog,
+          stepName: "Create Account",
+          label: "Create Account (optional)",
+          component: "Create an account to edit your timeline later!",
           action: finish,
+          buttonText: "Finish",
         };
       default:
         return "Unknown step";
     }
   }
   const isStepOptional = (step) => {
-    return step === 1;
+    return step === 2;
   };
 
   const handleNext = () => {
@@ -81,22 +83,30 @@ const PublishStepper = ({
       {/* stepper */}
       <Stepper
         activeStep={activeStep}
-        classes={{
-          root: "centered-div",
-        }}
+        className={classes.root}
+        alternativeLabel
       >
         {steps.map((label, index) => {
           const stepProps = {};
           const labelProps = {};
           if (isStepOptional(index)) {
             labelProps.optional = (
-              <Typography variant="caption">Optional</Typography>
+              <Typography variant="caption" align="center">
+                Optional
+              </Typography>
             );
           }
 
           return (
             <Step key={label} {...stepProps}>
-              <StepLabel {...labelProps}>{label}</StepLabel>
+              <StepLabel
+                {...labelProps}
+                classes={{
+                  labelContainer: "centered-div",
+                }}
+              >
+                {label}
+              </StepLabel>
             </Step>
           );
         })}
@@ -104,12 +114,12 @@ const PublishStepper = ({
       <div>
         <div>
           {/* content */}
-          <Typography
+          {/* <Typography
             className={classes.instructions}
             style={{ margin: " 0px 30px" }}
           >
             {getStepContent(activeStep).label}
-          </Typography>
+          </Typography> */}
           {getStepContent(activeStep).component}
           {/* button row */}
           <div
@@ -126,7 +136,7 @@ const PublishStepper = ({
             )}
 
             <ActionButton
-              text={getButtonText()[activeStep]}
+              text={getStepContent(activeStep).buttonText}
               onClick={getStepContent(activeStep).action}
             />
           </div>
