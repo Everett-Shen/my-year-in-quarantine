@@ -71,15 +71,18 @@ const ViewUI = ({
       </div>
       <FloatingMenuButtons
         buttons={[
-          { title: "Finish", onClick: () => setIsOpen(true), icon: "done" },
           {
-            title: "Continue editing",
-            onClick: () => history.push("/create"),
-            icon: "edit",
+            title: "Share / Export",
+            onClick: () => setIsOpen(true),
+            icon: "share",
           },
         ]}
       />
-      <BaseDialog isOpen={isOpen} setIsOpen={setIsOpen}>
+      <BaseDialog
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        title={"Share / Export"}
+      >
         <ShareDialog
           shareURL={docID ? `${window.location.host}/view/${docID}` : ""}
           setShowDownloadTimeline={setShowDownloadTimeline}

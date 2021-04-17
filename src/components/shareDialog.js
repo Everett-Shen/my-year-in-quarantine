@@ -50,15 +50,7 @@ const ShareDialog = ({
   const updateMakePublic = (e) => {
     setMakePublic(e.target.checked);
   };
-  // const ColoredCheckbox = withStyles({
-  //   root: {
-  //     // color: "rgb(255, 118, 118)",
-  //     "&$checked": {
-  //       color: "rgb(255, 118, 118)",
-  //     },
-  //   },
-  //   checked: {},
-  // })((props) => <Checkbox color="default" {...props} />);
+
   return (
     <>
       <div

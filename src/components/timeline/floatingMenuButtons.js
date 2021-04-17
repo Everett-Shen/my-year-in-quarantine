@@ -12,6 +12,7 @@ import ShareIcon from "@material-ui/icons/Share";
 import EditIcon from "@material-ui/icons/Edit";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import DoneIcon from "@material-ui/icons/Done";
+import LinkIcon from "@material-ui/icons/Link";
 import variables from "../../styles/variables.module.scss";
 
 const FloatingMenuButtons = ({ buttons }) => {
@@ -26,6 +27,8 @@ const FloatingMenuButtons = ({ buttons }) => {
         return <DoneIcon style={{ fontSize: 20, color: "white" }} />;
       case "edit":
         return <EditIcon style={{ fontSize: 20, color: "white" }} />;
+      case "share":
+        return <LinkIcon style={{ fontSize: 20, color: "white" }} />;
       default:
         return <EditIcon style={{ fontSize: 20, color: "white" }} />;
     }

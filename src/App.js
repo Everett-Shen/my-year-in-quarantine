@@ -50,7 +50,7 @@ function App() {
             <Route path={"/"} exact component={LandingPage} />
             <Route path={"/create"} exact component={CreateTimeline} />
             <Route path={"/preview"} exact component={PreviewPage} />
-            <Route path={"/view"} exact component={ViewPage} />
+            <Route path={"/view/:docID"} exact component={ViewPage} />
             <Redirect to={"/"} />
           </Switch>
         </MuiPickersUtilsProvider>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-import * as defaultAnswers from "../../answers.json";
 import _ from "lodash";
 
 import { useHistory } from "react-router-dom";
@@ -11,10 +10,10 @@ import {
 } from "./downloadImages";
 
 import "firebase/firestore";
-import { useFirestoreDocData, useFirestore } from "reactfire";
+import { useFirestore } from "reactfire";
 
 const ViewContainer = (props) => {
-  const [answers, setAnswers] = useState({});
+  //   const setAnswers = props.setAnswers;
   const [isOpen, setIsOpen] = useState(false);
   const history = useHistory();
   const [makePublic, setMakePublic] = useState(true);
@@ -32,7 +31,7 @@ const ViewContainer = (props) => {
   const [publishFailed, setPublishFailed] = useState(false);
   const [docID, setDocID] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
+
   const LOCAL_STORAGE_FORM_PUBLISHED_KEY =
     "my-year-in-quarantine-form-submitted";
   const LOCAL_STORAGE_DOC_ID_KEY = "my-year-in-quarantine-doc-id";
@@ -50,22 +49,9 @@ const ViewContainer = (props) => {
     );
     let docID = localStorage.getItem(LOCAL_STORAGE_DOC_ID_KEY);
     setDocID(docID);
-    setAnswers(organizeAnswers(defaultAnswers.default));
   }, []);
 
-  const organizeAnswers = (answers) => {
-    let toReturn = {};
-    if (!_.isEmpty(answers)) {
-      toReturn.location = answers.Q1.location.label;
-      toReturn.entries = answers.Q4.entries;
-      toReturn.name = answers.Q6.name;
-      toReturn.title = answers.Q5.title
-        ? answers.Q5.title
-        : `${toReturn.name}'s year in quarantine`;
-    }
-
-    return toReturn;
-  };
+  const answers = props.answers;
 
   const downloadTimeline = (
     showTimeline,

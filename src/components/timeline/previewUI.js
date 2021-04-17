@@ -87,8 +87,14 @@ const PreviewUI = ({
         </div>
       </div>
       <FloatingMenuButtons
-        saveAndExport={() => setIsOpen(true)}
-        continueEditing={() => history.push("/create")}
+        buttons={[
+          { title: "Finish", onClick: () => setIsOpen(true), icon: "done" },
+          {
+            title: "Continue editing",
+            onClick: () => history.push("/create"),
+            icon: "edit",
+          },
+        ]}
       />
       <BaseDialog isOpen={isOpen} setIsOpen={setIsOpen}>
         <PublishStepper
