@@ -70,9 +70,14 @@ const ViewUI = ({
         </div>
       </div>
       <FloatingMenuButtons
-        saveAndExport={() => setIsOpen(true)}
-        continueEditing={() => history.push("/create")}
-        previewMode={false}
+        buttons={[
+          { title: "Finish", onClick: () => setIsOpen(true), icon: "done" },
+          {
+            title: "Continue editing",
+            onClick: () => history.push("/create"),
+            icon: "edit",
+          },
+        ]}
       />
       <BaseDialog isOpen={isOpen} setIsOpen={setIsOpen}>
         <ShareDialog

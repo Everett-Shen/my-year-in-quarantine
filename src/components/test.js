@@ -14,22 +14,15 @@ import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import DoneIcon from "@material-ui/icons/Done";
 import variables from "../../styles/variables.module.scss";
 
-const FloatingMenuButtons = ({ buttons }) => {
+const FloatingMenuButtons = ({
+  continueEditing,
+  saveAndExport,
+  previewMode,
+}) => {
   const [isFloatingButtonMenuOpen, setIsFloatingButtonMenuOpen] = useState(
     false
   );
   const [areTooltipsOpen, setAreTooltipsOpen] = useState(false);
-
-  const getIcon = (iconName) => {
-    switch (iconName) {
-      case "done":
-        return <DoneIcon style={{ fontSize: 20, color: "white" }} />;
-      case "edit":
-        return <EditIcon style={{ fontSize: 20, color: "white" }} />;
-      default:
-        return <EditIcon style={{ fontSize: 20, color: "white" }} />;
-    }
-  };
 
   useEffect(() => {
     if (isFloatingButtonMenuOpen) {
@@ -55,27 +48,37 @@ const FloatingMenuButtons = ({ buttons }) => {
           }}
           size={56}
         />
-        {buttons.map((button) => {
-          return (
-            <ChildButton
-              icon={
-                <Tooltip
-                  title={button.title}
-                  placement="left"
-                  open={areTooltipsOpen}
-                >
-                  {getIcon(button.icon)}
-                </Tooltip>
-              }
-              background={variables.primaryColor}
-              size={40}
-              onClick={() => {
-                button.onClick();
-                setIsFloatingButtonMenuOpen(false);
-              }}
-            />
-          );
-        })}
+        <ChildButton
+          icon={
+            <Tooltip title="Finish" placement="left" open={areTooltipsOpen}>
+              <DoneIcon style={{ fontSize: 20, color: "white" }} />
+            </Tooltip>
+          }
+          background={variables.primaryColor}
+          size={40}
+          onClick={() => {
+            saveAndExport();
+            setIsFloatingButtonMenuOpen(false);
+          }}
+        />
+        {/* {previewMode && <div></div>} */}
+        <ChildButton
+          icon={
+            <Tooltip
+              title="Continue editing"
+              placement="left"
+              open={areTooltipsOpen}
+            >
+              <EditIcon style={{ fontSize: 20, color: "white" }} />
+            </Tooltip>
+          }
+          background={variables.primaryColor}
+          size={40}
+          onClick={() => {
+            continueEditing();
+            setIsFloatingButtonMenuOpen(false);
+          }}
+        />
       </FloatingMenu>
     </div>
   );
