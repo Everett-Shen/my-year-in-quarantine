@@ -42,7 +42,11 @@ const HorizontalTimeline = ({
       {/* title block*/}
       <div className="timeline-content-horizontal">
         <TimelineTitle
-          title={answers.title}
+          title={
+            answers.title
+              ? answers.title
+              : `${answers.name}'s year in quarantine`
+          }
           name={answers.name}
           id={"capture-1"}
           compressed={compressed}

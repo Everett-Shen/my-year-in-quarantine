@@ -133,7 +133,11 @@ const Timeline = ({ answers, compressed, captureID }) => {
       {/* title block*/}
       <div className="timeline-content">
         <TimelineTitle
-          title={answers.title}
+          title={
+            answers.title
+              ? answers.title
+              : `${answers.name}'s year in quarantine`
+          }
           name={answers.name}
           id={"0"}
           compressed={compressed}
