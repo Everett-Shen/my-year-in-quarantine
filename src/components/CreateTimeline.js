@@ -78,6 +78,8 @@ const CreateTimeline = () => {
     ],
   });
 
+  const [questionFive, setQuestionFive] = useState({ title: "" });
+  const [questionSix, setQuestionSix] = useState({ name: "" });
   const [answers, setAnswers] = useState({
     Q1: { location: "" },
     Q2: {
@@ -145,6 +147,13 @@ const CreateTimeline = () => {
   useEffect(() => {
     setQ4();
   }, [questionTwo, questionThree]);
+
+  useEffect(() => {
+    setAnswers({ ...answers, Q5: questionFive });
+  }, [questionFive]);
+  useEffect(() => {
+    setAnswers({ ...answers, Q6: questionSix });
+  }, [questionSix]);
 
   useEffect(() => {
     const storageAnswers = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
@@ -371,6 +380,7 @@ const CreateTimeline = () => {
     initialValues,
     required,
     placeholder,
+    onSubmit,
   }) => {
     return (
       <div className="questionContainer">
@@ -383,9 +393,7 @@ const CreateTimeline = () => {
                 })
               : Yup.object({})
           }
-          onSubmit={(values) => {
-            setAnswers({ ...answers, [questionNumber]: values });
-          }}
+          onSubmit={onSubmit}
         >
           {() => (
             <Form id={questionNumber}>
@@ -601,6 +609,9 @@ const CreateTimeline = () => {
         questionName={"title"}
         initialValues={answers.Q5}
         placeholder={"ex. My Year in Quarantine"}
+        onSubmit={(values) => {
+          setQuestionFive(values);
+        }}
       />
     );
   };
@@ -612,6 +623,9 @@ const CreateTimeline = () => {
         initialValues={answers.Q6}
         required={true}
         placeholder={""}
+        onSubmit={(values) => {
+          setQuestionSix(values);
+        }}
       />
     );
   };
