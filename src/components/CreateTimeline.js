@@ -143,15 +143,28 @@ const CreateTimeline = () => {
       Q4: { entries: entries },
     });
   };
-
+  const firstUpdate = useRef(true);
   useEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
     setQ4();
   }, [questionTwo, questionThree]);
 
   useEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
     setAnswers({ ...answers, Q5: questionFive });
   }, [questionFive]);
+
   useEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
     setAnswers({ ...answers, Q6: questionSix });
   }, [questionSix]);
 
@@ -163,7 +176,7 @@ const CreateTimeline = () => {
       setQuestionThree(storageAnswers.Q3);
     }
   }, []);
-  const firstUpdate = useRef(true);
+
   useEffect(() => {
     if (firstUpdate.current) {
       firstUpdate.current = false;
