@@ -5,6 +5,7 @@ import {
   DialogContent,
   DialogActions,
   Button,
+  Fade,
 } from "@material-ui/core";
 import { TextInput, DateInput } from "./CreateTimeline";
 import * as Yup from "yup";
@@ -73,6 +74,10 @@ const entrySchema = Yup.object().shape(
   ]
 );
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Fade ref={ref} {...props} />;
+});
+
 const DialogForm = ({
   initialValues,
   onSubmit,
@@ -94,12 +99,14 @@ const DialogForm = ({
       {(formik) => (
         <Form>
           <Dialog
-            onClose={() => {
+            onClose={(e) => {
+              onSubmit(formik.values);
               setIsOpen(false);
             }}
             open={isOpen}
             maxWidth={"sm"}
             fullWidth={true}
+            TransitionComponent={Transition}
           >
             <div>
               <DialogContent className="dialog-content">
