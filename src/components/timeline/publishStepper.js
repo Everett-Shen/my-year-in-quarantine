@@ -50,8 +50,8 @@ const PublishStepper = ({
           stepName: "Publish",
           label: "Publish timeline!",
           component: publishDialog,
-          action: publishAndNext,
-          buttonText: "Publish",
+          action: !formSubmitted ? publishAndNext : handleNext,
+          buttonText: !formSubmitted ? "Publish" : "Next",
         };
       case 1:
         return {
@@ -141,12 +141,12 @@ const PublishStepper = ({
             <ActionButton
               text={getStepContent(activeStep).buttonText}
               onClick={getStepContent(activeStep).action}
-              disabled={activeStep === 0 && formSubmitted}
-              disabledMessage={
-                activeStep === 0 && formSubmitted
-                  ? "You've already published this timeline!"
-                  : ""
-              }
+              // disabled={activeStep === 0 && formSubmitted}
+              // disabledMessage={
+              //   activeStep === 0 && formSubmitted
+              //     ? "You've already published this timeline!"
+              //     : ""
+              // }
             />
           </div>
         </div>
