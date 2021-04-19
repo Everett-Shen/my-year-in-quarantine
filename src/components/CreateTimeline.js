@@ -175,9 +175,9 @@ const CreateTimeline = () => {
         <div className="locationInput">
           <Formik
             initialValues={answers.Q1}
-            onSubmit={(values) => {
-              setLocation(values.location);
-            }}
+            // onSubmit={(values) => {
+            //   setLocation(values.location);
+            // }}
             // validationSchema={Yup.object({
             //   label: Yup.string().required("required"),
             // })}
@@ -189,8 +189,9 @@ const CreateTimeline = () => {
                   selectProps={{
                     value: props.values.location,
                     onChange: (location) => {
-                      props.setFieldValue("location", location);
-                      props.setFieldValue("label", location.label);
+                      setLocation(location);
+                      // props.setFieldValue("location", location);
+                      // props.setFieldValue("label", location.label);
                     },
                     onBlur: props.handleBlur,
                     placeholder: "ex. New York City",
@@ -675,12 +676,9 @@ const CreateTimeline = () => {
         <meta name="viewport" content="width=device-width, user-scalable=no" />
       </MetaTags>
 
-      {/* <nav>
-        <h1>my year in quarantine</h1>
-        <hr />
-      </nav> */}
-
       <div className="timelineForm">
+        {/* needed to make the title display for SOME GODDAMN REASON */}
+        <h2 style={{ color: "white" }}>a</h2>
         <ScrollAnimation
           animateIn="animate__fadeInLeftBig"
           duration={0.7}
@@ -698,17 +696,18 @@ const CreateTimeline = () => {
               let's get started!
             </h2>
           </div>
-
-          <ScrollAnimation
-            animateIn="animate__fadeIn"
-            duration={0.8}
-            animateOnce={true}
-            offset={150}
-            delay={1300}
-          >
-            <Accordion panels={panels} />
-          </ScrollAnimation>
         </ScrollAnimation>
+
+        {/* <ScrollAnimation
+          animateIn="animate__fadeIn"
+          duration={0.8}
+          animateOnce={true}
+          offset={150}
+          delay={1300}
+        >
+          <Accordion panels={panels} />
+        </ScrollAnimation> */}
+        <Accordion panels={panels} />
         <div style={{ margin: "20px", height: "100px" }}>
           <button
             className="finish"
@@ -728,7 +727,7 @@ const CreateTimeline = () => {
                 });
             }}
           >
-            <span style={{ cursor: "pointer", outline: "none" }}>Finish</span>
+            <span style={{ cursor: "pointer", outline: "none" }}>Preview</span>
           </button>
           <div className="errorContainer">
             {errors.map((error, index) => (
