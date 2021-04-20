@@ -84,7 +84,7 @@ const ViewUI = ({
         title={"Share / Export"}
       >
         <ShareDialog
-          shareURL={docID ? `${window.location.host}/view/${docID}` : ""}
+          shareURL={window.location}
           setShowDownloadTimeline={setShowDownloadTimeline}
           setShowDownloadTimelineHorizontal={setShowDownloadTimelineHorizontal}
           setShowDownloadTimelineMultiple={setShowDownloadTimelineMultiple}

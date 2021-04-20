@@ -114,7 +114,6 @@ const PreviewUI = ({
         <PublishStepper
           publishDialog={
             <PublishDialog
-              shareURL={"https://myyearinquarantine.com"}
               makePublic={makePublic}
               setMakePublic={setMakePublic}
               setShowDownloadTimeline={setShowDownloadTimeline}
