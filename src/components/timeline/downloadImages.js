@@ -43,15 +43,12 @@ const downloadTimelineAsImageSet = (imageCount) => {
   } else {
     getJPEG("captureHorizontal", "horizontal").then((img) => {
       getJPEG("captureHorizontal", "horizontal").then((img) => {
-        splitImageAndDownload(img, imageCount);
+        getJPEG("captureHorizontal", "horizontal").then((img) => {
+          splitImageAndDownload(img, imageCount);
+        });
       });
     });
   }
-  getJPEG("captureHorizontal", "horizontal").then((img) => {
-    getJPEG("captureHorizontal", "horizontal").then((img) => {
-      splitImageAndDownload(img, imageCount);
-    });
-  });
 };
 
 const getJPEG = (id, orientation = "vertical") => {
