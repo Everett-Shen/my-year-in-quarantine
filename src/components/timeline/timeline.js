@@ -39,7 +39,7 @@ const Timeline = ({ answers, compressed, captureID }) => {
     var wheelOpt = supportsPassive ? { passive: false } : false;
     document.addEventListener("keydown", handleKeyDown);
     window.addEventListener("wheel", handleScroll, wheelOpt);
-    window.addEventListener("touchmove", preventDefault, wheelOpt);
+    // window.addEventListener("touchmove", preventDefault, wheelOpt);
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
@@ -128,7 +128,7 @@ const Timeline = ({ answers, compressed, captureID }) => {
       id={captureID}
       className="timeline-container"
       style={compressed ? { margin: "0px" } : {}}
-      {...swipeHandlers}
+      // {...swipeHandlers}
       {...doubleTapBind}
     >
       {/* title block*/}

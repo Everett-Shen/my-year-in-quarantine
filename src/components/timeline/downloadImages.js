@@ -2,31 +2,64 @@ import domtoimage from "dom-to-image";
 import watermark from "watermarkjs";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
+import { isBrowser, isIOS } from "react-device-detect";
 
-const scale = 3;
+// pc/mac: scale 4, android: scale 3, iOS: scale 2
+const scale = isBrowser ? 4 : isIOS ? 2 : 3;
 
 const downloadTimelineAsVerticalJPEG = () => {
-  getJPEG("capture").then((img) => {
-    downloadImage(img);
-  });
+  if (!isIOS) {
+    getJPEG("capture").then((img) => {
+      downloadImage(img);
+    });
+  } else {
+    getJPEG("capture").then((img) => {
+      getJPEG("capture").then((img) => {
+        downloadImage(img);
+      });
+    });
+  }
 };
 
 const downloadTimelineAsHorizontalJPEG = () => {
-  getJPEG("captureHorizontal", "horizontal").then((img) => {
-    downloadImage(img);
-  });
+  if (!isIOS) {
+    getJPEG("captureHorizontal", "horizontal").then((img) => {
+      downloadImage(img);
+    });
+  } else {
+    getJPEG("captureHorizontal", "horizontal").then((img) => {
+      getJPEG("captureHorizontal", "horizontal").then((img) => {
+        downloadImage(img);
+      });
+    });
+  }
 };
 
 const downloadTimelineAsImageSet = (imageCount) => {
+  if (!isIOS) {
+    getJPEG("captureHorizontal", "horizontal").then((img) => {
+      splitImageAndDownload(img, imageCount);
+    });
+  } else {
+    getJPEG("captureHorizontal", "horizontal").then((img) => {
+      getJPEG("captureHorizontal", "horizontal").then((img) => {
+        splitImageAndDownload(img, imageCount);
+      });
+    });
+  }
   getJPEG("captureHorizontal", "horizontal").then((img) => {
-    splitImageAndDownload(img, imageCount);
+    getJPEG("captureHorizontal", "horizontal").then((img) => {
+      splitImageAndDownload(img, imageCount);
+    });
   });
 };
 
 const getJPEG = (id, orientation = "vertical") => {
   var node = document.getElementById(id);
+
+  //successfully getting node
   return domtoimage
-    .toPng(node, {
+    .toJpeg(node, {
       bgcolor: "white",
       width: node.clientWidth * scale,
       height: node.clientHeight * scale,
@@ -58,9 +91,12 @@ const getJPEG = (id, orientation = "vertical") => {
 
 const downloadImage = (img) => {
   var link = document.createElement("a");
-  link.download = "My Year in Quarantine timeline.jpeg";
+  link.download = "My Year in Quarantine Timeline";
   link.href = img.src;
   link.click();
+  // var imgToAdd = document.createElement("img");
+  // imgToAdd.src = img.src;
+  // document.getElementById("app").appendChild(img);
 };
 
 const splitImageAndDownload = (img, imageCount) => {

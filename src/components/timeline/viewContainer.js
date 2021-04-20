@@ -61,7 +61,7 @@ const ViewContainer = (props) => {
     if (showTimeline) downloadFunction(answers.entries.length + 2); // this parameter only gets used by downloadTimelineMultiple
     setTimeout(() => {
       setShowTimeline(false);
-    }, 300);
+    }, 2000);
   };
 
   // download vertical timeline
