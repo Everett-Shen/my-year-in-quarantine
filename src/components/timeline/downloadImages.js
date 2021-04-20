@@ -5,7 +5,7 @@ import { saveAs } from "file-saver";
 import { isBrowser, isIOS } from "react-device-detect";
 
 // pc/mac: scale 4, android: scale 3, iOS: scale 2
-const scale = isBrowser ? 4 : isIOS ? 2 : 3;
+const scale = isBrowser ? 4 : isIOS ? 2 : 2;
 
 const downloadTimelineAsVerticalJPEG = () => {
   if (!isIOS) {

@@ -104,6 +104,7 @@ const ShareDialog = ({
               setShowDownloadTimelineMultiple(true);
               handleClose();
             }}
+            style={{ overflowX: "scroll" }}
           >
             Save as image set (recommended for social media)
           </MenuItem>
