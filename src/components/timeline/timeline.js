@@ -59,6 +59,7 @@ const Timeline = ({ answers, compressed, captureID }) => {
   };
 
   const scrollToTarget = (targetID) => {
+    //let scrollDest = targetID !== 0 ? String(targetID) : captureID; // if target is 0, scroll to top of page
     scroller.scrollTo(String(targetID), {
       duration: 1300,
       delay: 0,
@@ -139,7 +140,7 @@ const Timeline = ({ answers, compressed, captureID }) => {
               : `${answers.name}'s year in quarantine`
           }
           name={answers.name}
-          id={"0"}
+          // id={"0"}
           compressed={compressed}
         />
         {!compressed && <Divider height={dividerHeight} />}

@@ -53,7 +53,8 @@ const ViewUI = ({
           offset={150}
           delay={10}
         >
-          <Timeline answers={answers} compressed={false} />
+          {/* setting captureID to 0 for the main timeline is technically a hack, but it gets the job of scrolling to the top of the timeline instead of just the top of the title block done */}
+          <Timeline answers={answers} compressed={false} captureID={"0"} />
         </ScrollAnimation>
       </div>
       <div className="button-container">
