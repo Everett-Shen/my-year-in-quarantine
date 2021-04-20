@@ -70,6 +70,7 @@ const FloatingMenuButtons = ({ buttons }) => {
                   {getIcon(button.icon)}
                 </Tooltip>
               }
+              key={button.title}
               background={variables.primaryColor}
               size={40}
               onClick={() => {

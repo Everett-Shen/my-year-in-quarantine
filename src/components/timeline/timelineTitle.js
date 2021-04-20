@@ -7,12 +7,16 @@ const TimelineTitle = ({ title, name, id, compressed }) => {
   return (
     <EntryContainer>
       {
-        <div className="entry-content-title" id={id}>
+        <div
+          className="entry-content-title"
+          id={id}
+          style={{ overflowX: "hidden" }}
+        >
           <ScrollAnimation
             animateIn="animate__fadeInRight"
             duration={0.9}
             animateOnce={true}
-            offset={150}
+            offset={0}
             delay={1300}
             initiallyVisible={compressed ? true : false}
           >
@@ -23,7 +27,7 @@ const TimelineTitle = ({ title, name, id, compressed }) => {
               animateIn="animate__fadeInUp"
               duration={0.4}
               animateOnce={true}
-              offset={150}
+              offset={0}
               delay={2300}
               initiallyVisible={compressed ? true : false}
             >
