@@ -7,7 +7,13 @@ const Entry = ({ date, title, content, id, compressed }) => {
   return (
     <EntryContainer>
       {
-        <div className="entry-content" id={id} style={{ overflowX: "hidden" }}>
+        <div
+          className="entry-content"
+          id={id}
+          style={{
+            overflowX: "hidden",
+          }}
+        >
           <ScrollAnimation
             animateIn="animate__fadeIn"
             duration={1.0}

@@ -40,7 +40,7 @@ const getInitialTouched = (initialValues) => {
 
 const entrySchema = Yup.object().shape(
   {
-    entry: Yup.string().max(100, "max 100 characters").required("required"),
+    entry: Yup.string().max(50, "max 50 characters").required("required"),
     date: Yup.date().when("from", {
       // date is required when from is undefined (i.e. for events)
       is: (val) => val === undefined,
@@ -66,6 +66,7 @@ const entrySchema = Yup.object().shape(
           message: "end date should be after start date",
         });
       }),
+    description: Yup.string().max(500, "max 500 characters"),
   },
   [
     ["date", "from"],
@@ -191,6 +192,7 @@ const DialogForm = ({
                     rowsMax={10}
                     label="description/notes (optional)"
                   />
+                  <ErrorMessage name="description" render={returnErrorMsg} />
                   {deleteEntry !== undefined && (
                     <Button
                       style={{

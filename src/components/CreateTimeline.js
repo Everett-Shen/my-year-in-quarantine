@@ -244,8 +244,16 @@ const CreateTimeline = () => {
           onSubmit={(values) => {
             setQuestionTwo(values);
           }}
+          validationSchema={Yup.object().shape({
+            events: Yup.array().of(
+              Yup.object().shape({
+                entry: Yup.string().max(50, "max 50 characters"),
+                // Rest of your amenities object properties
+              })
+            ),
+          })}
         >
-          {({ values }) => (
+          {({ values, errors, touched }) => (
             <Form id="Q2">
               <FieldArray
                 name="events"
@@ -260,6 +268,10 @@ const CreateTimeline = () => {
                             index === 0 ? "ex. went home, got sick..." : ""
                           }
                           classnames={"text-input-wide"}
+                        />
+                        <ErrorMessage
+                          name={`events.${index}.entry`}
+                          render={returnErrorMsg}
                         />
                         <button
                           className="deleteButton"
@@ -315,6 +327,14 @@ const CreateTimeline = () => {
           onSubmit={(values) => {
             setQuestionThree(values);
           }}
+          validationSchema={Yup.object().shape({
+            phases: Yup.array().of(
+              Yup.object().shape({
+                entry: Yup.string().max(50, "max 50 characters"),
+                // Rest of your amenities object properties
+              })
+            ),
+          })}
         >
           {({ values }) => (
             <Form id="Q3">
@@ -333,6 +353,10 @@ const CreateTimeline = () => {
                               : ""
                           }
                           classnames={"text-input text-input-wide"}
+                        />
+                        <ErrorMessage
+                          name={`phases.${index}.entry`}
+                          render={returnErrorMsg}
                         />
                         <div className="rangeAndDeleteRow">
                           <button
