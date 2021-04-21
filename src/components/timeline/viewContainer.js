@@ -39,11 +39,6 @@ const ViewContainer = (props) => {
   useEffect(() => {
     setTimeout(() => window.scrollTo(0, 0), 150); // ugly solution, but kinda works
 
-    // let localStorageAnswers = JSON.parse(
-    //   localStorage.getItem(LOCAL_STORAGE_KEY)
-    // );
-    // if (localStorageAnswers) setAnswers(organizeAnswers(localStorageAnswers));
-
     setFormSubmitted(
       JSON.parse(localStorage.getItem(LOCAL_STORAGE_FORM_PUBLISHED_KEY))
     );

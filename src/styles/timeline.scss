@@ -67,7 +67,8 @@
     margin-top: 100px;
     height: fit-content;
     width: fit-content;
-    padding-top: $horizontal-timeline-distance-from-bottom;
+    padding: $horizontal-timeline-distance-from-bottom 0px;
+
     &::after {
       content: "";
       position: absolute;
@@ -90,10 +91,11 @@
       width: fit-content;
       height: fit-content;
     }
-
-    &-no-margin-left {
-      // for a timeline with no left margin (used for multi-image downloading)
+    &-multi-image {
+      // smaller padding and no margin left
       @extend .timeline-container-horizontal;
+      padding: $horizontal-timeline-distance-from-bottom-smaller 0px;
+
       &::after {
         margin-left: calc(
           #{$timeline-distance-to-left-compressed / 2} + #{$timeline-container-width /
@@ -104,11 +106,30 @@
       .timeline-content-horizontal {
         margin-left: $timeline-distance-to-left-compressed / 2;
       }
+
+      &::after {
+        bottom: $horizontal-timeline-distance-from-bottom-smaller;
+      }
     }
+
+    // &-no-margin-left {
+    //   // for a timeline with no left margin (used for multi-image downloading)
+    //   @extend .timeline-container-horizontal;
+    //   &::after {
+    //     margin-left: calc(
+    //       #{$timeline-distance-to-left-compressed / 2} + #{$timeline-container-width /
+    //         2}
+    //     );
+    //   }
+
+    //   .timeline-content-horizontal {
+    //     margin-left: $timeline-distance-to-left-compressed / 2;
+    //   }
+    //}
 
     .entry-container {
       width: $timeline-container-width;
-      margin: 0px 0px $horizontal-timeline-distance-from-bottom 0px;
+      // margin: 0px 0px $horizontal-timeline-distance-from-bottom 0px;
       position: relative;
       display: inline-block;
       height: fit-content;
@@ -119,7 +140,7 @@
       &-title {
         @extend .entry-container;
         // left: 45%; // controls whether title block is centered or not
-        bottom: -50px;
+        bottom: 50px;
       }
     }
     .circle {

@@ -40,7 +40,7 @@ const ViewUI = ({
         crossOrigin="anonymous"
       ></link>
       <MetaTags>
-        <title>Preview Timeline - My Year in Quarantine </title>
+        <title>View Timeline - My Year in Quarantine </title>
         <meta name="viewport" content="width=device-width, user-scalable=no" />
       </MetaTags>
 

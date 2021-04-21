@@ -26,16 +26,16 @@ const HorizontalTimeline = ({
     return format(new Date(date), "MMM dd yyyy");
   };
 
-  const dividerWidth = downloadMultipleMode
+  const dividerWidth = !downloadMultipleMode
     ? variables.timelineDistanceToLeftCompressed
-    : "150px";
+    : "400px";
 
   return (
     <div
       id={captureID}
       className={
         downloadMultipleMode
-          ? "timeline-container-horizontal-no-margin-left"
+          ? "timeline-container-horizontal-multi-image"
           : "timeline-container-horizontal"
       }
     >

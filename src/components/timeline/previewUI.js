@@ -155,6 +155,12 @@ const PreviewUI = ({
           captureID={"captureHorizontal"}
         />
       )}
+      {/* <HorizontalTimeline
+        answers={answers}
+        compressed={true}
+        downloadMultipleMode={showDownloadTimelineMultiple ? true : false}
+        captureID={"captureHorizontal"}
+      /> */}
       {/* for publish success */}
       <BaseSnackbar
         open={published}
