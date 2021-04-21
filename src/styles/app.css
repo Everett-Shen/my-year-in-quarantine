@@ -3,11 +3,13 @@
 :export {
   primaryColor: #ff7676;
   timelineDistanceToLeftCompressed: 400px;
+  dialogZIndex: 20;
 }
 
 :export {
   primaryColor: #ff7676;
   timelineDistanceToLeftCompressed: 400px;
+  dialogZIndex: 20;
 }
 
 .preview-page .button-container, .preview-page .timeline-container {
@@ -191,11 +193,13 @@
 :export {
   primaryColor: #ff7676;
   timelineDistanceToLeftCompressed: 400px;
+  dialogZIndex: 20;
 }
 
 :export {
   primaryColor: #ff7676;
   timelineDistanceToLeftCompressed: 400px;
+  dialogZIndex: 20;
 }
 
 .landing-page h1 {
@@ -274,11 +278,13 @@
 :export {
   primaryColor: #ff7676;
   timelineDistanceToLeftCompressed: 400px;
+  dialogZIndex: 20;
 }
 
 :export {
   primaryColor: #ff7676;
   timelineDistanceToLeftCompressed: 400px;
+  dialogZIndex: 20;
 }
 
 .createForm h1 {
@@ -423,11 +429,13 @@
 :export {
   primaryColor: #ff7676;
   timelineDistanceToLeftCompressed: 400px;
+  dialogZIndex: 20;
 }
 
 :export {
   primaryColor: #ff7676;
   timelineDistanceToLeftCompressed: 400px;
+  dialogZIndex: 20;
 }
 
 .menu-container {
@@ -505,11 +513,13 @@
 :export {
   primaryColor: #ff7676;
   timelineDistanceToLeftCompressed: 400px;
+  dialogZIndex: 20;
 }
 
 :export {
   primaryColor: #ff7676;
   timelineDistanceToLeftCompressed: 400px;
+  dialogZIndex: 20;
 }
 
 * {
@@ -593,6 +603,14 @@
   color: gray;
   margin: 30px 15% 20px 15%;
   text-align: center;
+}
+
+.loading-backdrop {
+  z-index: 50;
+}
+
+.base-dialog {
+  z-index: 10;
 }
 
 /*# sourceMappingURL=app.css.map */

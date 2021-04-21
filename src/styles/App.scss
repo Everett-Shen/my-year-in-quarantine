@@ -89,3 +89,10 @@
   margin: 30px 15% 20px 15%;
   text-align: center;
 }
+.loading-backdrop {
+  z-index: $loading-backdrop-z-index;
+}
+
+.base-dialog {
+  z-index: $menu-z-index;
+}

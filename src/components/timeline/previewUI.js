@@ -10,6 +10,7 @@ import BaseDialog from "./baseDialog.js";
 import PublishDialog from "./publishDialog.js";
 import PublishStepper from "./publishStepper.js";
 import BaseSnackbar from "../baseComponents/baseSnackbar";
+import LoadingBackdrop from "../baseComponents/loadingBackdrop";
 
 const PreviewUI = ({
   answers,
@@ -33,6 +34,8 @@ const PreviewUI = ({
   showDownloadTimelineMultiple,
   publishFailed,
   setPublishFailed,
+  isDownloading,
+  setIsDownloading,
 }) => {
   return (
     <div className="preview-page" id="preview-page">
@@ -175,6 +178,7 @@ const PreviewUI = ({
         message={"There was an error. Please try again later"}
         severity={"error"}
       />
+      <LoadingBackdrop open={isDownloading} setOpen={setIsDownloading} />
     </div>
   );
 };

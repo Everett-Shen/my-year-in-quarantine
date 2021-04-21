@@ -7,43 +7,43 @@ import { isBrowser, isIOS } from "react-device-detect";
 // pc/mac: scale 4, android: scale 3, iOS: scale 2
 const scale = isBrowser ? 4 : isIOS ? 2 : 2;
 
-const downloadTimelineAsVerticalJPEG = () => {
+const downloadTimelineAsVerticalJPEG = async () => {
   if (!isIOS) {
-    getJPEG("capture").then((img) => {
+    await getJPEG("capture").then((img) => {
       downloadImage(img);
     });
   } else {
-    getJPEG("capture").then((img) => {
-      getJPEG("capture").then((img) => {
+    await getJPEG("capture").then(async (img) => {
+      await getJPEG("capture").then((img) => {
         downloadImage(img);
       });
     });
   }
 };
 
-const downloadTimelineAsHorizontalJPEG = () => {
+const downloadTimelineAsHorizontalJPEG = async () => {
   if (!isIOS) {
-    getJPEG("captureHorizontal", "horizontal").then((img) => {
+    await getJPEG("captureHorizontal", "horizontal").then((img) => {
       downloadImage(img);
     });
   } else {
-    getJPEG("captureHorizontal", "horizontal").then((img) => {
-      getJPEG("captureHorizontal", "horizontal").then((img) => {
+    await getJPEG("captureHorizontal", "horizontal").then(async (img) => {
+      await getJPEG("captureHorizontal", "horizontal").then((img) => {
         downloadImage(img);
       });
     });
   }
 };
 
-const downloadTimelineAsImageSet = (imageCount) => {
+const downloadTimelineAsImageSet = async (imageCount) => {
   if (!isIOS) {
-    getJPEG("captureHorizontal", "horizontal").then((img) => {
+    await getJPEG("captureHorizontal", "horizontal").then((img) => {
       splitImageAndDownload(img, imageCount);
     });
   } else {
-    getJPEG("captureHorizontal", "horizontal").then((img) => {
-      getJPEG("captureHorizontal", "horizontal").then((img) => {
-        getJPEG("captureHorizontal", "horizontal").then((img) => {
+    await getJPEG("captureHorizontal", "horizontal").then(async (img) => {
+      await getJPEG("captureHorizontal", "horizontal").then(async (img) => {
+        await getJPEG("captureHorizontal", "horizontal").then((img) => {
           splitImageAndDownload(img, imageCount);
         });
       });
@@ -51,7 +51,7 @@ const downloadTimelineAsImageSet = (imageCount) => {
   }
 };
 
-const getJPEG = (id, orientation = "vertical") => {
+const getJPEG = async (id, orientation = "vertical") => {
   var node = document.getElementById(id);
 
   //successfully getting node

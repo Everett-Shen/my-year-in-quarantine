@@ -31,6 +31,7 @@ const ViewContainer = (props) => {
   const [publishFailed, setPublishFailed] = useState(false);
   const [docID, setDocID] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   const LOCAL_STORAGE_FORM_PUBLISHED_KEY =
     "my-year-in-quarantine-form-submitted";
@@ -48,15 +49,22 @@ const ViewContainer = (props) => {
 
   const answers = props.answers;
 
-  const downloadTimeline = (
+  const downloadTimeline = async (
     showTimeline,
     setShowTimeline,
     downloadFunction
   ) => {
-    if (showTimeline) downloadFunction(answers.entries.length + 2); // this parameter only gets used by downloadTimelineMultiple
-    setTimeout(() => {
-      setShowTimeline(false);
-    }, 2000);
+    if (showTimeline) {
+      setIsDownloading(true);
+      // this parameter only gets used by downloadTimelineMultiple
+      await downloadFunction(answers.entries.length + 2);
+
+      setIsDownloading(false);
+
+      setTimeout(() => {
+        setShowTimeline(false);
+      }, 2000);
+    }
   };
 
   // download vertical timeline
@@ -135,6 +143,8 @@ const ViewContainer = (props) => {
         showDownloadTimelineMultiple,
         publishFailed,
         setPublishFailed,
+        isDownloading,
+        setIsDownloading,
       })}
     </>
   );

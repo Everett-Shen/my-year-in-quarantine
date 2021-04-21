@@ -21,8 +21,11 @@ $timeline-line-z-index: 1;
 $timeline-circle-z-index: 5;
 $menu-z-index: 10;
 $close-menu-z-index: 15;
+$dialog-z-index: 20;
+$loading-backdrop-z-index: 50;
 
 :export {
   primaryColor: $primary-color;
   timelineDistanceToLeftCompressed: $timeline-distance-to-left-compressed;
+  dialogZIndex: $dialog-z-index;
 }

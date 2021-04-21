@@ -21,12 +21,12 @@ const PreviewPage = () => {
     return toReturn;
   };
   useEffect(() => {
-    // let localStorageAnswers = JSON.parse(
-    //   localStorage.getItem(LOCAL_STORAGE_KEY)
-    // );
-    // if (localStorageAnswers) setAnswers(organizeAnswers(localStorageAnswers));
+    let localStorageAnswers = JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_KEY)
+    );
+    if (localStorageAnswers) setAnswers(organizeAnswers(localStorageAnswers));
 
-    setAnswers(organizeAnswers(defaultAnswers.default));
+    // setAnswers(organizeAnswers(defaultAnswers.default));
   }, []);
   return (
     <ViewContainer

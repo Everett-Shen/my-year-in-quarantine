@@ -7,6 +7,7 @@ import "animate.css/animate.min.css";
 import ShareDialog from "../shareDialog";
 import FloatingMenuButtons from "./floatingMenuButtons";
 import BaseDialog from "./baseDialog.js";
+import LoadingBackdrop from "../baseComponents/loadingBackdrop";
 
 const ViewUI = ({
   answers,
@@ -20,6 +21,8 @@ const ViewUI = ({
   docID,
   showDownloadTimelineHorizontal,
   showDownloadTimelineMultiple,
+  isDownloading,
+  setIsDownloading,
 }) => {
   return (
     <div className="preview-page" id="preview-page">
@@ -104,6 +107,7 @@ const ViewUI = ({
           captureID={"captureHorizontal"}
         />
       )}
+      <LoadingBackdrop open={isDownloading} setOpen={setIsDownloading} />
     </div>
   );
 };
