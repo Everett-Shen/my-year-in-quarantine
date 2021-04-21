@@ -26,9 +26,9 @@ const HorizontalTimeline = ({
     return format(new Date(date), "MMM dd yyyy");
   };
 
-  const dividerWidth = !downloadMultipleMode
-    ? variables.timelineDistanceToLeftCompressed
-    : "400px";
+  const dividerWidth = downloadMultipleMode
+    ? variables.timelineDistanceToLeftCompressed // change the value of this to change the dividerWidth for image set downloading...
+    : "150px";
 
   return (
     <div

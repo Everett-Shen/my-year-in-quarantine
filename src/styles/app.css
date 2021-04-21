@@ -2,12 +2,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;1,700&display=swap");
 :export {
   primaryColor: #ff7676;
-  timelineDistanceToLeftCompressed: 250px;
+  timelineDistanceToLeftCompressed: 400px;
 }
 
 :export {
   primaryColor: #ff7676;
-  timelineDistanceToLeftCompressed: 250px;
+  timelineDistanceToLeftCompressed: 400px;
 }
 
 .preview-page .button-container, .preview-page .timeline-container {
@@ -98,16 +98,16 @@
   height: fit-content;
 }
 .preview-page .timeline-container-horizontal-multi-image {
-  padding: 90px 0px;
+  padding: 100px 0px;
 }
 .preview-page .timeline-container-horizontal-multi-image::after {
-  margin-left: calc( 125px + 125px );
+  margin-left: calc( 200px + 125px );
 }
 .preview-page .timeline-container-horizontal-multi-image .timeline-content-horizontal {
-  margin-left: 125px;
+  margin-left: 200px;
 }
 .preview-page .timeline-container-horizontal-multi-image::after {
-  bottom: 90px;
+  bottom: 100px;
 }
 .preview-page .timeline-container-horizontal .entry-container, .preview-page .timeline-container-horizontal .entry-content-title, .preview-page .timeline-container-horizontal-multi-image .entry-container, .preview-page .timeline-container-horizontal-multi-image .entry-content-title {
   width: 250px;
@@ -190,12 +190,12 @@
 
 :export {
   primaryColor: #ff7676;
-  timelineDistanceToLeftCompressed: 250px;
+  timelineDistanceToLeftCompressed: 400px;
 }
 
 :export {
   primaryColor: #ff7676;
-  timelineDistanceToLeftCompressed: 250px;
+  timelineDistanceToLeftCompressed: 400px;
 }
 
 .landing-page h1 {
@@ -273,12 +273,12 @@
 
 :export {
   primaryColor: #ff7676;
-  timelineDistanceToLeftCompressed: 250px;
+  timelineDistanceToLeftCompressed: 400px;
 }
 
 :export {
   primaryColor: #ff7676;
-  timelineDistanceToLeftCompressed: 250px;
+  timelineDistanceToLeftCompressed: 400px;
 }
 
 .createForm h1 {
@@ -422,12 +422,12 @@
 
 :export {
   primaryColor: #ff7676;
-  timelineDistanceToLeftCompressed: 250px;
+  timelineDistanceToLeftCompressed: 400px;
 }
 
 :export {
   primaryColor: #ff7676;
-  timelineDistanceToLeftCompressed: 250px;
+  timelineDistanceToLeftCompressed: 400px;
 }
 
 .menu-container {
@@ -504,12 +504,12 @@
 
 :export {
   primaryColor: #ff7676;
-  timelineDistanceToLeftCompressed: 250px;
+  timelineDistanceToLeftCompressed: 400px;
 }
 
 :export {
   primaryColor: #ff7676;
-  timelineDistanceToLeftCompressed: 250px;
+  timelineDistanceToLeftCompressed: 400px;
 }
 
 * {
