@@ -147,20 +147,20 @@ const PreviewUI = ({
       {showDownloadTimeline && (
         <Timeline answers={answers} compressed={true} captureID={"capture"} />
       )}
-      {/* {(showDownloadTimelineHorizontal || showDownloadTimelineMultiple) && (
+      {(showDownloadTimelineHorizontal || showDownloadTimelineMultiple) && (
         <HorizontalTimeline
           answers={answers}
           compressed={true}
           downloadMultipleMode={showDownloadTimelineMultiple ? true : false}
           captureID={"captureHorizontal"}
         />
-      )} */}
-      <HorizontalTimeline
+      )}
+      {/* <HorizontalTimeline
         answers={answers}
         compressed={true}
         downloadMultipleMode={showDownloadTimelineMultiple ? true : false}
         captureID={"captureHorizontal"}
-      />
+      /> */}
       {/* for publish success */}
       <BaseSnackbar
         open={published}
