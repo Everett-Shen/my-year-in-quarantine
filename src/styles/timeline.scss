@@ -94,7 +94,8 @@
     &-multi-image {
       // smaller padding and no margin left
       @extend .timeline-container-horizontal;
-      padding: $horizontal-timeline-distance-from-bottom-smaller 0px;
+      padding: $horizontal-timeline-distance-from-bottom-smaller 0px
+        calc(#{$horizontal-timeline-distance-from-bottom-smaller}) 0px;
 
       &::after {
         margin-left: calc(
@@ -108,7 +109,7 @@
       }
 
       &::after {
-        bottom: $horizontal-timeline-distance-from-bottom-smaller;
+        bottom: calc(#{$horizontal-timeline-distance-from-bottom-smaller});
       }
     }
 

@@ -98,7 +98,7 @@
   height: fit-content;
 }
 .preview-page .timeline-container-horizontal-multi-image {
-  padding: 100px 0px;
+  padding: 100px 0px calc(100px) 0px;
 }
 .preview-page .timeline-container-horizontal-multi-image::after {
   margin-left: calc( 200px + 125px );
@@ -107,7 +107,7 @@
   margin-left: 200px;
 }
 .preview-page .timeline-container-horizontal-multi-image::after {
-  bottom: 100px;
+  bottom: calc(100px);
 }
 .preview-page .timeline-container-horizontal .entry-container, .preview-page .timeline-container-horizontal .entry-content-title, .preview-page .timeline-container-horizontal-multi-image .entry-container, .preview-page .timeline-container-horizontal-multi-image .entry-content-title {
   width: 250px;

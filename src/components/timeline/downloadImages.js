@@ -67,18 +67,22 @@ const getJPEG = (id, orientation = "vertical") => {
     })
     .then((dataUrl) => {
       var x = function (canvas, metrics, context) {
-        return orientation === "vertical" ? canvas.width - 700 : 100;
+        return orientation === "vertical"
+          ? canvas.width - 200 * scale
+          : 25 * scale;
       };
 
       var y = function (canvas, metrics, context) {
-        return canvas.height - 70;
+        return canvas.height - 20 * scale;
       };
       let pos = watermark.text.atPos;
       let watermarkContent = "MyYearInQuarantine.com";
       const image = new Image();
       image.src = dataUrl;
       return watermark([image])
-        .image(pos(x, y, watermarkContent, "48px Montserrat", "#000", 1))
+        .image(
+          pos(x, y, watermarkContent, `${20 * scale}px Montserrat`, "#000", 1)
+        )
         .then((img) => img);
     })
     .catch(function (error) {
