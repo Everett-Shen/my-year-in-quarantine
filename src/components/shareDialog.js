@@ -17,6 +17,7 @@ import {
   LinkedinShareButton,
   TwitterShareButton,
   WhatsappShareButton,
+  FacebookMessengerShareButton,
 } from "react-share";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import GetAppIcon from "@material-ui/icons/GetApp";
@@ -25,6 +26,7 @@ import {
   LinkedinIcon,
   TwitterIcon,
   WhatsappIcon,
+  FacebookMessengerIcon,
 } from "react-share";
 import BaseSnackbar from "./baseComponents/baseSnackbar";
 import copy from "copy-to-clipboard";
@@ -56,24 +58,31 @@ const ShareDialog = ({
       <div
         style={{
           display: "flex",
-          justifyContent: "space-around",
+          justifyContent: "space-evenly",
           height: "50px",
           margin: "40px 0px",
         }}
       >
-        <FacebookShareButton url={shareURL}>
+        <FacebookShareButton
+          url={"shareURL"}
+          quote={"Check out my year in quarantine!"}
+        >
           <FacebookIcon size={50} round />
         </FacebookShareButton>
         <IconButton
           aria-label="copy link to clipboard"
           onClick={openSaveMenu}
           size="medium"
+          // style={{ padding: "0px" }}
         >
           <Tooltip title="download" enterTouchDelay={200}>
             <GetAppIcon fontSize="large" />
           </Tooltip>
         </IconButton>
-        <TwitterShareButton url={shareURL}>
+        <TwitterShareButton
+          url={shareURL}
+          title={"Check out my year in quarantine!"}
+        >
           <TwitterIcon size={50} round />
         </TwitterShareButton>
         <Menu
@@ -118,10 +127,23 @@ const ShareDialog = ({
           margin: "40px 0px",
         }}
       >
-        <LinkedinShareButton url={shareURL}>
+        <a
+          href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareURL}`}
+        >
           <LinkedinIcon size={50} round />
-        </LinkedinShareButton>
-        <WhatsappShareButton url={shareURL}>
+        </a>
+
+        <FacebookMessengerShareButton
+          url={shareURL}
+          title={"Check out my year in quarantine!"}
+        >
+          <FacebookMessengerIcon size={45} round />
+        </FacebookMessengerShareButton>
+
+        <WhatsappShareButton
+          url={shareURL}
+          title={"Check out my year in quarantine!"}
+        >
           <WhatsappIcon size={50} round />
         </WhatsappShareButton>
       </div>
