@@ -10,7 +10,7 @@ const TimelineTitle = ({ title, name, id, compressed }) => {
         <div
           className="entry-content-title"
           id={id}
-          style={{ overflowX: "hidden" }}
+          style={{ overflowX: "hidden", hyphens: "auto" }}
         >
           <ScrollAnimation
             animateIn="animate__fadeInRight"

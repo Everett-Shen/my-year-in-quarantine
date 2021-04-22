@@ -23,7 +23,7 @@ const Entry = ({ date, title, content, id, compressed }) => {
             initiallyVisible={compressed ? true : false}
           >
             <h3>{date}</h3>
-            <h2 style={{ marginTop: "6px" }}>{title}</h2>
+            <h2 style={{ marginTop: "6px", hyphens: "auto" }}>{title}</h2>
           </ScrollAnimation>
           <ScrollAnimation
             animateIn="animate__fadeInRight"
