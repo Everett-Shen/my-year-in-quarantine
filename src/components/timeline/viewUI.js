@@ -23,6 +23,8 @@ const ViewUI = ({
   showDownloadTimelineMultiple,
   isDownloading,
   setIsDownloading,
+  isFloatingButtonMenuOpen,
+  setIsFloatingButtonMenuOpen,
 }) => {
   return (
     <div className="preview-page" id="preview-page">
@@ -57,7 +59,12 @@ const ViewUI = ({
           delay={10}
         >
           {/* setting captureID to 0 for the main timeline is technically a hack, but it gets the job of scrolling to the top of the timeline instead of just the top of the title block done */}
-          <Timeline answers={answers} compressed={false} captureID={"0"} />
+          <Timeline
+            answers={answers}
+            compressed={false}
+            captureID={"0"}
+            setIsFloatingButtonMenuOpen={setIsFloatingButtonMenuOpen}
+          />
         </ScrollAnimation>
       </div>
       <div className="button-container">
@@ -67,7 +74,6 @@ const ViewUI = ({
             position: "relative",
             textAlign: "center",
             zIndex: "8",
-            height: "140px",
           }}
         >
           <p>present</p>
@@ -81,6 +87,8 @@ const ViewUI = ({
             icon: "share",
           },
         ]}
+        isFloatingButtonMenuOpen={isFloatingButtonMenuOpen}
+        setIsFloatingButtonMenuOpen={setIsFloatingButtonMenuOpen}
       />
       <BaseDialog
         isOpen={isOpen}

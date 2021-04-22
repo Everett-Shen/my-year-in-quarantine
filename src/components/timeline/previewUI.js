@@ -36,6 +36,8 @@ const PreviewUI = ({
   setPublishFailed,
   isDownloading,
   setIsDownloading,
+  isFloatingButtonMenuOpen,
+  setIsFloatingButtonMenuOpen,
 }) => {
   return (
     <div className="preview-page" id="preview-page">
@@ -70,7 +72,12 @@ const PreviewUI = ({
           delay={10}
         >
           {/* setting captureID to 0 for the main timeline is technically a hack, but it gets the job of scrolling to the top of the timeline instead of just the top of the title block done */}
-          <Timeline answers={answers} compressed={false} captureID={"0"} />
+          <Timeline
+            answers={answers}
+            compressed={false}
+            captureID={"0"}
+            setIsFloatingButtonMenuOpen={setIsFloatingButtonMenuOpen}
+          />
         </ScrollAnimation>
       </div>
       {/* <Divider style={{ margin: "20px auto 40px auto", width: "95%" }} /> */}
@@ -82,12 +89,9 @@ const PreviewUI = ({
             position: "relative",
             textAlign: "center",
             zIndex: "8",
-            height: "140px",
           }}
         >
           <p>end of preview</p>
-          <br />
-          <br />
         </div>
       </div>
       <FloatingMenuButtons
@@ -95,7 +99,7 @@ const PreviewUI = ({
           !formSubmitted
             ? [
                 {
-                  title: "Finish",
+                  title: "Finish up",
                   onClick: () => setIsOpen(true),
                   icon: "done",
                 },
@@ -107,12 +111,14 @@ const PreviewUI = ({
               ]
             : [
                 {
-                  title: "Finish",
+                  title: "Finish up",
                   onClick: () => setIsOpen(true),
                   icon: "done",
                 },
               ]
         }
+        isFloatingButtonMenuOpen={isFloatingButtonMenuOpen}
+        setIsFloatingButtonMenuOpen={setIsFloatingButtonMenuOpen}
       />
       <BaseDialog isOpen={isOpen} setIsOpen={setIsOpen}>
         <PublishStepper

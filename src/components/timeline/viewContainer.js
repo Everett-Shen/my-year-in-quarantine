@@ -15,6 +15,9 @@ import { useFirestore } from "reactfire";
 const ViewContainer = (props) => {
   //   const setAnswers = props.setAnswers;
   const [isOpen, setIsOpen] = useState(false);
+  const [isFloatingButtonMenuOpen, setIsFloatingButtonMenuOpen] = useState(
+    false
+  );
   const history = useHistory();
   const [makePublic, setMakePublic] = useState(true);
   const [makeAnonymous, setMakeAnonymous] = useState(false);
@@ -145,6 +148,8 @@ const ViewContainer = (props) => {
         setPublishFailed,
         isDownloading,
         setIsDownloading,
+        isFloatingButtonMenuOpen,
+        setIsFloatingButtonMenuOpen,
       })}
     </>
   );

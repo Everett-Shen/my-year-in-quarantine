@@ -2,7 +2,6 @@
   "name": "my-year-in-quarantine",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://everett-shen.github.io/MyYearInQuarantine/",
   "dependencies": {
     "@date-io/date-fns": "^1.3.13",
     "@material-ui/core": "^4.11.3",

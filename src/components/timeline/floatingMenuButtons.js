@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useImperativeHandle } from "react";
 import {
   FloatingMenu,
   MainButton,
@@ -15,10 +15,14 @@ import DoneIcon from "@material-ui/icons/Done";
 import LinkIcon from "@material-ui/icons/Link";
 import variables from "../../styles/variables.module.scss";
 
-const FloatingMenuButtons = ({ buttons }) => {
-  const [isFloatingButtonMenuOpen, setIsFloatingButtonMenuOpen] = useState(
-    false
-  );
+const FloatingMenuButtons = ({
+  buttons,
+  isFloatingButtonMenuOpen,
+  setIsFloatingButtonMenuOpen,
+}) => {
+  // const [isFloatingButtonMenuOpen, setIsFloatingButtonMenuOpen] = useState(
+  //   false
+  // );
   const [areTooltipsOpen, setAreTooltipsOpen] = useState(false);
 
   const getIcon = (iconName) => {
@@ -41,6 +45,7 @@ const FloatingMenuButtons = ({ buttons }) => {
       }, 400);
     } else setAreTooltipsOpen(isFloatingButtonMenuOpen);
   }, [isFloatingButtonMenuOpen]);
+
   return (
     <div className="floating-menu-button-container">
       <FloatingMenu

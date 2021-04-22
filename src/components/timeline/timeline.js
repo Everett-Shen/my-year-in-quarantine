@@ -7,7 +7,14 @@ import { animateScroll as scroll, scrollSpy, scroller } from "react-scroll";
 import { useSwipeable } from "react-swipeable";
 import { useDoubleTap } from "use-double-tap";
 
-const Timeline = ({ answers, compressed, captureID }) => {
+// notes: answers.entries will return undefined. use answersRef.current.entries instead. also, instead of scrollTarget, use scrollTargetRef
+
+const Timeline = ({
+  answers,
+  compressed,
+  captureID,
+  setIsFloatingButtonMenuOpen,
+}) => {
   const [scrollTarget, setScrollTarget] = useState(0);
   const dividerHeight = compressed ? "100px" : "700px";
   const answersRef = useRef(answers);
@@ -59,7 +66,6 @@ const Timeline = ({ answers, compressed, captureID }) => {
   };
 
   const scrollToTarget = (targetID) => {
-    //let scrollDest = targetID !== 0 ? String(targetID) : captureID; // if target is 0, scroll to top of page
     scroller.scrollTo(String(targetID), {
       duration: 1300,
       delay: 0,
@@ -67,6 +73,10 @@ const Timeline = ({ answers, compressed, captureID }) => {
       offset: -70,
     });
     setScrollTarget(targetID);
+    // open floating menu buttons if bottom reached
+    if (targetID === answersRef.current.entries.length + 2 - 1) {
+      setIsFloatingButtonMenuOpen(true);
+    }
   };
 
   const handleKeyDown = (e) => {
