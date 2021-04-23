@@ -16,17 +16,18 @@ const HelpTooltip = ({ contents }) => {
   return (
     <>
       <LightTooltip
-        title={contents}
+        title={contents ? "contents" : ""}
         placement="bottom"
         classes={{ tooltip: "centered" }}
         enterTouchDelay={0}
         leaveTouchDelay={5000}
+        style={{ cursor: "pointer" }}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
           height="16"
-          fill="currentColor"
+          fill="#a6a6a6"
           className="bi bi-question-circle"
           viewBox="0 0 16 16"
         >

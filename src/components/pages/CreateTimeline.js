@@ -20,6 +20,9 @@ import { DatePicker, KeyboardDatePicker } from "@material-ui/pickers";
 import { useHistory } from "react-router-dom";
 import ScrollAnimation from "react-animate-on-scroll";
 import "animate.css/animate.min.css";
+import FloatingMenuButtons from "../baseComponents/floatingMenuButtons";
+import CreateTimelineInstructions from "../createPage/createTimelineInstructions";
+import HelpTooltip from "../baseComponents/helpTooltip";
 
 const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
 const LOCAL_STORAGE_FORM_SUBMITTED_KEY = "my-year-in-quarantine-form-submitted";
@@ -117,6 +120,11 @@ const CreateTimeline = () => {
   const [isNewEntryFormOpen, setIsNewEntryFormOpen] = useState(false);
   const mobile = useMediaQuery("(max-width:600px)");
 
+  const [isInstructionsOpen, setIsInstructionsOpen] = useState(false);
+  const [isFloatingButtonMenuOpen, setIsFloatingButtonMenuOpen] = useState(
+    false
+  );
+
   const sortEntries = (entries) => {
     entries.sort((entryA, entryB) => {
       let dateA = entryA.date ? entryA.date : entryA.from;
@@ -187,6 +195,10 @@ const CreateTimeline = () => {
     }
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(answers));
   }, [answers]);
+
+  useEffect(() => {
+    setTimeout(() => setIsInstructionsOpen(true), 1000);
+  }, []);
 
   const Q1 = (props) => {
     const setLocation = (value) => {
@@ -739,16 +751,24 @@ const CreateTimeline = () => {
           animateOnce={true}
           delay={0}
         >
-          <div>
+          <div
+            style={{
+              display: "flex",
+
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <h2
               style={{
                 textAlign: "center",
-                margin: "50px",
+                margin: "50px 20px",
                 fontSize: "2em",
               }}
             >
               let's get started!
             </h2>
+            <HelpTooltip />
           </div>
         </ScrollAnimation>
 
@@ -799,6 +819,25 @@ const CreateTimeline = () => {
           </div>
         </div>
       </div>
+      {/* <BaseDialog
+        isOpen={isInstructionsOpen}
+        setIsOpen={setIsInstructionsOpen}
+        // title={"before we get started"}
+        centered={true}
+      >
+        <CreateTimelineInstructions />
+      </BaseDialog> */}
+      <FloatingMenuButtons
+        buttons={[
+          {
+            title: "Save for later",
+            onClick: () => console.log("link generated"),
+            icon: "share",
+          },
+        ]}
+        isFloatingButtonMenuOpen={isFloatingButtonMenuOpen}
+        setIsFloatingButtonMenuOpen={setIsFloatingButtonMenuOpen}
+      />
     </div>
   );
 };
