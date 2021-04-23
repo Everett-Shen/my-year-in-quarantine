@@ -6,6 +6,7 @@ import ViewInstructions from "../timeline/viewInstructions";
 import "firebase/firestore";
 import { useFirestore } from "reactfire";
 import { useRouteMatch } from "react-router-dom";
+import { useVisited } from "../../helpers/hooks";
 
 const ViewPage = () => {
   const [answers, setAnswers] = useState({});
@@ -13,14 +14,9 @@ const ViewPage = () => {
   const docRef = useFirestore().collection("timelines").doc(docID);
 
   const VISITED_LOCAL_STORAGE_KEY = "my_year_in_quarantine_view_page_visited";
-  const [pageVisited, setPageVisited] = useState(false);
+  const pageVisited = useVisited(VISITED_LOCAL_STORAGE_KEY);
 
   useEffect(() => {
-    // determine if this is the first time visit
-    let visited = localStorage.getItem(VISITED_LOCAL_STORAGE_KEY);
-    if (visited) setPageVisited(true);
-    else localStorage.setItem(VISITED_LOCAL_STORAGE_KEY, true);
-
     // fetch timeline data
     docRef.get().then((doc) => {
       if (doc) {

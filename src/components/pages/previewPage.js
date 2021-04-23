@@ -5,13 +5,15 @@ import ViewInstructions from "../timeline/viewInstructions";
 import ViewContainer from "../timeline/viewContainer";
 import PreviewUI from "../timeline/previewUI";
 import _ from "lodash";
+import { useVisited } from "../../helpers/hooks";
 
 const PreviewPage = () => {
   const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
   const [answers, setAnswers] = useState({});
 
-  const VISITED_LOCAL_STORAGE_KEY = "my_year_in_quarantine_view_page_visited";
-  const [pageVisited, setPageVisited] = useState(false);
+  const VISITED_LOCAL_STORAGE_KEY =
+    "my_year_in_quarantine_preview_page_visited";
+  const pageVisited = useVisited(VISITED_LOCAL_STORAGE_KEY);
 
   const organizeAnswers = (answers) => {
     let toReturn = {};
@@ -27,11 +29,6 @@ const PreviewPage = () => {
     return toReturn;
   };
   useEffect(() => {
-    // determine if this is the first time visit
-    let visited = localStorage.getItem(VISITED_LOCAL_STORAGE_KEY);
-    if (visited) setPageVisited(true);
-    else localStorage.setItem(VISITED_LOCAL_STORAGE_KEY, true);
-
     // fetch timeline data
     let localStorageAnswers = JSON.parse(
       localStorage.getItem(LOCAL_STORAGE_KEY)
