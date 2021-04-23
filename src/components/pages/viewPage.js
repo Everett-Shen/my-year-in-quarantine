@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import ViewContainer from "./timeline/viewContainer";
-import ViewUI from "./timeline/viewUI";
-import * as defaultAnswers from "../answers.json";
+import ViewContainer from "../timeline/viewContainer";
+import ViewUI from "../timeline/viewUI";
 import "firebase/firestore";
 import { useFirestore } from "reactfire";
 import { useRouteMatch } from "react-router-dom";

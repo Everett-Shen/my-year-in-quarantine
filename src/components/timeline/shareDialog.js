@@ -28,7 +28,7 @@ import {
   WhatsappIcon,
   FacebookMessengerIcon,
 } from "react-share";
-import BaseSnackbar from "./baseComponents/baseSnackbar";
+import BaseSnackbar from "../baseComponents/baseSnackbar";
 import copy from "copy-to-clipboard";
 
 const ShareDialog = ({

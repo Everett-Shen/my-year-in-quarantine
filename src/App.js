@@ -1,10 +1,10 @@
 import "./styles/app.css";
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import LandingPage from "./components/LandingPage";
-import CreateTimeline from "./components/CreateTimeline";
-import PreviewPage from "./components/previewPage";
-import ViewPage from "./components/viewPage";
+import LandingPage from "./components/pages/LandingPage";
+import CreateTimeline from "./components/pages/CreateTimeline";
+import PreviewPage from "./components/pages/previewPage";
+import ViewPage from "./components/pages/viewPage";
 import MetaTags from "react-meta-tags";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";

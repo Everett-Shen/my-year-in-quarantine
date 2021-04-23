@@ -7,7 +7,7 @@ import {
   Button,
   Fade,
 } from "@material-ui/core";
-import { TextInput, DateInput } from "./CreateTimeline";
+import { TextInput, DateInput } from "../pages/CreateTimeline";
 import * as Yup from "yup";
 import _ from "lodash";
 

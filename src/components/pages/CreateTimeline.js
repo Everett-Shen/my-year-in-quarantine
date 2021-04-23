@@ -1,7 +1,7 @@
 import React, { useState, createRef, useEffect, useRef } from "react";
 import MetaTags from "react-meta-tags";
 import { Formik, Form, FieldArray, useField, ErrorMessage } from "formik";
-import Accordion from "./Accordion/accordion.js";
+import Accordion from "../Accordion/accordion.js";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import {
   TextField,
@@ -11,7 +11,10 @@ import {
   useMediaQuery,
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
-import DialogForm, { returnErrorMsg, entrySchema } from "./dialogForm";
+import DialogForm, {
+  returnErrorMsg,
+  entrySchema,
+} from "../createPage/dialogForm";
 import * as Yup from "yup";
 import { DatePicker, KeyboardDatePicker } from "@material-ui/pickers";
 import { useHistory } from "react-router-dom";

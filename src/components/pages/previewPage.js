@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import * as defaultAnswers from "../answers.json";
-import ViewContainer from "./timeline/viewContainer";
-import PreviewUI from "./timeline/previewUI";
+import * as defaultAnswers from "../../answers.json";
+import ViewContainer from "../timeline/viewContainer";
+import PreviewUI from "../timeline/previewUI";
 import _ from "lodash";
 
 const PreviewPage = () => {

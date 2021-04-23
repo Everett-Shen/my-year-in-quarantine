@@ -4,7 +4,7 @@ import Timeline from "./timeline";
 import HorizontalTimeline from "./horizontalTimeline";
 import ScrollAnimation from "react-animate-on-scroll";
 import "animate.css/animate.min.css";
-import ShareDialog from "../shareDialog";
+import ShareDialog from "./shareDialog";
 import FloatingMenuButtons from "./floatingMenuButtons";
 import BaseDialog from "./baseDialog.js";
 import LoadingBackdrop from "../baseComponents/loadingBackdrop";
