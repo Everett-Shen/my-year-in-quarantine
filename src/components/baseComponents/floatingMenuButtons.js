@@ -19,6 +19,7 @@ const FloatingMenuButtons = ({
   buttons,
   isFloatingButtonMenuOpen,
   setIsFloatingButtonMenuOpen,
+  id,
 }) => {
   // const [isFloatingButtonMenuOpen, setIsFloatingButtonMenuOpen] = useState(
   //   false
@@ -47,7 +48,7 @@ const FloatingMenuButtons = ({
   }, [isFloatingButtonMenuOpen]);
 
   return (
-    <div className="floating-menu-button-container">
+    <div className="floating-menu-button-container" id={id}>
       <FloatingMenu
         slideSpeed={500}
         direction={Directions.Up}

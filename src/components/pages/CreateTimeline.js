@@ -23,6 +23,7 @@ import "animate.css/animate.min.css";
 import FloatingMenuButtons from "../baseComponents/floatingMenuButtons";
 import CreateTimelineInstructions from "../createPage/createTimelineInstructions";
 import HelpTooltip from "../baseComponents/helpTooltip";
+import ProductTour from "../baseComponents/productTour";
 
 const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
 const LOCAL_STORAGE_FORM_SUBMITTED_KEY = "my-year-in-quarantine-form-submitted";
@@ -124,6 +125,39 @@ const CreateTimeline = () => {
   const [isFloatingButtonMenuOpen, setIsFloatingButtonMenuOpen] = useState(
     false
   );
+  const joyrideSteps = [
+    {
+      placement: "center",
+      target: "body",
+      content: (
+        <p>
+          In this section, you will be asked some questions about your year in
+          quarantine. Your answers will be used to generate your personal
+          timeline!
+        </p>
+      ),
+    },
+    {
+      target: "#save-for-later",
+      content:
+        "This process usually takes around ten minutes. If you need a break, feel free to click this button to generate an edit link to your timeline. Your work will be saved!",
+    },
+    {
+      placement: "center",
+      target: "body",
+      content:
+        "We recommend you complete this process with a calendar or photo album nearby to remind you of what happened throughout your year!",
+    },
+    {
+      target: "#create-page-help",
+      content: "Click this button to reopen this guide at anytime",
+    },
+    {
+      placement: "center",
+      target: "body",
+      content: "Good luck!",
+    },
+  ];
 
   const sortEntries = (entries) => {
     entries.sort((entryA, entryB) => {
@@ -197,6 +231,7 @@ const CreateTimeline = () => {
   }, [answers]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     setTimeout(() => setIsInstructionsOpen(true), 1000);
   }, []);
 
@@ -768,7 +803,9 @@ const CreateTimeline = () => {
             >
               let's get started!
             </h2>
-            <HelpTooltip />
+            <div id={"create-page-help"} style={{ backgroundColor: "white" }}>
+              <HelpTooltip />
+            </div>
           </div>
         </ScrollAnimation>
 
@@ -819,15 +856,10 @@ const CreateTimeline = () => {
           </div>
         </div>
       </div>
-      {/* <BaseDialog
-        isOpen={isInstructionsOpen}
-        setIsOpen={setIsInstructionsOpen}
-        // title={"before we get started"}
-        centered={true}
-      >
-        <CreateTimelineInstructions />
-      </BaseDialog> */}
+
+      <ProductTour steps={joyrideSteps} run={isInstructionsOpen} />
       <FloatingMenuButtons
+        id={"save-for-later"}
         buttons={[
           {
             title: "Save for later",
