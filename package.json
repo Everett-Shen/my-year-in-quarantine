@@ -36,6 +36,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-scroll": "^1.8.2",
+    "react-scroll-wheel-handler": "^2.0.1",
     "react-share": "^4.4.0",
     "react-swipeable": "^6.1.0",
     "reactfire": "^3.0.0-rc.0",

@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import { animateScroll as scroll, scrollSpy, scroller } from "react-scroll";
 import { useSwipeable } from "react-swipeable";
 import { useDoubleTap } from "use-double-tap";
+import ReactScrollWheelHandler from "react-scroll-wheel-handler";
 
 // notes: answers.entries will return undefined. use answersRef.current.entries instead. also, instead of scrollTarget, use scrollTargetRef
 
@@ -45,12 +46,12 @@ const Timeline = ({
 
     var wheelOpt = supportsPassive ? { passive: false } : false;
     document.addEventListener("keydown", handleKeyDown);
-    window.addEventListener("wheel", handleScroll, wheelOpt);
+    // window.addEventListener("wheel", handleScroll, wheelOpt);
     window.addEventListener("touchmove", preventDefault, wheelOpt);
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("wheel", handleScroll, wheelOpt);
+      // window.removeEventListener("wheel", handleScroll, wheelOpt);
 
       window.removeEventListener(
         // not being removed for some reason
@@ -66,6 +67,9 @@ const Timeline = ({
   };
 
   const scrollToTarget = (targetID) => {
+    if (targetID < 0 || targetID > answersRef.current.entries.length + 1)
+      return;
+    console.log("scrolling");
     scroller.scrollTo(String(targetID), {
       duration: 1300,
       delay: 0,
@@ -73,7 +77,7 @@ const Timeline = ({
       offset: -70,
     });
     setScrollTarget(targetID);
-    // open floating menu buttons if bottom reached
+    // // open floating menu buttons if bottom reached
     if (targetID === answersRef.current.entries.length + 2 - 1) {
       setIsFloatingButtonMenuOpen(true);
     }
@@ -117,15 +121,6 @@ const Timeline = ({
       }
     }
   };
-  const swipeHandlers = useSwipeable({
-    onSwipedUp: (eventData) => scrollToTarget(scrollTarget + 1),
-    onSwipedDown: (eventData) => scrollToTarget(scrollTarget - 1),
-    delta: 10, // min distance(px) before a swipe starts
-    preventDefaultTouchmoveEvent: false, // call e.preventDefault *See Details*
-    trackTouch: true, // track touch input
-    trackMouse: false, // track mouse input
-    rotationAngle: 0, // set a rotation angle
-  });
 
   const doubleTapBind = useDoubleTap((e) => {
     if (e.clientY < window.innerWidth * 0.4) scrollToTarget(scrollTarget - 1);
@@ -134,76 +129,85 @@ const Timeline = ({
   });
 
   return (
-    <div
-      id={captureID}
-      className="timeline-container"
-      style={compressed ? { margin: "0px" } : {}}
-      {...swipeHandlers}
-      {...doubleTapBind}
+    <ReactScrollWheelHandler
+      upHandler={(e) => scrollToTarget(scrollTarget - 1)}
+      downHandler={(e) => scrollToTarget(scrollTarget + 1)}
+      preventScroll={true}
+      timeout={600}
+      style={{
+        border: "none",
+      }}
     >
-      {/* title block*/}
-      <div className="timeline-content">
-        <TimelineTitle
-          title={
-            answers.title
-              ? answers.title
-              : `${answers.name}'s year in quarantine`
-          }
-          name={answers.name}
-          // id={"0"}
-          compressed={compressed}
-        />
-        {!compressed && <Divider height={dividerHeight} />}
+      <div
+        id={captureID}
+        className="timeline-container"
+        style={compressed ? { margin: "0px" } : {}}
+        {...doubleTapBind}
+      >
+        {/* title block*/}
+        <div className="timeline-content">
+          <TimelineTitle
+            title={
+              answers.title
+                ? answers.title
+                : `${answers.name}'s year in quarantine`
+            }
+            name={answers.name}
+            // id={"0"}
+            compressed={compressed}
+          />
+          {!compressed && <Divider height={dividerHeight} />}
 
-        {/* introduction block */}
-        <Entry
-          date={"2020"}
-          title={"The COVID-19 pandemic begins"}
-          content={
-            <div>
-              <p>{`${answers.name} is located in`}</p>
-              <p>{`📍 ${answers.location} `}</p>
-            </div>
-          }
-          id={"1"}
-          compressed={compressed}
-        />
-        <Divider height={dividerHeight} />
-
-        {answers.entries &&
-          answers.entries.map((entry, index) => {
-            return (
-              <div key={index} className="divider">
-                <Entry
-                  date={
-                    entry.date
-                      ? formatDate(entry.date)
-                      : `${formatDate(entry.from)} -  \n ${formatDate(
-                          entry.to
-                        )}`
-                  }
-                  title={entry.entry}
-                  content={
-                    <div>
-                      <p>{entry.description ? entry.description : ""}</p>
-                    </div>
-                  }
-                  id={String(index + 2)}
-                  compressed={compressed}
-                />
-
-                <Divider
-                  height={
-                    index === answers.entries.length - 1
-                      ? "200px"
-                      : dividerHeight
-                  }
-                />
+          {/* introduction block */}
+          <Entry
+            date={"2020"}
+            title={"The COVID-19 pandemic begins"}
+            content={
+              <div>
+                <p>{`${answers.name} is located in`}</p>
+                <p>{`📍 ${answers.location} `}</p>
               </div>
-            );
-          })}
+            }
+            id={"1"}
+            compressed={compressed}
+          />
+          <Divider height={dividerHeight} />
+
+          {answers.entries &&
+            answers.entries.map((entry, index) => {
+              return (
+                <div key={index} className="divider">
+                  <Entry
+                    date={
+                      entry.date
+                        ? formatDate(entry.date)
+                        : `${formatDate(entry.from)} -  \n ${formatDate(
+                            entry.to
+                          )}`
+                    }
+                    title={entry.entry}
+                    content={
+                      <div>
+                        <p>{entry.description ? entry.description : ""}</p>
+                      </div>
+                    }
+                    id={String(index + 2)}
+                    compressed={compressed}
+                  />
+
+                  <Divider
+                    height={
+                      index === answers.entries.length - 1
+                        ? "200px"
+                        : dividerHeight
+                    }
+                  />
+                </div>
+              );
+            })}
+        </div>
       </div>
-    </div>
+    </ReactScrollWheelHandler>
   );
 };
 

@@ -1,87 +1,210 @@
-// import React, { useState, useEffect } from "react";
-// import {
-//   FloatingMenu,
-//   MainButton,
-//   ChildButton,
-//   Directions,
-// } from "react-floating-button-menu";
-// import { Tooltip } from "@material-ui/core";
-// import AddIcon from "@material-ui/icons/Add";
-// import ClearIcon from "@material-ui/icons/Clear";
-// import ShareIcon from "@material-ui/icons/Share";
-// import EditIcon from "@material-ui/icons/Edit";
-// import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-// import DoneIcon from "@material-ui/icons/Done";
-// import variables from "../../styles/variables.module.scss";
+import React, { useState, useEffect, useRef } from "react";
+import TimelineTitle from "./timelineTitle";
+import Entry from "./entry";
+import Divider from "./divider";
+import { format } from "date-fns";
+import { animateScroll as scroll, scrollSpy, scroller } from "react-scroll";
+import { useSwipeable } from "react-swipeable";
+import { useDoubleTap } from "use-double-tap";
 
-// const FloatingMenuButtons = ({
-//   continueEditing,
-//   saveAndExport,
-//   previewMode,
-// }) => {
-//   const [isFloatingButtonMenuOpen, setIsFloatingButtonMenuOpen] = useState(
-//     false
-//   );
-//   const [areTooltipsOpen, setAreTooltipsOpen] = useState(false);
+// notes: answers.entries will return undefined. use answersRef.current.entries instead. also, instead of scrollTarget, use scrollTargetRef
 
-//   useEffect(() => {
-//     if (isFloatingButtonMenuOpen) {
-//       setTimeout(() => {
-//         setAreTooltipsOpen(isFloatingButtonMenuOpen);
-//       }, 400);
-//     } else setAreTooltipsOpen(isFloatingButtonMenuOpen);
-//   }, [isFloatingButtonMenuOpen]);
-//   return (
-//     <div className="floating-menu-button-container">
-//       <FloatingMenu
-//         slideSpeed={500}
-//         direction={Directions.Up}
-//         spacing={8}
-//         isOpen={isFloatingButtonMenuOpen}
-//       >
-//         <MainButton
-//           iconResting={<AddIcon style={{ fontSize: 20, color: "white" }} />}
-//           iconActive={<ClearIcon style={{ fontSize: 20, color: "white" }} />}
-//           background={variables.primaryColor}
-//           onClick={() => {
-//             setIsFloatingButtonMenuOpen(!isFloatingButtonMenuOpen);
-//           }}
-//           size={56}
-//         />
-//         <ChildButton
-//           icon={
-//             <Tooltip title="Finish" placement="left" open={areTooltipsOpen}>
-//               <DoneIcon style={{ fontSize: 20, color: "white" }} />
-//             </Tooltip>
-//           }
-//           background={variables.primaryColor}
-//           size={40}
-//           onClick={() => {
-//             saveAndExport();
-//             setIsFloatingButtonMenuOpen(false);
-//           }}
-//         />
-//         {/* {previewMode && <div></div>} */}
-//         <ChildButton
-//           icon={
-//             <Tooltip
-//               title="Continue editing"
-//               placement="left"
-//               open={areTooltipsOpen}
-//             >
-//               <EditIcon style={{ fontSize: 20, color: "white" }} />
-//             </Tooltip>
-//           }
-//           background={variables.primaryColor}
-//           size={40}
-//           onClick={() => {
-//             continueEditing();
-//             setIsFloatingButtonMenuOpen(false);
-//           }}
-//         />
-//       </FloatingMenu>
-//     </div>
-//   );
-// };
+const Timeline = ({
+  answers,
+  compressed,
+  captureID,
+  setIsFloatingButtonMenuOpen,
+}) => {
+  const [scrollTarget, setScrollTarget] = useState(0);
+  const dividerHeight = compressed ? "100px" : "700px";
+  const answersRef = useRef(answers);
+  const scrollTargetRef = useRef(scrollTarget);
+  const preventDefault = (e) => {
+    e.preventDefault();
+  };
+  useEffect(() => {
+    answersRef.current = answers;
+  }, [answers]);
+  useEffect(() => {
+    scrollTargetRef.current = scrollTarget;
+  }, [scrollTarget]);
 
-// export default FloatingMenuButtons;
+  useEffect(() => {
+    var supportsPassive = false;
+    try {
+      window.addEventListener(
+        "test",
+        null,
+        Object.defineProperty({}, "passive", {
+          get: function () {
+            supportsPassive = true;
+          },
+        })
+      );
+    } catch (e) {}
+
+    var wheelOpt = supportsPassive ? { passive: false } : false;
+    document.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("wheel", handleScroll, wheelOpt);
+    window.addEventListener("touchmove", preventDefault, wheelOpt);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("wheel", handleScroll, wheelOpt);
+
+      window.removeEventListener(
+        // not being removed for some reason
+        "touchmove",
+        preventDefault,
+        wheelOpt
+      );
+    };
+  }, []);
+
+  const formatDate = (date) => {
+    return format(new Date(date), "MMM dd yyyy");
+  };
+
+  const scrollToTarget = (targetID) => {
+    scroller.scrollTo(String(targetID), {
+      duration: 1300,
+      delay: 0,
+      smooth: true,
+      offset: -70,
+    });
+    setScrollTarget(targetID);
+    // // open floating menu buttons if bottom reached
+    // if (targetID === answersRef.current.entries.length + 2 - 1) {
+    //   setIsFloatingButtonMenuOpen(true);
+    // }
+  };
+
+  const handleKeyDown = (e) => {
+    switch (e.key) {
+      case "ArrowUp":
+        e.preventDefault();
+        if (scrollTargetRef.current >= 1) {
+          scrollToTarget(scrollTargetRef.current - 1);
+        }
+        break;
+      case "ArrowDown":
+        e.preventDefault();
+        // 1 less than the total number of timeline entries
+        if (
+          scrollTargetRef.current <
+          answersRef.current.entries.length + 2 - 1
+        ) {
+          scrollToTarget(scrollTargetRef.current + 1);
+        }
+        break;
+      default:
+        return;
+    }
+  };
+
+  const handleScroll = (e) => {
+    e.preventDefault();
+    // add isScrolling stuff
+
+    if (e.wheelDelta > 0) {
+      if (scrollTargetRef.current >= 1) {
+        scrollToTarget(scrollTargetRef.current - 1);
+      }
+    } else if (e.wheelDelta < 0) {
+      // 1 less than the total number of timeline entries
+      if (scrollTargetRef.current < answersRef.current.entries.length + 2 - 1) {
+        scrollToTarget(scrollTargetRef.current + 1);
+      }
+    }
+  };
+  const swipeHandlers = useSwipeable({
+    onSwipedUp: (eventData) => scrollToTarget(scrollTarget + 1),
+    onSwipedDown: (eventData) => scrollToTarget(scrollTarget - 1),
+    delta: 10, // min distance(px) before a swipe starts
+    preventDefaultTouchmoveEvent: false, // call e.preventDefault *See Details*
+    trackTouch: true, // track touch input
+    trackMouse: false, // track mouse input
+    rotationAngle: 0, // set a rotation angle
+  });
+
+  const doubleTapBind = useDoubleTap((e) => {
+    if (e.clientY < window.innerWidth * 0.4) scrollToTarget(scrollTarget - 1);
+    else if (e.clientY > window.innerWidth * 0.6)
+      scrollToTarget(scrollTarget + 1);
+  });
+
+  return (
+    <div
+      id={captureID}
+      className="timeline-container"
+      style={compressed ? { margin: "0px" } : {}}
+      {...swipeHandlers}
+      {...doubleTapBind}
+    >
+      {/* title block*/}
+      <div className="timeline-content">
+        <TimelineTitle
+          title={
+            answers.title
+              ? answers.title
+              : `${answers.name}'s year in quarantine`
+          }
+          name={answers.name}
+          // id={"0"}
+          compressed={compressed}
+        />
+        {!compressed && <Divider height={dividerHeight} />}
+
+        {/* introduction block */}
+        <Entry
+          date={"2020"}
+          title={"The COVID-19 pandemic begins"}
+          content={
+            <div>
+              <p>{`${answers.name} is located in`}</p>
+              <p>{`📍 ${answers.location} `}</p>
+            </div>
+          }
+          id={"1"}
+          compressed={compressed}
+        />
+        <Divider height={dividerHeight} />
+
+        {answers.entries &&
+          answers.entries.map((entry, index) => {
+            return (
+              <div key={index} className="divider">
+                <Entry
+                  date={
+                    entry.date
+                      ? formatDate(entry.date)
+                      : `${formatDate(entry.from)} -  \n ${formatDate(
+                          entry.to
+                        )}`
+                  }
+                  title={entry.entry}
+                  content={
+                    <div>
+                      <p>{entry.description ? entry.description : ""}</p>
+                    </div>
+                  }
+                  id={String(index + 2)}
+                  compressed={compressed}
+                />
+
+                <Divider
+                  height={
+                    index === answers.entries.length - 1
+                      ? "200px"
+                      : dividerHeight
+                  }
+                />
+              </div>
+            );
+          })}
+      </div>
+    </div>
+  );
+};
+
+export default Timeline;
