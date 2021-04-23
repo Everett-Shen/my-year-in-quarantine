@@ -9,6 +9,10 @@ import _ from "lodash";
 const PreviewPage = () => {
   const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
   const [answers, setAnswers] = useState({});
+
+  const VISITED_LOCAL_STORAGE_KEY = "my_year_in_quarantine_view_page_visited";
+  const [pageVisited, setPageVisited] = useState(false);
+
   const organizeAnswers = (answers) => {
     let toReturn = {};
     if (!_.isEmpty(answers)) {
@@ -23,6 +27,12 @@ const PreviewPage = () => {
     return toReturn;
   };
   useEffect(() => {
+    // determine if this is the first time visit
+    let visited = localStorage.getItem(VISITED_LOCAL_STORAGE_KEY);
+    if (visited) setPageVisited(true);
+    else localStorage.setItem(VISITED_LOCAL_STORAGE_KEY, true);
+
+    // fetch timeline data
     let localStorageAnswers = JSON.parse(
       localStorage.getItem(LOCAL_STORAGE_KEY)
     );
@@ -37,9 +47,11 @@ const PreviewPage = () => {
         answers={answers}
         setAnswers={setAnswers}
       />
-      <InstructionalOverlay>
-        <ViewInstructions actionButtonLabel={"finish up / keep editing"} />
-      </InstructionalOverlay>
+      {!pageVisited && (
+        <InstructionalOverlay>
+          <ViewInstructions actionButtonLabel={"finish up / keep editing"} />
+        </InstructionalOverlay>
+      )}
     </>
   );
 };
