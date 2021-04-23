@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as defaultAnswers from "../../answers.json";
+import InstructionalOverlay from "../baseComponents/instructionalOverlay";
+import ViewInstructions from "../timeline/viewInstructions";
 import ViewContainer from "../timeline/viewContainer";
 import PreviewUI from "../timeline/previewUI";
 import _ from "lodash";
@@ -29,11 +31,16 @@ const PreviewPage = () => {
     // setAnswers(organizeAnswers(defaultAnswers.default));
   }, []);
   return (
-    <ViewContainer
-      render={(props) => <PreviewUI {...props} />}
-      answers={answers}
-      setAnswers={setAnswers}
-    />
+    <>
+      <ViewContainer
+        render={(props) => <PreviewUI {...props} />}
+        answers={answers}
+        setAnswers={setAnswers}
+      />
+      <InstructionalOverlay>
+        <ViewInstructions actionButtonLabel={"finish up / keep editing"} />
+      </InstructionalOverlay>
+    </>
   );
 };
 

@@ -438,14 +438,14 @@
   dialogZIndex: 20;
 }
 
-.menu-container {
+.menu-container, .menu-container-dark {
   /* The Overlay (background) */
   /* Position the content inside the overlay */
   /* The navigation links inside the overlay */
   /* When you mouse over the navigation links, change their color */
   /* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
 }
-.menu-container .menu-button-container {
+.menu-container .menu-button-container, .menu-container-dark .menu-button-container {
   position: fixed;
   display: flex;
   justify-content: flex-end;
@@ -455,7 +455,7 @@
   top: 0px;
   z-index: 15;
 }
-.menu-container .overlay {
+.menu-container .overlay, .menu-container-dark .overlay {
   /* Height & width depends on how you want to reveal the overlay (see JS below) */
   height: 100%;
   width: 100%;
@@ -474,7 +474,7 @@
   transition: 0.5s;
   /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
 }
-.menu-container .overlay-content {
+.menu-container .overlay-content, .menu-container-dark .overlay-content {
   position: relative;
   top: 25%;
   /* 25% from the top */
@@ -485,7 +485,7 @@
   margin-top: 30px;
   /* 30px top margin to avoid conflict with the close button on smaller screens */
 }
-.menu-container .overlay a {
+.menu-container .overlay a, .menu-container-dark .overlay a {
   padding: 8px;
   text-decoration: none;
   font-size: 36px;
@@ -495,15 +495,26 @@
   transition: 0.3s;
   /* Transition effects on hover (color) */
 }
-.menu-container .overlay a:hover,
-.menu-container .overlay a:focus {
+.menu-container .overlay a:hover, .menu-container-dark .overlay a:hover,
+.menu-container .overlay a:focus,
+.menu-container-dark .overlay a:focus {
   color: #ff7676;
 }
+.menu-container-dark {
+  /* The navigation links inside the overlay */
+}
+.menu-container-dark .overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 1;
+}
+.menu-container-dark .overlay {
+  color: #ffffff;
+}
 @media screen and (max-height: 450px) {
-  .menu-container .overlay a {
+  .menu-container .overlay a, .menu-container-dark .overlay a {
     font-size: 20px;
   }
-  .menu-container .overlay .closebtn {
+  .menu-container .overlay .closebtn, .menu-container-dark .overlay .closebtn {
     font-size: 40px;
     top: 15px;
     right: 35px;

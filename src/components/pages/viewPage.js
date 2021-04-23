@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ViewContainer from "../timeline/viewContainer";
 import ViewUI from "../timeline/viewUI";
+import InstructionalOverlay from "../baseComponents/instructionalOverlay";
+import ViewInstructions from "../timeline/viewInstructions";
 import "firebase/firestore";
 import { useFirestore } from "reactfire";
 import { useRouteMatch } from "react-router-dom";
@@ -25,11 +27,16 @@ const ViewPage = () => {
     });
   }, []);
   return (
-    <ViewContainer
-      render={(props) => <ViewUI {...props} />}
-      answers={answers}
-      setAnswers={setAnswers}
-    />
+    <>
+      <ViewContainer
+        render={(props) => <ViewUI {...props} />}
+        answers={answers}
+        setAnswers={setAnswers}
+      />
+      <InstructionalOverlay>
+        <ViewInstructions actionButtonLabel={"share / save   "} />
+      </InstructionalOverlay>
+    </>
   );
 };
 

@@ -2,10 +2,10 @@ import domtoimage from "dom-to-image";
 import watermark from "watermarkjs";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
-import { isBrowser, isIOS } from "react-device-detect";
+import { isDesktop, isIOS } from "react-device-detect";
 
 // pc/mac: scale 4, android: scale 3, iOS: scale 2
-const scale = isBrowser ? 4 : isIOS ? 2 : 2;
+const scale = isDesktop ? 4 : isIOS ? 2 : 2;
 
 const downloadTimelineAsVerticalJPEG = async () => {
   if (!isIOS) {
