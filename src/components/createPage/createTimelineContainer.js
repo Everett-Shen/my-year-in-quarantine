@@ -1,5 +1,9 @@
 import React, { useState, createRef, useEffect, useRef } from "react";
-import { useVisited, useUpdateAnswers } from "../../helpers/hooks";
+import {
+  useVisited,
+  useUpdateAnswers,
+  useNonInitialEffect,
+} from "../../helpers/hooks";
 import DialogForm, { entrySchema } from "../createPage/dialogForm";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
@@ -93,11 +97,7 @@ const CreateTimelineContainer = () => {
   // }, []);
 
   // need to add code to save to localstorage
-  useEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
-      return;
-    }
+  useNonInitialEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(answers));
   }, [answers]);
 
@@ -105,11 +105,7 @@ const CreateTimelineContainer = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
-      return;
-    }
+  useNonInitialEffect(() => {
     if (!pageVisited) setTimeout(() => setIsInstructionsOpen(true), 1000);
   }, [pageVisited]);
 
@@ -166,8 +162,6 @@ const CreateTimelineContainer = () => {
       component: <Q6 {...{ questionSix, setQuestionSix }} />,
     },
   ];
-
-  // need to define something called answers for purpose of schema checking
 
   return (
     <CreateTimelineUI

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const useVisited = (pageKey) => {
   const [pageVisited, setPageVisited] = useState(false);
@@ -18,13 +18,28 @@ const useUpdateAnswers = (
   answerKey,
   updatedAnswer
 ) => {
-  useEffect(() => {
-    // if (firstUpdate.current) {
-    //   firstUpdate.current = false;
-    //   return;
-    // }
+  useNonInitialEffect(() => {
     setAnswers({ ...answers, [answerKey]: updatedAnswer });
   }, [updatedAnswer]);
 };
 
-export { useVisited, useUpdateAnswers };
+const useNonInitialEffect = (effect, deps) => {
+  const initialRender = useRef(true);
+
+  useEffect(() => {
+    let effectReturns = () => {};
+
+    if (initialRender.current) {
+      initialRender.current = false;
+    } else {
+      effectReturns = effect();
+    }
+
+    // for cleanup
+    if (effectReturns && typeof effectReturns === "function") {
+      return effectReturns;
+    }
+  }, deps);
+};
+
+export { useVisited, useUpdateAnswers, useNonInitialEffect };
