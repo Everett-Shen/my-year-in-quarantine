@@ -18,21 +18,21 @@ const CreateTimelineForm = ({
       <div style={{ margin: "20px", height: "100px" }}>
         <button
           className="finish"
-          // onClick={() => {
-          //   schema
-          //     .validate(answers, { abortEarly: false })
-          //     .then((valid) => {
-          //       setErrors([]);
-          //       console.log(answers);
-          //       // prevent resubmission
-          //       localStorage.setItem(LOCAL_STORAGE_FORM_SUBMITTED_KEY, false);
-          //       localStorage.setItem(LOCAL_STORAGE_DOC_ID_KEY, null);
-          //       history.push("/preview");
-          //     })
-          //     .catch((err) => {
-          //       setErrors(err.errors);
-          //     });
-          // }}
+          onClick={() => {
+            schema
+              .validate(answers, { abortEarly: false })
+              .then((valid) => {
+                setErrors([]);
+                console.log(answers);
+                // prevent resubmission
+                localStorage.setItem(LOCAL_STORAGE_FORM_SUBMITTED_KEY, false);
+                localStorage.setItem(LOCAL_STORAGE_DOC_ID_KEY, null);
+                history.push("/preview");
+              })
+              .catch((err) => {
+                setErrors(err.errors);
+              });
+          }}
         >
           <span style={{ cursor: "pointer", outline: "none" }}>Preview</span>
         </button>

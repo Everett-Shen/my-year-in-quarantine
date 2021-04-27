@@ -120,29 +120,6 @@ const Q4 = ({
         </div>
       ))}
 
-      {/* edit entry form */}
-      <DialogForm
-        initialValues={selectedEntry}
-        onSubmit={(values) => {
-          let newEntries = [...questionFour.entries];
-          newEntries.splice(selectedEntryIndex, 1, values);
-          setQuestionFour({
-            entries: newEntries,
-          }); // may or may not work lol, we'll see
-        }}
-        isOpen={isDialogFormOpen}
-        setIsOpen={setIsDialogFormOpen}
-        formRef={formRef}
-        deleteEntry={() => {
-          let newEntries = [...questionFour.entries];
-          newEntries.splice(selectedEntryIndex, 1);
-          setQuestionFour({
-            entries: newEntries,
-          }); // also may or may not work, we'll see lol
-          setIsDialogFormOpen(false);
-        }}
-      />
-
       <AddButton onClick={handleClick} />
       <ItemMenu
         anchorEl={anchorEl}
@@ -166,6 +143,29 @@ const Q4 = ({
           },
         ]}
       />
+      {/* edit entry form */}
+      <DialogForm
+        initialValues={selectedEntry}
+        onSubmit={(values) => {
+          let newEntries = [...questionFour.entries];
+          newEntries.splice(selectedEntryIndex, 1, values);
+          setQuestionFour({
+            entries: newEntries,
+          }); // may or may not work lol, we'll see
+        }}
+        isOpen={isDialogFormOpen}
+        setIsOpen={setIsDialogFormOpen}
+        formRef={formRef}
+        deleteEntry={() => {
+          let newEntries = [...questionFour.entries];
+          newEntries.splice(selectedEntryIndex, 1);
+          setQuestionFour({
+            entries: newEntries,
+          }); // also may or may not work, we'll see lol
+          setIsDialogFormOpen(false);
+        }}
+      />
+
       {/* new entry form */}
       <DialogForm
         initialValues={selectedEntry}
@@ -176,6 +176,7 @@ const Q4 = ({
         isOpen={isNewEntryFormOpen}
         setIsOpen={setIsNewEntryFormOpen}
         formRef={newEntryFormRef}
+        isNewForm={true}
       />
     </div>
   );

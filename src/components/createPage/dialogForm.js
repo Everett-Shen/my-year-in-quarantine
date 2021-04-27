@@ -75,12 +75,16 @@ const DialogForm = ({
   setIsOpen,
   formRef,
   deleteEntry,
+  isNewForm = false,
 }) => {
   return (
     <Formik
       initialValues={initialValues}
       enableReinitialize
-      onSubmit={onSubmit}
+      onSubmit={(values, { resetForm }) => {
+        onSubmit(values);
+        resetForm();
+      }}
       innerRef={formRef}
       initialTouched={getInitialTouched(initialValues)}
       validateOnMount
@@ -90,7 +94,8 @@ const DialogForm = ({
         <Form>
           <Dialog
             onClose={(e) => {
-              onSubmit(formik.values);
+              if (!isNewForm) onSubmit(formik.values);
+              formik.resetForm();
               setIsOpen(false);
             }}
             open={isOpen}
@@ -220,7 +225,9 @@ const DialogForm = ({
                     if (formRef.current) {
                       formRef.current.handleSubmit();
                     }
-                    if (_.isEmpty(formik.errors)) setIsOpen(false);
+                    if (_.isEmpty(formik.errors)) {
+                      setIsOpen(false);
+                    }
                   }}
                 >
                   update

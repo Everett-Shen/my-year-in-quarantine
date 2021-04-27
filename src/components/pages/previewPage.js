@@ -21,7 +21,7 @@ const PreviewPage = () => {
       toReturn.location = answers.Q1.location.label;
       toReturn.entries = answers.Q4.entries;
       toReturn.name = answers.Q6.name;
-      toReturn.title = answers.Q5.title;
+      // toReturn.title = answers.Q5.title;
       // ? answers.Q5.title
       // : `${toReturn.name}'s year in quarantine`;
     }

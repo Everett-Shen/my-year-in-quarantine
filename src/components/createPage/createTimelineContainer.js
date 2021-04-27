@@ -1,5 +1,5 @@
 import React, { useState, createRef, useEffect, useRef } from "react";
-
+import { useVisited, useUpdateAnswers } from "../../helpers/hooks";
 import DialogForm, { entrySchema } from "../createPage/dialogForm";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
@@ -10,6 +10,15 @@ const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
 
 const CreateTimelineContainer = () => {
   const history = useHistory();
+  const [answers, setAnswers] = useState({
+    Q1: { location: "" },
+    Q4: {
+      entries: [],
+    },
+    Q6: { name: "" },
+  });
+  const VISITED_LOCAL_STORAGE_KEY = "my_year_in_quarantine_create_page_visited";
+  const pageVisited = useVisited(VISITED_LOCAL_STORAGE_KEY);
   const [questionOne, setQuestionOne] = useState({ location: "" });
   const [questionFour, setQuestionFour] = useState({ entries: [] });
   const [questionSix, setQuestionSix] = useState({ name: "" });
@@ -71,21 +80,9 @@ const CreateTimelineContainer = () => {
 
   const firstUpdate = useRef(true);
 
-  // useEffect(() => {
-  //   if (firstUpdate.current) {
-  //     firstUpdate.current = false;
-  //     return;
-  //   }
-  //   setAnswers({ ...answers, Q5: questionFive });
-  // }, [questionFive]);
-
-  // useEffect(() => {
-  //   if (firstUpdate.current) {
-  //     firstUpdate.current = false;
-  //     return;
-  //   }
-  //   setAnswers({ ...answers, Q6: questionSix });
-  // }, [questionSix]);
+  useUpdateAnswers(firstUpdate, answers, setAnswers, "Q1", questionOne);
+  useUpdateAnswers(firstUpdate, answers, setAnswers, "Q4", questionFour);
+  useUpdateAnswers(firstUpdate, answers, setAnswers, "Q6", questionSix);
 
   // need to add code to read from localStorage
   // useEffect(() => {
@@ -96,18 +93,25 @@ const CreateTimelineContainer = () => {
   // }, []);
 
   // need to add code to save to localstorage
-  // useEffect(() => {
-  //   if (firstUpdate.current) {
-  //     firstUpdate.current = false;
-  //     return;
-  //   }
-  //   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(answers));
-  // }, [answers]);
+  useEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(answers));
+  }, [answers]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    setTimeout(() => setIsInstructionsOpen(true), 1000);
   }, []);
+
+  useEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
+    if (!pageVisited) setTimeout(() => setIsInstructionsOpen(true), 1000);
+  }, [pageVisited]);
 
   const schema = Yup.object().shape({
     Q1: Yup.object().shape({
@@ -175,7 +179,7 @@ const CreateTimelineContainer = () => {
         panels,
         schema,
         setIsInstructionsOpen,
-        // answers,
+        answers,
         setErrors,
         history,
         errors,

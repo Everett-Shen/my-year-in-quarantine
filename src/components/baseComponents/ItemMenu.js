@@ -11,7 +11,11 @@ const ItemMenu = ({ anchorEl, handleClose, menuItems }) => {
       onClose={handleClose}
     >
       {menuItems.map((item) => {
-        return <MenuItem onClick={item.onClick}>{item.label}</MenuItem>;
+        return (
+          <MenuItem key={item.label} onClick={item.onClick}>
+            {item.label}
+          </MenuItem>
+        );
       })}
     </Menu>
   );
