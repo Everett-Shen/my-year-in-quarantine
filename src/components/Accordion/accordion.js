@@ -69,7 +69,7 @@ class Panel extends React.Component {
         >
           <div className="panel__content" ref={this.myRef}>
             {React.cloneElement(this.props.children, {
-              update: this.forceUpdateHandler,
+              updatePanelContainer: this.forceUpdateHandler,
             })}
             <div className="nextContainer">
               <button

@@ -2,7 +2,7 @@ import "./styles/app.css";
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import LandingPage from "./components/pages/LandingPage";
-import CreateTimeline from "./components/pages/CreateTimeline";
+import CreateTimelinePage from "./components/pages/CreateTimelinePage";
 import PreviewPage from "./components/pages/previewPage";
 import ViewPage from "./components/pages/viewPage";
 import MetaTags from "react-meta-tags";
@@ -48,7 +48,7 @@ function App() {
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Switch>
             <Route path={"/"} exact component={LandingPage} />
-            <Route path={"/create"} exact component={CreateTimeline} />
+            <Route path={"/create"} exact component={CreateTimelinePage} />
             <Route path={"/preview"} exact component={PreviewPage} />
             <Route path={"/view/:docID"} exact component={ViewPage} />
             <Redirect to={"/"} />

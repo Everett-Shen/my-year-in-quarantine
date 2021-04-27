@@ -7,24 +7,13 @@ import {
   Button,
   Fade,
 } from "@material-ui/core";
-import { TextInput, DateInput } from "../pages/CreateTimeline";
+import {
+  TextInput,
+  DateInput,
+  returnErrorMsg,
+} from "../baseComponents/baseInputs";
 import * as Yup from "yup";
 import _ from "lodash";
-
-const returnErrorMsg = (msg) => {
-  return (
-    <div
-      style={{
-        color: "red",
-        fontSize: "0.8em",
-        marginLeft: "5px",
-        textAlign: "right",
-      }}
-    >
-      {msg}
-    </div>
-  );
-};
 
 const getInitialTouched = (initialValues) => {
   if (initialValues.entry === "") return {};
@@ -246,4 +235,4 @@ const DialogForm = ({
 };
 
 export default DialogForm;
-export { returnErrorMsg, entrySchema };
+export { entrySchema };

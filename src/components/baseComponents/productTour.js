@@ -1,12 +1,14 @@
 import React from "react";
-import Joyride from "react-joyride";
+import Joyride, { STATUS } from "react-joyride";
 import variables from "../../styles/variables.module.scss";
 
-const ProductTour = ({ run, steps }) => {
+const ProductTour = ({ run, setIsInstructionsOpen, steps }) => {
   const handleCallback = (data) => {
     if (data.index === data.size - 1) {
       window.scrollTo(0, 0);
     }
+    if ([STATUS.FINISHED, STATUS.SKIPPED].includes(data.status))
+      setIsInstructionsOpen(false);
   };
   return (
     <Joyride
