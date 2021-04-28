@@ -343,6 +343,7 @@
 }
 .createForm .timelineForm .inputRow {
   margin-top: 20px;
+  width: 100%;
 }
 .createForm .timelineForm .date-input {
   margin-left: 10px;
@@ -376,7 +377,7 @@
   font-weight: 200;
   width: 35px;
   height: 35px;
-  margin: 25px auto;
+  margin: 50px auto 10px auto;
   display: block;
   border: 1px solid #ff7676;
   border-radius: calc(17.5px);
@@ -424,6 +425,36 @@
   margin: auto;
   margin-top: 30px;
   height: 200px;
+}
+.createForm .timelineForm .roadmap-container .dots {
+  content: "";
+  position: relative;
+  top: -18px;
+  width: 1px;
+  border-left: 3px dotted #7a7a7a;
+  height: 15px;
+  margin: 2px auto 0px auto;
+  z-index: 1;
+}
+.createForm .timelineForm .roadmap-container .roadmap-entry-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.createForm .timelineForm .roadmap-container .roadmap-entry-container .circle {
+  background-color: white;
+  border: 3px solid #ff7676;
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  z-index: 5;
+  border-radius: 25px;
+  top: 0px;
+  left: calc( 50% - 213px );
+  height: 30px;
+  width: 30px;
+  border: 2px solid #ff7676;
+  position: static;
 }
 
 :export {

@@ -106,6 +106,7 @@ const LocationInput = ({
   onChange,
   placeholder,
   apiKey = "AIzaSyCeVWbfSffGK19HP7Tg-GY_nFfZ-sP7ASw",
+  name,
 }) => {
   return (
     <GooglePlacesAutocomplete
@@ -115,7 +116,54 @@ const LocationInput = ({
         onChange: onChange,
         placeholder: placeholder,
       }}
+      name={name}
     />
+  );
+};
+
+const DeleteButton = ({ onClick }) => {
+  return (
+    <button
+      className="deleteButton"
+      type="button"
+      tabIndex="-1"
+      onClick={onClick}
+    >
+      delete
+    </button>
+  );
+};
+
+const LocationAndDateEntry = ({
+  locationValue,
+  locationOnChange,
+  locationPlaceholder,
+  locationName,
+  deleteEntry,
+  dateName,
+}) => {
+  const mobile = useMediaQuery("(max-width:600px)");
+  return (
+    <div style={{ width: "100%" }}>
+      <LocationInput
+        value={locationValue}
+        onChange={locationOnChange}
+        placeholder={locationPlaceholder}
+        id={locationName}
+        name={locationName}
+      />
+      <ErrorMessage name={locationName} render={returnErrorMsg} />
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <DeleteButton onClick={deleteEntry} />
+        <DateInput
+          style={{ width: "100px" }}
+          id={dateName}
+          name={dateName}
+          classnames={"date-input"}
+          label={mobile ? " arrival date" : null}
+        />
+      </div>
+    </div>
   );
 };
 
@@ -139,4 +187,5 @@ export {
   FormikTextFieldQuestion,
   returnErrorMsg,
   LocationInput,
+  LocationAndDateEntry,
 };

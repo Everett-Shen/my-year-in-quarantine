@@ -8,7 +8,7 @@ import DialogForm, { entrySchema } from "../createPage/dialogForm";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
 import CreateTimelineUI from "./createTimelineUI";
-import { Q1, Q4, Q5, Q6 } from "./formQuestions";
+import { Q1, Q2, Q2Schema, Q4, Q5, Q6 } from "./formQuestions";
 
 const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
 
@@ -16,6 +16,9 @@ const CreateTimelineContainer = () => {
   const history = useHistory();
   const [answers, setAnswers] = useState({
     Q1: { location: "" },
+    Q2: {
+      entries: [{ location: "", date: null }],
+    },
     Q4: {
       entries: [],
     },
@@ -25,6 +28,9 @@ const CreateTimelineContainer = () => {
   const VISITED_LOCAL_STORAGE_KEY = "my_year_in_quarantine_create_page_visited";
   const pageVisited = useVisited(VISITED_LOCAL_STORAGE_KEY);
   const [questionOne, setQuestionOne] = useState({ location: "" });
+  const [questionTwo, setQuestionTwo] = useState({
+    entries: [{ location: "", date: null }],
+  });
   const [questionFour, setQuestionFour] = useState({ entries: [] });
   const [questionFive, setQuestionFive] = useState({ text: "" });
   const [questionSix, setQuestionSix] = useState({ name: "" });
@@ -43,6 +49,7 @@ const CreateTimelineContainer = () => {
   const firstUpdate = useRef(true);
 
   useUpdateAnswers(answers, setAnswers, "Q1", questionOne);
+  useUpdateAnswers(answers, setAnswers, "Q2", questionTwo);
   useUpdateAnswers(answers, setAnswers, "Q4", questionFour);
   useUpdateAnswers(answers, setAnswers, "Q5", questionFive);
   useUpdateAnswers(answers, setAnswers, "Q6", questionSix);
@@ -53,6 +60,7 @@ const CreateTimelineContainer = () => {
     if (storageAnswers) {
       setAnswers(storageAnswers);
       if (storageAnswers.Q1) setQuestionOne(storageAnswers.Q1);
+      if (storageAnswers.Q1) setQuestionTwo(storageAnswers.Q2);
       if (storageAnswers.Q4) setQuestionFour(storageAnswers.Q4);
       if (storageAnswers.Q5) setQuestionFive(storageAnswers.Q5);
       if (storageAnswers.Q6) setQuestionSix(storageAnswers.Q6);
@@ -113,6 +121,7 @@ const CreateTimelineContainer = () => {
           label: Yup.string().ensure().required("q1: location is required"),
         }),
     }),
+    Q2: Q2Schema,
     Q4: Yup.object().shape({
       entries: Yup.array()
         .of(entrySchema)
@@ -133,6 +142,19 @@ const CreateTimelineContainer = () => {
       label: "1. Where were you located when the COVID-19 pandemic began? ",
       id: "Q1",
       component: <Q1 {...{ questionOne, setQuestionOne }} />,
+    },
+    {
+      label:
+        "2. Since then, which places have you called home? Please provide a geographic roadmap of your journey throughout the pandemic ",
+      id: "Q2",
+      component: (
+        <Q2
+          {...{
+            questionTwo,
+            setQuestionTwo,
+          }}
+        />
+      ),
     },
     {
       label:

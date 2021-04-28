@@ -64,6 +64,7 @@
 
     .inputRow {
       margin-top: 20px;
+      width: 100%;
     }
 
     .date-input {
@@ -109,7 +110,7 @@
       font-weight: 200;
       width: $diameter;
       height: $diameter;
-      margin: 25px auto;
+      margin: 50px auto 10px auto;
       display: block;
       border: 1px solid $primary-color;
       border-radius: calc(#{$diameter / 2});
@@ -165,6 +166,37 @@
       margin: auto;
       margin-top: 30px;
       height: 200px;
+    }
+
+    .roadmap-container {
+      .dots {
+        content: "";
+        position: relative;
+        top: -18px;
+        // background-color: $primary-color;
+        width: 1px;
+        border-left: 3px dotted rgb(122, 122, 122);
+        height: 15px;
+        margin: 2px auto 0px auto;
+
+        z-index: $timeline-line-z-index;
+      }
+
+      .roadmap-entry-container {
+        // margin-left: 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .circle {
+          @include circle($intro-block-width);
+          height: 30px;
+          width: 30px;
+          border: 2px solid $primary-color;
+
+          position: static;
+        }
+      }
     }
   }
 }

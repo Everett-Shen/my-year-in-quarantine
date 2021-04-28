@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Formik, Form } from "formik";
+import { Formik, Form, FieldArray } from "formik";
 import EditIcon from "@material-ui/icons/Edit";
 
 import { IconButton } from "@material-ui/core";
@@ -9,7 +9,9 @@ import ItemMenu from "../baseComponents/ItemMenu";
 import {
   FormikTextFieldQuestion,
   LocationInput,
+  LocationAndDateEntry,
 } from "../baseComponents/baseInputs";
+import * as Yup from "yup";
 
 const sortEntries = (entries) => {
   entries.sort((entryA, entryB) => {
@@ -17,6 +19,20 @@ const sortEntries = (entries) => {
     let dateB = entryB.date ? entryB.date : entryB.from;
     return dateA < dateB ? -1 : dateA > dateB ? 1 : 0;
   });
+};
+
+const formatDate = (dateString) => {
+  try {
+    let date = new Date(dateString);
+
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+    return `${month < 10 ? "0" + month : month}/${
+      day < 10 ? "0" + day : day
+    }/${date.getFullYear()}`;
+  } catch {
+    return "";
+  }
 };
 
 const Q1 = ({ questionOne, setQuestionOne }) => {
@@ -37,18 +53,84 @@ const Q1 = ({ questionOne, setQuestionOne }) => {
     </div>
   );
 };
-const formatDate = (dateString) => {
-  try {
-    let date = new Date(dateString);
 
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
-    return `${month < 10 ? "0" + month : month}/${
-      day < 10 ? "0" + day : day
-    }/${date.getFullYear()}`;
-  } catch {
-    return "";
-  }
+const Q2Schema = () => {
+  return Yup.object().shape({
+    entries: Yup.array().of(
+      Yup.object().shape({
+        location: Yup.object().shape({
+          label: Yup.string().required("location is required"),
+        }),
+        date: Yup.date().typeError("q2: date is required").required("required"),
+      })
+    ),
+  });
+};
+
+const Q2 = ({ questionTwo, setQuestionTwo, updatePanelContainer }) => {
+  return (
+    <div className="questionContainer">
+      <h4>note</h4>
+      <div className="notes">
+        <p>1. entries will be automatically sorted by date</p>
+
+        <p>2. approximate dates are fine! </p>
+        <p>
+          3. Include repeat locations. If you remained in one place, leave this
+          question empty.
+        </p>
+      </div>
+
+      <Formik
+        initialValues={questionTwo}
+        onSubmit={(values) => {
+          setQuestionTwo(values);
+        }}
+        validationSchema={Q2Schema}
+      >
+        {(props) => (
+          <Form id="Q2">
+            <FieldArray
+              name="entries"
+              render={(arrayHelpers) => (
+                <div style={{ position: "relative", marginTop: "30px" }}>
+                  <div className={"roadmap-container"}>
+                    {props.values.entries.map((entry, index) => (
+                      <>
+                        <div className="roadmap-entry-container">
+                          <LocationAndDateEntry
+                            locationValue={entry.location}
+                            locationName={`entries.${index}.entry`}
+                            locationOnChange={props.handleChange}
+                            locationPlaceholder={"hi"}
+                            deleteEntry={() => {
+                              arrayHelpers.remove(index);
+                              updatePanelContainer();
+                            }}
+                            dateName={`entries.${index}.date`}
+                          />
+                        </div>
+
+                        {index !== props.values.entries.length - 1 && (
+                          <div className={"dots"}></div>
+                        )}
+                      </>
+                    ))}
+                    <AddButton
+                      onClick={() => {
+                        arrayHelpers.push({ location: "", date: null });
+                        updatePanelContainer();
+                      }}
+                    />
+                  </div>
+                </div>
+              )}
+            />
+          </Form>
+        )}
+      </Formik>
+    </div>
+  );
 };
 
 const Q4 = ({
@@ -82,7 +164,8 @@ const Q4 = ({
       <div className="notes">
         <p>1. click the "+" icon to add entries</p>
         <p>2. events don't have to be pandemic-related!</p>
-        <p>3. this question should be the longest by far. take your time!</p>
+        <p>3. approximate dates are fine! </p>
+        <p>4. this question should be the longest by far. take your time!</p>
       </div>
       {questionFour.entries.map((entry, index) => (
         <div className="inputRow" key={index}>
@@ -223,4 +306,4 @@ const Q6 = ({ questionSix, setQuestionSix }) => {
   );
 };
 
-export { Q1, Q4, Q5, Q6 };
+export { Q1, Q2, Q4, Q5, Q6, Q2Schema };
