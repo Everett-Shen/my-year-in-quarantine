@@ -11,13 +11,7 @@ const useVisited = (pageKey) => {
   return pageVisited;
 };
 
-const useUpdateAnswers = (
-  firstUpdate,
-  answers,
-  setAnswers,
-  answerKey,
-  updatedAnswer
-) => {
+const useUpdateAnswers = (answers, setAnswers, answerKey, updatedAnswer) => {
   useNonInitialEffect(() => {
     setAnswers({ ...answers, [answerKey]: updatedAnswer });
   }, [updatedAnswer]);

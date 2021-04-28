@@ -69,6 +69,7 @@ const FormikTextFieldQuestion = ({
               })
             : Yup.object({})
         }
+        enableReinitialize
         onSubmit={onSubmit}
       >
         {() => (

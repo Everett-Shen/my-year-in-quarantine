@@ -73,6 +73,7 @@ const CreateTimelineContainer = () => {
 
   const formRef = createRef();
   const newEntryFormRef = createRef();
+  const firstUpdate = useRef(true);
 
   const sortEntries = (entries) => {
     entries.sort((entryA, entryB) => {
@@ -82,21 +83,22 @@ const CreateTimelineContainer = () => {
     });
   };
 
-  const firstUpdate = useRef(true);
+  useUpdateAnswers(answers, setAnswers, "Q1", questionOne);
+  useUpdateAnswers(answers, setAnswers, "Q4", questionFour);
+  useUpdateAnswers(answers, setAnswers, "Q6", questionSix);
 
-  useUpdateAnswers(firstUpdate, answers, setAnswers, "Q1", questionOne);
-  useUpdateAnswers(firstUpdate, answers, setAnswers, "Q4", questionFour);
-  useUpdateAnswers(firstUpdate, answers, setAnswers, "Q6", questionSix);
+  // read answers from localStorage upon initial render
+  useEffect(() => {
+    const storageAnswers = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    if (storageAnswers) {
+      setAnswers(storageAnswers);
+      if (storageAnswers.Q1) setQuestionOne(storageAnswers.Q1);
+      if (storageAnswers.Q4) setQuestionFour(storageAnswers.Q4);
+      if (storageAnswers.Q6) setQuestionSix(storageAnswers.Q6);
+    }
+  }, []);
 
-  // need to add code to read from localStorage
-  // useEffect(() => {
-  //   const storageAnswers = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-  //   if (storageAnswers) {
-  //     setAnswers(storageAnswers);
-  //   }
-  // }, []);
-
-  // need to add code to save to localstorage
+  // save answers to localstorage when updated
   useNonInitialEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(answers));
   }, [answers]);
