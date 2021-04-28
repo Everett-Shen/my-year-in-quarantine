@@ -57,6 +57,8 @@ const FormikTextFieldQuestion = ({
   required,
   placeholder,
   onSubmit,
+  charLimit,
+  multiRow = false,
 }) => {
   return (
     <div className="questionContainer">
@@ -64,9 +66,15 @@ const FormikTextFieldQuestion = ({
         initialValues={initialValues}
         validationSchema={
           required
-            ? Yup.object({
-                [questionName]: Yup.string().required("required"),
-              })
+            ? charLimit
+              ? Yup.object({
+                  [questionName]: Yup.string()
+                    .max(charLimit, `max ${charLimit} characters`)
+                    .required("required"),
+                })
+              : Yup.object({
+                  [questionName]: Yup.string().required("required"),
+                })
             : Yup.object({})
         }
         enableReinitialize
@@ -79,6 +87,10 @@ const FormikTextFieldQuestion = ({
               name={questionName}
               placeholder={placeholder}
               classnames={"text-input-wide"}
+              multiline={multiRow}
+              rows={multiRow ? 10 : 1}
+              rowsMax={multiRow ? 10 : 1}
+              variant={multiRow ? "outlined" : "standard"}
             />
             <ErrorMessage name={questionName} render={returnErrorMsg} />
           </Form>

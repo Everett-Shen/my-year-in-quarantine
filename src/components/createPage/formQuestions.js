@@ -192,19 +192,22 @@ const Q4 = ({
     </div>
   );
 };
-// const Q5 = ({ questionFive, setQuestionFive }) => {
-//   return (
-//     <FormikTextFieldQuestion
-//       questionNumber={"Q5"}
-//       questionName={"title"}
-//       initialValues={questionFive}
-//       placeholder={"ex. My Year in Quarantine"}
-//       onSubmit={(values) => {
-//         setQuestionFive(values);
-//       }}
-//     />
-//   );
-// };
+const Q5 = ({ questionFive, setQuestionFive }) => {
+  return (
+    <FormikTextFieldQuestion
+      questionNumber={"Q5"}
+      questionName={"text"}
+      initialValues={questionFive}
+      placeholder={""}
+      onSubmit={(values) => {
+        setQuestionFive(values);
+      }}
+      required={true}
+      multiRow={true}
+      charLimit={500}
+    />
+  );
+};
 const Q6 = ({ questionSix, setQuestionSix }) => {
   return (
     <FormikTextFieldQuestion
@@ -220,4 +223,4 @@ const Q6 = ({ questionSix, setQuestionSix }) => {
   );
 };
 
-export { Q1, Q4, Q6 };
+export { Q1, Q4, Q5, Q6 };

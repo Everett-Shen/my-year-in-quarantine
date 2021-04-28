@@ -8,7 +8,7 @@ import DialogForm, { entrySchema } from "../createPage/dialogForm";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
 import CreateTimelineUI from "./createTimelineUI";
-import { Q1, Q4, Q6 } from "./formQuestions";
+import { Q1, Q4, Q5, Q6 } from "./formQuestions";
 
 const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
 
@@ -19,21 +19,59 @@ const CreateTimelineContainer = () => {
     Q4: {
       entries: [],
     },
+    Q5: { text: "" },
     Q6: { name: "" },
   });
   const VISITED_LOCAL_STORAGE_KEY = "my_year_in_quarantine_create_page_visited";
   const pageVisited = useVisited(VISITED_LOCAL_STORAGE_KEY);
   const [questionOne, setQuestionOne] = useState({ location: "" });
   const [questionFour, setQuestionFour] = useState({ entries: [] });
+  const [questionFive, setQuestionFive] = useState({ text: "" });
   const [questionSix, setQuestionSix] = useState({ name: "" });
   const [isDialogFormOpen, setIsDialogFormOpen] = useState(false);
   const [errors, setErrors] = useState([]);
   const [isNewEntryFormOpen, setIsNewEntryFormOpen] = useState(false);
-
   const [isInstructionsOpen, setIsInstructionsOpen] = useState(false);
   const [isFloatingButtonMenuOpen, setIsFloatingButtonMenuOpen] = useState(
     false
   );
+  const [selectedEntry, setSelectedEntry] = useState({});
+  const [selectedEntryIndex, setSelectedEntryIndex] = useState(0);
+
+  const formRef = createRef();
+  const newEntryFormRef = createRef();
+  const firstUpdate = useRef(true);
+
+  useUpdateAnswers(answers, setAnswers, "Q1", questionOne);
+  useUpdateAnswers(answers, setAnswers, "Q4", questionFour);
+  useUpdateAnswers(answers, setAnswers, "Q5", questionFive);
+  useUpdateAnswers(answers, setAnswers, "Q6", questionSix);
+
+  // read answers from localStorage upon initial render
+  useEffect(() => {
+    const storageAnswers = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    if (storageAnswers) {
+      setAnswers(storageAnswers);
+      if (storageAnswers.Q1) setQuestionOne(storageAnswers.Q1);
+      if (storageAnswers.Q4) setQuestionFour(storageAnswers.Q4);
+      if (storageAnswers.Q5) setQuestionFive(storageAnswers.Q5);
+      if (storageAnswers.Q6) setQuestionSix(storageAnswers.Q6);
+    }
+  }, []);
+
+  // save answers to localstorage when updated
+  useNonInitialEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(answers));
+  }, [answers]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useNonInitialEffect(() => {
+    if (!pageVisited) setTimeout(() => setIsInstructionsOpen(true), 1000);
+  }, [pageVisited]);
+
   const joyrideSteps = [
     {
       placement: "center",
@@ -67,42 +105,6 @@ const CreateTimelineContainer = () => {
       content: "Good luck!",
     },
   ];
-
-  const [selectedEntry, setSelectedEntry] = useState({});
-  const [selectedEntryIndex, setSelectedEntryIndex] = useState(0);
-
-  const formRef = createRef();
-  const newEntryFormRef = createRef();
-  const firstUpdate = useRef(true);
-
-  useUpdateAnswers(answers, setAnswers, "Q1", questionOne);
-  useUpdateAnswers(answers, setAnswers, "Q4", questionFour);
-  useUpdateAnswers(answers, setAnswers, "Q6", questionSix);
-
-  // read answers from localStorage upon initial render
-  useEffect(() => {
-    const storageAnswers = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-    if (storageAnswers) {
-      setAnswers(storageAnswers);
-      if (storageAnswers.Q1) setQuestionOne(storageAnswers.Q1);
-      if (storageAnswers.Q4) setQuestionFour(storageAnswers.Q4);
-      if (storageAnswers.Q6) setQuestionSix(storageAnswers.Q6);
-    }
-  }, []);
-
-  // save answers to localstorage when updated
-  useNonInitialEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(answers));
-  }, [answers]);
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  useNonInitialEffect(() => {
-    if (!pageVisited) setTimeout(() => setIsInstructionsOpen(true), 1000);
-  }, [pageVisited]);
-
   const schema = Yup.object().shape({
     Q1: Yup.object().shape({
       location: Yup.object()
@@ -114,10 +116,15 @@ const CreateTimelineContainer = () => {
     Q4: Yup.object().shape({
       entries: Yup.array()
         .of(entrySchema)
-        .min(3, "q4: please include at least 3 timeline entries"),
+        .min(3, "q3: please include at least 3 timeline entries"),
+    }),
+    Q5: Yup.object().shape({
+      text: Yup.string()
+        .max(500, `max 500 characters`)
+        .required("q4: description is required"),
     }),
     Q6: Yup.object().shape({
-      name: Yup.string().required("q6: name is required"),
+      name: Yup.string().required("q5: name is required"),
     }),
   });
 
@@ -151,7 +158,13 @@ const CreateTimelineContainer = () => {
       ),
     },
     {
-      label: "6. Your preferred name ",
+      label:
+        "4. What's going on in your life today? Please share a brief blurb on what you've been doing, how you're feeling, and what you think the future holds. ",
+      id: "Q5",
+      component: <Q5 {...{ questionFive, setQuestionFive }} />,
+    },
+    {
+      label: "5. Your preferred name ",
       id: "Q6",
       component: <Q6 {...{ questionSix, setQuestionSix }} />,
     },
