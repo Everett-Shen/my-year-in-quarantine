@@ -5,7 +5,7 @@ import {
   MenuItem,
   useMediaQuery,
 } from "@material-ui/core";
-import { KeyboardDatePicker } from "@material-ui/pickers";
+import { DatePicker } from "@material-ui/pickers";
 import { ErrorMessage, Form, Formik, useField } from "formik";
 import React from "react";
 import * as Yup from "yup";
@@ -28,7 +28,7 @@ const DateInput = ({ ...props }) => {
   // field.value = field.value ? field.value : props.defaultValue;
   return (
     <>
-      <KeyboardDatePicker
+      <DatePicker
         clearable
         disableToolbar
         autoOk

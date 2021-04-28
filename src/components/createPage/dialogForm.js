@@ -12,6 +12,7 @@ import {
   DateInput,
   returnErrorMsg,
 } from "../baseComponents/baseInputs";
+import CheckmarkWithLabel from "../baseComponents/checkmarkWithLabel";
 import * as Yup from "yup";
 import _ from "lodash";
 
@@ -43,11 +44,12 @@ const entrySchema = Yup.object().shape(
       otherwise: Yup.date().notRequired(),
     }),
     to: Yup.date()
-      .when("date", {
-        // required when date is undefined (i.e. for phases)
-        is: (val) => val === undefined,
+      .nullable()
+      .when(["date", "ongoing"], {
+        // required when date is undefined (i.e. for phases), and ongoing is not true
+        is: (date, ongoing) => date === undefined && !ongoing,
         then: Yup.date().typeError("q4: date is required").required("required"),
-        otherwise: Yup.date().notRequired(),
+        otherwise: Yup.date().notRequired().nullable(),
       })
       .when("from", (from, schema) => {
         return schema.test({
@@ -170,8 +172,19 @@ const DialogForm = ({
                           required={true}
                           inputVariant="outlined"
                           label="end date"
+                          disabled={formik.values.ongoing} // disable end date if period is currently ongoing
                         />
                         <ErrorMessage name="to" render={returnErrorMsg} />
+                        {/* currently ongoing checkmark */}
+                        <div style={{ float: "right" }}>
+                          <CheckmarkWithLabel
+                            label={"currently ongoing"}
+                            labelPlacement="start"
+                            name="ongoing"
+                            onChange={formik.handleChange}
+                            checked={formik.values.ongoing}
+                          />
+                        </div>
                       </div>
                     </div>
                   )}
@@ -180,7 +193,11 @@ const DialogForm = ({
                   <TextInput
                     id={"test2"}
                     name={"description"}
-                    style={{ marginTop: "20px" }}
+                    style={{
+                      marginTop: `${
+                        initialValues.date !== undefined ? "20px" : "0px"
+                      }`,
+                    }}
                     placeholder={""}
                     classnames={"text-input text-input-wide"}
                     fullWidth={true}

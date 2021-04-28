@@ -11,15 +11,22 @@ const ColoredCheckbox = withStyles({
   checked: {},
 })((props) => <Checkbox color="default" {...props} />);
 
-const CheckmarkWithLabel = ({ label, checked, onChange }) => {
+const CheckmarkWithLabel = ({
+  label,
+  checked,
+  onChange,
+  labelPlacement = "end",
+  name = "checkedB",
+}) => {
   return (
     <FormControlLabel
       label={label}
+      labelPlacement={labelPlacement}
       control={
         <ColoredCheckbox
           checked={checked}
           onChange={onChange}
-          name="checkedB"
+          name={name}
           color="primary"
         />
       }

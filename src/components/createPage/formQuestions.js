@@ -82,7 +82,7 @@ const Q4 = ({
       <div className="notes">
         <p>1. click the "+" icon to add entries</p>
         <p>2. events don't have to be pandemic-related!</p>
-        <p>3. this question will take the longest. take your time!</p>
+        <p>3. this question should be the longest by far. take your time!</p>
       </div>
       {questionFour.entries.map((entry, index) => (
         <div className="inputRow" key={index}>
@@ -100,10 +100,12 @@ const Q4 = ({
               {/* if date is undefined or empty */}
               {entry.date !== undefined ? (
                 <p>{formatDate(entry.date)}</p>
-              ) : (
+              ) : entry.ongoing === false ? (
                 <p>{`${
                   formatDate(entry.from) + "-" + formatDate(entry.to)
                 }`}</p>
+              ) : (
+                <p>{`${formatDate(entry.from) + "-" + "present"}`}</p>
               )}
             </div>
             <div style={{ gridColumnStart: "3", gridColumnEnd: "4" }}>
