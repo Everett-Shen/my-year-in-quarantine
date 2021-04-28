@@ -115,6 +115,7 @@ const DialogForm = ({
                   >
                     *required
                   </div>
+                  {/* entry name */}
                   <TextInput
                     style={{ marginTop: "15px" }}
                     name={"entry"}
@@ -129,6 +130,7 @@ const DialogForm = ({
                   <ErrorMessage name="entry" render={returnErrorMsg} />
                   {initialValues.date !== undefined ? (
                     <div>
+                      {/*event date*/}
                       <DateInput
                         style={{ width: "100%", marginTop: "20px" }}
                         name={"date"}
@@ -147,6 +149,7 @@ const DialogForm = ({
                         marginTop: "20px",
                       }}
                     >
+                      {/* time period dates */}
                       <div style={{ width: "45%" }}>
                         <DateInput
                           name={"from"}
@@ -173,6 +176,7 @@ const DialogForm = ({
                     </div>
                   )}
 
+                  {/* description */}
                   <TextInput
                     id={"test2"}
                     name={"description"}

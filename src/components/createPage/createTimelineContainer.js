@@ -136,7 +136,7 @@ const CreateTimelineContainer = () => {
     },
     {
       label:
-        "3. Look back on your year. What are the most significant events or periods that happened in your life during the pandemic? ",
+        "3. Look back on your year. What are the most significant events or time periods that occurred in your life during the pandemic? ",
       id: "Q4",
       component: (
         <Q4

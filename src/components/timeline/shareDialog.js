@@ -6,9 +6,6 @@ import {
   Tooltip,
   Menu,
   MenuItem,
-  FormControlLabel,
-  Checkbox,
-  withStyles,
 } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import _ from "lodash";

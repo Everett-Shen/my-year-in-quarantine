@@ -16,7 +16,7 @@ const HelpTooltip = ({ contents }) => {
   return (
     <>
       <LightTooltip
-        title={contents ? "contents" : ""}
+        title={contents ? contents : ""}
         placement="bottom"
         classes={{ tooltip: "centered" }}
         enterTouchDelay={0}

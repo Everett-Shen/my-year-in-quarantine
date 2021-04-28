@@ -80,11 +80,9 @@ const Q4 = ({
     <div className="questionContainer">
       <h4>note</h4>
       <div className="notes">
-        <p>1. click the pencil icon to add notes or edit/delete entries</p>
-        <p>2. use the notes section to provide additional details</p>
-        <p>3. click the calendar icon to open date picker</p>
-        <p>4. click the "+" icon to add additional entries</p>
-        <p>5. this question should be the longest. take your time!</p>
+        <p>1. click the "+" icon to add entries</p>
+        <p>2. events don't have to be pandemic-related!</p>
+        <p>3. this question will take the longest. take your time!</p>
       </div>
       {questionFour.entries.map((entry, index) => (
         <div className="inputRow" key={index}>
