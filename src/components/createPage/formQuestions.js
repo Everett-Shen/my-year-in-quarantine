@@ -8,6 +8,14 @@ import AddButton from "../baseComponents/addButton";
 import ItemMenu from "../baseComponents/ItemMenu";
 import { FormikTextFieldQuestion } from "../baseComponents/baseInputs";
 
+const sortEntries = (entries) => {
+  entries.sort((entryA, entryB) => {
+    let dateA = entryA.date ? entryA.date : entryA.from;
+    let dateB = entryB.date ? entryB.date : entryB.from;
+    return dateA < dateB ? -1 : dateA > dateB ? 1 : 0;
+  });
+};
+
 const Q1 = ({ questionOne, setQuestionOne }) => {
   const setLocation = (value) => {
     setQuestionOne({ location: value });
@@ -149,6 +157,7 @@ const Q4 = ({
         onSubmit={(values) => {
           let newEntries = [...questionFour.entries];
           newEntries.splice(selectedEntryIndex, 1, values);
+          sortEntries(newEntries);
           setQuestionFour({
             entries: newEntries,
           }); // may or may not work lol, we'll see
@@ -170,7 +179,9 @@ const Q4 = ({
       <DialogForm
         initialValues={selectedEntry}
         onSubmit={(values) => {
-          setQuestionFour({ entries: [...questionFour.entries, values] });
+          let newEntries = [...questionFour.entries, values];
+          sortEntries(newEntries);
+          setQuestionFour({ entries: newEntries });
           updatePanelContainer();
         }}
         isOpen={isNewEntryFormOpen}

@@ -75,14 +75,6 @@ const CreateTimelineContainer = () => {
   const newEntryFormRef = createRef();
   const firstUpdate = useRef(true);
 
-  const sortEntries = (entries) => {
-    entries.sort((entryA, entryB) => {
-      let dateA = entryA.date ? entryA.date : entryA.from;
-      let dateB = entryB.date ? entryB.date : entryB.from;
-      return dateA < dateB ? -1 : dateA > dateB ? 1 : 0;
-    });
-  };
-
   useUpdateAnswers(answers, setAnswers, "Q1", questionOne);
   useUpdateAnswers(answers, setAnswers, "Q4", questionFour);
   useUpdateAnswers(answers, setAnswers, "Q6", questionSix);
