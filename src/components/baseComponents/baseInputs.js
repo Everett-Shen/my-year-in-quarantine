@@ -9,6 +9,7 @@ import { DatePicker } from "@material-ui/pickers";
 import { ErrorMessage, Form, Formik, useField } from "formik";
 import React from "react";
 import * as Yup from "yup";
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 
 const TextInput = ({ ...props }) => {
   const [field] = useField(props);
@@ -100,6 +101,24 @@ const FormikTextFieldQuestion = ({
   );
 };
 
+const LocationInput = ({
+  value,
+  onChange,
+  placeholder,
+  apiKey = "AIzaSyCeVWbfSffGK19HP7Tg-GY_nFfZ-sP7ASw",
+}) => {
+  return (
+    <GooglePlacesAutocomplete
+      apiKey={apiKey}
+      selectProps={{
+        value: value,
+        onChange: onChange,
+        placeholder: placeholder,
+      }}
+    />
+  );
+};
+
 const returnErrorMsg = (msg) => {
   return (
     <div
@@ -114,4 +133,10 @@ const returnErrorMsg = (msg) => {
     </div>
   );
 };
-export { TextInput, DateInput, FormikTextFieldQuestion, returnErrorMsg };
+export {
+  TextInput,
+  DateInput,
+  FormikTextFieldQuestion,
+  returnErrorMsg,
+  LocationInput,
+};

@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import EditIcon from "@material-ui/icons/Edit";
-import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+
 import { IconButton } from "@material-ui/core";
 import DialogForm from "./dialogForm";
 import AddButton from "../baseComponents/addButton";
 import ItemMenu from "../baseComponents/ItemMenu";
-import { FormikTextFieldQuestion } from "../baseComponents/baseInputs";
+import {
+  FormikTextFieldQuestion,
+  LocationInput,
+} from "../baseComponents/baseInputs";
 
 const sortEntries = (entries) => {
   entries.sort((entryA, entryB) => {
@@ -23,15 +26,12 @@ const Q1 = ({ questionOne, setQuestionOne }) => {
   return (
     <div className="questionContainer">
       <div className="locationInput">
-        <GooglePlacesAutocomplete
-          apiKey="AIzaSyCeVWbfSffGK19HP7Tg-GY_nFfZ-sP7ASw"
-          selectProps={{
-            value: questionOne.location,
-            onChange: (location) => {
-              setLocation(location);
-            },
-            placeholder: "ex. New York City",
+        <LocationInput
+          value={questionOne.location}
+          onChange={(location) => {
+            setLocation(location);
           }}
+          placeholder={"ex. New York City"}
         />
       </div>
     </div>
