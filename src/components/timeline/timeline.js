@@ -17,7 +17,7 @@ const Timeline = ({
   setIsFloatingButtonMenuOpen,
 }) => {
   const [scrollTarget, setScrollTarget] = useState(0);
-  const dividerHeight = compressed ? "100px" : "700px";
+  const dividerHeight = compressed ? "100px" : "800px";
   const answersRef = useRef(answers);
   const scrollTargetRef = useRef(scrollTarget);
   const preventDefault = (e) => {
@@ -66,9 +66,14 @@ const Timeline = ({
     return format(new Date(date), "MMM dd yyyy");
   };
 
+  const totalEntryNumber = () => {
+    return answersRef.current.entries
+      ? answersRef.current.entries.length + 3
+      : 3; // entries + title, start location, present day
+  };
+
   const scrollToTarget = (targetID) => {
-    if (targetID < 0 || targetID > answersRef.current.entries.length + 1)
-      return;
+    if (targetID < 0 || targetID > totalEntryNumber() - 1) return;
     console.log("scrolling");
     scroller.scrollTo(String(targetID), {
       duration: 1300,
@@ -78,7 +83,7 @@ const Timeline = ({
     });
     setScrollTarget(targetID);
     // // open floating menu buttons if bottom reached
-    if (targetID === answersRef.current.entries.length + 2 - 1) {
+    if (targetID === totalEntryNumber() - 1) {
       setIsFloatingButtonMenuOpen(true);
     }
   };
@@ -94,10 +99,7 @@ const Timeline = ({
       case "ArrowDown":
         e.preventDefault();
         // 1 less than the total number of timeline entries
-        if (
-          scrollTargetRef.current <
-          answersRef.current.entries.length + 2 - 1
-        ) {
+        if (scrollTargetRef.current < totalEntryNumber() - 1) {
           scrollToTarget(scrollTargetRef.current + 1);
         }
         break;
@@ -116,7 +118,7 @@ const Timeline = ({
       }
     } else if (e.wheelDelta < 0) {
       // 1 less than the total number of timeline entries
-      if (scrollTargetRef.current < answersRef.current.entries.length + 2 - 1) {
+      if (scrollTargetRef.current < totalEntryNumber() - 1) {
         scrollToTarget(scrollTargetRef.current + 1);
       }
     }
@@ -181,9 +183,9 @@ const Timeline = ({
                     date={
                       entry.date
                         ? formatDate(entry.date)
-                        : `${formatDate(entry.from)} -  \n ${formatDate(
-                            entry.to
-                          )}`
+                        : `${formatDate(entry.from)} -  \n ${
+                            !entry.ongoing ? formatDate(entry.to) : "present"
+                          }`
                     }
                     title={entry.entry}
                     content={
@@ -195,16 +197,27 @@ const Timeline = ({
                     compressed={compressed}
                   />
 
-                  <Divider
-                    height={
-                      index === answers.entries.length - 1
-                        ? "200px"
-                        : dividerHeight
-                    }
-                  />
+                  <Divider height={dividerHeight} />
                 </div>
               );
             })}
+          {answers.presentBlurb && (
+            <div className="divider">
+              <Entry
+                date={"present day"}
+                title={"Life Today"}
+                content={
+                  <div>
+                    <p>{answers.presentBlurb}</p>
+                  </div>
+                }
+                id={totalEntryNumber() - 1}
+                compressed={compressed}
+              />
+
+              <Divider height={"200px"} />
+            </div>
+          )}
         </div>
       </div>
     </ReactScrollWheelHandler>
