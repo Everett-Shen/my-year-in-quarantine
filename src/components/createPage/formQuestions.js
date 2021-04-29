@@ -77,8 +77,8 @@ const Q2 = ({ questionTwo, setQuestionTwo, updatePanelContainer }) => {
 
         <p>2. if you don't know exact the dates, approximate dates are fine!</p>
         <p>
-          3. Include repeat locations. If you remained in one place, leave this
-          question empty.
+          3. Include repeat locations. Do not include the location from Q1. If
+          you remained in one place, leave this question empty.
         </p>
       </div>
 

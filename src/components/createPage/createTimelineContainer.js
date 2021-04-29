@@ -43,10 +43,8 @@ const CreateTimelineContainer = () => {
   );
   const [selectedEntry, setSelectedEntry] = useState({});
   const [selectedEntryIndex, setSelectedEntryIndex] = useState(0);
-
   const formRef = createRef();
   const newEntryFormRef = createRef();
-  const firstUpdate = useRef(true);
 
   useUpdateAnswers(answers, setAnswers, "Q1", questionOne);
   useUpdateAnswers(answers, setAnswers, "Q2", questionTwo);

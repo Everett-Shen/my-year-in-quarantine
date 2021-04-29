@@ -5,10 +5,11 @@ import {
   MenuItem,
   useMediaQuery,
 } from "@material-ui/core";
-import { DatePicker } from "@material-ui/pickers";
+import { DatePicker, KeyboardDatePicker } from "@material-ui/pickers";
 import { ErrorMessage, Form, Formik, useField } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
+import { useNonInitialEffect } from "../../helpers/hooks.js";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 
 const TextInput = ({ ...props }) => {
@@ -26,30 +27,58 @@ const DateInput = ({ ...props }) => {
   const inputProps = {
     disableUnderline: true,
   };
-  // field.value = field.value ? field.value : props.defaultValue;
+  const [closedKey, setClosedKey] = useState(0);
+  useNonInitialEffect(() => {
+    if (typeof props.dateOnChange === "function") props.dateOnChange();
+  }, [closedKey]); // when calendar is closed, sort entries (need to use useeffect or else sorting will happen before date gets updated)
+
   return (
     <>
-      <DatePicker
-        clearable
-        disableToolbar
-        autoOk
-        disableFuture
-        openTo="year"
-        className={props.classnames}
-        variant={mobile ? "dialog" : "inline"}
-        InputProps={inputProps}
-        placeholder="mm/dd/yyyy"
-        format="MM/dd/yyyy"
-        {...props}
-        {...field}
-        onChange={(date) => {
-          helpers.setValue(date);
-        }}
-        onClose={(date) => {
-          if (typeof props.dateOnChange === "function") props.dateOnChange();
-        }}
-        views={["year", "month", "date"]}
-      />
+      {mobile ? (
+        <DatePicker
+          clearable
+          disableToolbar
+          autoOk
+          disableFuture
+          openTo="year"
+          className={props.classnames}
+          variant={mobile ? "dialog" : "inline"}
+          InputProps={inputProps}
+          placeholder="mm/dd/yyyy"
+          format="MM/dd/yyyy"
+          {...props}
+          {...field}
+          onChange={(date) => {
+            helpers.setValue(date);
+          }}
+          onClose={() => {
+            setClosedKey(closedKey + 1);
+          }}
+          views={["year", "month", "date"]}
+        />
+      ) : (
+        <KeyboardDatePicker
+          clearable
+          disableToolbar
+          autoOk
+          disableFuture
+          openTo="year"
+          className={props.classnames}
+          variant={mobile ? "dialog" : "inline"}
+          InputProps={inputProps}
+          placeholder="mm/dd/yyyy"
+          format="MM/dd/yyyy"
+          {...props}
+          {...field}
+          onChange={(date) => {
+            helpers.setValue(date);
+          }}
+          onClose={() => {
+            setClosedKey(closedKey + 1);
+          }}
+          views={["year", "month", "date"]}
+        />
+      )}
     </>
   );
 };
@@ -160,7 +189,7 @@ const LocationAndDateEntry = ({
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <DeleteButton onClick={deleteEntry} />
         <DateInput
-          style={{ width: "100px" }}
+          style={{ width: mobile ? "100px" : "150px" }}
           id={dateName}
           name={dateName}
           classnames={"date-input"}
