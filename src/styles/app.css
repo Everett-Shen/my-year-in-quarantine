@@ -429,11 +429,11 @@
 .createForm .timelineForm .roadmap-container .dots {
   content: "";
   position: relative;
-  top: -18px;
+  top: -20px;
   width: 1px;
   border-left: 3px dotted #7a7a7a;
-  height: 15px;
-  margin: 2px auto 0px auto;
+  height: 18px;
+  margin: 0px auto 0px auto;
   z-index: 1;
 }
 .createForm .timelineForm .roadmap-container .roadmap-entry-container {

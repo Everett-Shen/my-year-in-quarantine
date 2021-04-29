@@ -172,12 +172,12 @@
       .dots {
         content: "";
         position: relative;
-        top: -18px;
+        top: -20px;
         // background-color: $primary-color;
         width: 1px;
         border-left: 3px dotted rgb(122, 122, 122);
-        height: 15px;
-        margin: 2px auto 0px auto;
+        height: 18px;
+        margin: 0px auto 0px auto;
 
         z-index: $timeline-line-z-index;
       }

@@ -60,7 +60,7 @@ const CreateTimelineContainer = () => {
     if (storageAnswers) {
       setAnswers(storageAnswers);
       if (storageAnswers.Q1) setQuestionOne(storageAnswers.Q1);
-      if (storageAnswers.Q1) setQuestionTwo(storageAnswers.Q2);
+      if (storageAnswers.Q2) setQuestionTwo(storageAnswers.Q2);
       if (storageAnswers.Q4) setQuestionFour(storageAnswers.Q4);
       if (storageAnswers.Q5) setQuestionFive(storageAnswers.Q5);
       if (storageAnswers.Q6) setQuestionSix(storageAnswers.Q6);

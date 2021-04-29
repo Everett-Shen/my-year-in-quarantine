@@ -45,6 +45,9 @@ const DateInput = ({ ...props }) => {
         onChange={(date) => {
           helpers.setValue(date);
         }}
+        onClose={(date) => {
+          if (typeof props.dateOnChange === "function") props.dateOnChange();
+        }}
         views={["year", "month", "date"]}
       />
     </>
@@ -141,6 +144,7 @@ const LocationAndDateEntry = ({
   locationName,
   deleteEntry,
   dateName,
+  dateOnChange,
 }) => {
   const mobile = useMediaQuery("(max-width:600px)");
   return (
@@ -160,9 +164,11 @@ const LocationAndDateEntry = ({
           id={dateName}
           name={dateName}
           classnames={"date-input"}
-          label={mobile ? " arrival date" : null}
+          label={mobile ? "arrival date" : "arrival date"}
+          dateOnChange={dateOnChange}
         />
       </div>
+      <ErrorMessage name={dateName} render={returnErrorMsg} />
     </div>
   );
 };

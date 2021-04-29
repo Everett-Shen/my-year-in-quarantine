@@ -19,6 +19,7 @@ const sortEntries = (entries) => {
     let dateB = entryB.date ? entryB.date : entryB.from;
     return dateA < dateB ? -1 : dateA > dateB ? 1 : 0;
   });
+  return entries;
 };
 
 const formatDate = (dateString) => {
@@ -54,18 +55,18 @@ const Q1 = ({ questionOne, setQuestionOne }) => {
   );
 };
 
-const Q2Schema = () => {
-  return Yup.object().shape({
-    entries: Yup.array().of(
-      Yup.object().shape({
-        location: Yup.object().shape({
-          label: Yup.string().required("location is required"),
-        }),
-        date: Yup.date().typeError("q2: date is required").required("required"),
-      })
-    ),
-  });
-};
+const Q2Schema = Yup.object().shape({
+  entries: Yup.array().of(
+    Yup.object().shape({
+      date: Yup.date().when("location", {
+        // required when location is not empty
+        is: (val) => typeof val === "object",
+        then: Yup.date().typeError("q2: date is required").required("required"),
+        otherwise: Yup.date().notRequired().nullable(),
+      }),
+    })
+  ),
+});
 
 const Q2 = ({ questionTwo, setQuestionTwo, updatePanelContainer }) => {
   return (
@@ -74,7 +75,7 @@ const Q2 = ({ questionTwo, setQuestionTwo, updatePanelContainer }) => {
       <div className="notes">
         <p>1. entries will be automatically sorted by date</p>
 
-        <p>2. approximate dates are fine! </p>
+        <p>2. if you don't know exact the dates, approximate dates are fine!</p>
         <p>
           3. Include repeat locations. If you remained in one place, leave this
           question empty.
@@ -86,7 +87,7 @@ const Q2 = ({ questionTwo, setQuestionTwo, updatePanelContainer }) => {
         onSubmit={(values) => {
           setQuestionTwo(values);
         }}
-        validationSchema={Q2Schema}
+        // validationSchema={Q2Schema}
       >
         {(props) => (
           <Form id="Q2">
@@ -101,13 +102,27 @@ const Q2 = ({ questionTwo, setQuestionTwo, updatePanelContainer }) => {
                           <LocationAndDateEntry
                             locationValue={entry.location}
                             locationName={`entries.${index}.entry`}
-                            locationOnChange={props.handleChange}
-                            locationPlaceholder={"hi"}
+                            locationOnChange={(location) => {
+                              props.setFieldValue(
+                                `entries.${index}.location`,
+                                location
+                              );
+                            }}
+                            locationPlaceholder={
+                              index === 0 ? "ex. New York City" : ""
+                            }
                             deleteEntry={() => {
                               arrayHelpers.remove(index);
                               updatePanelContainer();
                             }}
                             dateName={`entries.${index}.date`}
+                            dateOnChange={() => {
+                              // handle sorting
+                              let sortedEntries = sortEntries(
+                                props.values.entries
+                              );
+                              props.setFieldValue("entries", sortedEntries);
+                            }}
                           />
                         </div>
 
@@ -164,7 +179,7 @@ const Q4 = ({
       <div className="notes">
         <p>1. click the "+" icon to add entries</p>
         <p>2. events don't have to be pandemic-related!</p>
-        <p>3. approximate dates are fine! </p>
+        <p>3. if you don't know exact the dates, approximate dates are fine!</p>
         <p>4. this question should be the longest by far. take your time!</p>
       </div>
       {questionFour.entries.map((entry, index) => (
