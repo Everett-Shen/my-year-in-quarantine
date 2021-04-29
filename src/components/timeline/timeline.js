@@ -7,6 +7,7 @@ import { animateScroll as scroll, scrollSpy, scroller } from "react-scroll";
 import { useSwipeable } from "react-swipeable";
 import { useDoubleTap } from "use-double-tap";
 import ReactScrollWheelHandler from "react-scroll-wheel-handler";
+import { useMediaQuery } from "@material-ui/core";
 
 // notes: answers.entries will return undefined. use answersRef.current.entries instead. also, instead of scrollTarget, use scrollTargetRef
 
@@ -16,8 +17,9 @@ const Timeline = ({
   captureID,
   setIsFloatingButtonMenuOpen,
 }) => {
+  const mobile = useMediaQuery("(max-width:600px)");
   const [scrollTarget, setScrollTarget] = useState(0);
-  const dividerHeight = compressed ? "100px" : "800px";
+  const dividerHeight = compressed ? "100px" : mobile ? "600px" : "800px";
   const answersRef = useRef(answers);
   const scrollTargetRef = useRef(scrollTarget);
   const preventDefault = (e) => {
