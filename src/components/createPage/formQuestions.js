@@ -321,4 +321,4 @@ const Q6 = ({ questionSix, setQuestionSix }) => {
   );
 };
 
-export { Q1, Q2, Q4, Q5, Q6, Q2Schema };
+export { Q1, Q2, Q4, Q5, Q6, Q2Schema, sortEntries };
