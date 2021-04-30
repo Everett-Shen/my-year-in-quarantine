@@ -33,6 +33,7 @@ const PublishStepper = ({
   shareDialog,
   finish,
   publishTimeline,
+  sendEmail,
   formSubmitted,
 }) => {
   const classes = useStyles();
@@ -41,6 +42,10 @@ const PublishStepper = ({
 
   const publishAndNext = async () => {
     let success = await publishTimeline();
+    if (success) handleNext();
+  };
+  const sendEmailAndNext = async () => {
+    let success = await sendEmail();
     if (success) handleNext();
   };
 
@@ -59,8 +64,8 @@ const PublishStepper = ({
           stepName: "Save edit link",
           label: "Save edit link",
           component: editLinkDialog,
-          action: handleNext,
-          buttonText: "Next",
+          action: sendEmailAndNext,
+          buttonText: "Send",
         };
       case 2:
         return {

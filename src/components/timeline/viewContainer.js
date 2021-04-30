@@ -12,6 +12,7 @@ import {
 import "firebase/firestore";
 import { useFirestore } from "reactfire";
 import { useEditID } from "../../helpers/hooks";
+import { sendEmail } from "../../helpers/sendEmail";
 
 const ViewContainer = (props) => {
   //   const setAnswers = props.setAnswers;
@@ -150,6 +151,19 @@ const ViewContainer = (props) => {
       });
   };
 
+  const sendEmailWithParams = async () => {
+    let success = await sendEmail({
+      to_name: answers.name,
+      edit_link: editID ? `${window.location.host}/edit/${editID}` : "",
+      share_link: docID ? `${window.location.host}/view/${docID}` : "",
+      reply_to: "myyearinquarantine@gmail.com",
+      to_email: email,
+    });
+    console.log("sent to ", email);
+    if (success) setEmailSent(true);
+    return success;
+  };
+
   return (
     <>
       {props.render({
@@ -168,6 +182,7 @@ const ViewContainer = (props) => {
         docID,
         editID,
         email,
+        sendEmail: sendEmailWithParams,
         setEmail,
         published,
         setPublished,

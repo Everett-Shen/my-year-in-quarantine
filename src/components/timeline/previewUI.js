@@ -29,6 +29,7 @@ const PreviewUI = ({
   docID,
   editID,
   email,
+  sendEmail,
   setEmail,
   published,
   setPublished,
@@ -145,9 +146,8 @@ const PreviewUI = ({
             <EditLinkDialog
               email={email}
               setEmail={setEmail}
-              sendURL={(email) => {
-                console.log("sent to ", email);
-                setEmailSent(true);
+              sendEmail={() => {
+                console.log("sent");
               }}
               // setSent={setShowDownloadTimelineHorizontal}
             />
@@ -167,6 +167,7 @@ const PreviewUI = ({
             else setIsOpen(false);
           }}
           publishTimeline={publishTimeline}
+          sendEmail={sendEmail}
           formSubmitted={formSubmitted}
         />
       </BaseDialog>
