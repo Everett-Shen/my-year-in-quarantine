@@ -87,6 +87,7 @@ const Q2 = ({ questionTwo, setQuestionTwo, updatePanelContainer }) => {
         onSubmit={(values) => {
           setQuestionTwo(values);
         }}
+        enableReinitialize
         // validationSchema={Q2Schema}
       >
         {(props) => (
