@@ -8,6 +8,7 @@ import ShareDialog from "./shareDialog";
 import FloatingMenuButtons from "../baseComponents/floatingMenuButtons";
 import BaseDialog from "../baseComponents/baseDialog.js";
 import PublishDialog from "./publishDialog.js";
+import EditLinkDialog from "./editLinkDialog.js";
 import PublishStepper from "./publishStepper.js";
 import BaseSnackbar from "../baseComponents/baseSnackbar";
 import LoadingBackdrop from "../baseComponents/loadingBackdrop";
@@ -26,6 +27,9 @@ const PreviewUI = ({
   setShowDownloadTimelineHorizontal,
   setShowDownloadTimelineMultiple,
   docID,
+  editID,
+  email,
+  setEmail,
   published,
   setPublished,
   publishTimeline,
@@ -34,6 +38,8 @@ const PreviewUI = ({
   showDownloadTimelineMultiple,
   publishFailed,
   setPublishFailed,
+  emailSent,
+  setEmailSent,
   isDownloading,
   setIsDownloading,
   isFloatingButtonMenuOpen,
@@ -135,6 +141,17 @@ const PreviewUI = ({
               setShowDownloadTimelineMultiple={setShowDownloadTimelineMultiple}
             />
           }
+          editLinkDialog={
+            <EditLinkDialog
+              email={email}
+              setEmail={setEmail}
+              sendURL={(email) => {
+                console.log("sent to ", email);
+                setEmailSent(true);
+              }}
+              // setSent={setShowDownloadTimelineHorizontal}
+            />
+          }
           shareDialog={
             <ShareDialog
               shareURL={docID ? `${window.location.host}/view/${docID}` : ""}
@@ -184,6 +201,13 @@ const PreviewUI = ({
         setOpen={setPublishFailed}
         message={"There was an error. Please try again later"}
         severity={"error"}
+      />
+      {/* for email sent */}
+      <BaseSnackbar
+        open={emailSent}
+        setOpen={setEmailSent}
+        message={"Email sent"}
+        severity={"success"}
       />
       <LoadingBackdrop open={isDownloading} setOpen={setIsDownloading} />
     </div>

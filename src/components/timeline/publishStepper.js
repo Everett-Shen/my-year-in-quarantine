@@ -29,6 +29,7 @@ function getSteps() {
 
 const PublishStepper = ({
   publishDialog,
+  editLinkDialog,
   shareDialog,
   finish,
   publishTimeline,
@@ -57,7 +58,7 @@ const PublishStepper = ({
         return {
           stepName: "Save edit link",
           label: "Save edit link",
-          component: "Create an account to edit your timeline later!",
+          component: editLinkDialog,
           action: handleNext,
           buttonText: "Next",
         };

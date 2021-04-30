@@ -9,9 +9,12 @@ import {
 
 const InputWithButton = ({
   inputContent,
+  setContent,
   onClick,
   buttonIcon,
   tooltipLabel,
+  readOnly = true,
+  placeholder,
 }) => {
   return (
     <div
@@ -28,8 +31,12 @@ const InputWithButton = ({
       >
         <OutlinedInput
           style={{ height: "40px", borderRadius: "0px" }}
-          defaultValue={inputContent}
-          readOnly
+          value={inputContent}
+          onChange={(e) => {
+            setContent(e.target.value);
+          }}
+          readOnly={readOnly}
+          placeholder={placeholder ? placeholder : ""}
           endAdornment={
             <InputAdornment position="end">
               <IconButton

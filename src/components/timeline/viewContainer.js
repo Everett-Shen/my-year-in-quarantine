@@ -11,6 +11,7 @@ import {
 
 import "firebase/firestore";
 import { useFirestore } from "reactfire";
+import { useEditID } from "../../helpers/hooks";
 
 const ViewContainer = (props) => {
   //   const setAnswers = props.setAnswers;
@@ -32,13 +33,17 @@ const ViewContainer = (props) => {
   ] = useState(false);
   const [published, setPublished] = useState(false);
   const [publishFailed, setPublishFailed] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
   const [docID, setDocID] = useState("");
+  const [editID, setEditID] = useEditID();
+  const [email, setEmail] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
 
   const LOCAL_STORAGE_FORM_PUBLISHED_KEY =
     "my-year-in-quarantine-form-submitted";
   const LOCAL_STORAGE_DOC_ID_KEY = "my-year-in-quarantine-doc-id";
+  const LOCAL_STORAGE_EDIT_ID_KEY = "my-year-in-quarantine-edit-id";
 
   useEffect(() => {
     setTimeout(() => window.scrollTo(0, 0), 150); // ugly solution, but kinda works
@@ -48,6 +53,9 @@ const ViewContainer = (props) => {
     );
     let docID = localStorage.getItem(LOCAL_STORAGE_DOC_ID_KEY);
     setDocID(docID);
+
+    let storedEditID = localStorage.getItem(LOCAL_STORAGE_EDIT_ID_KEY);
+    setEditID(storedEditID);
   }, []);
 
   const answers = props.answers;
@@ -97,7 +105,23 @@ const ViewContainer = (props) => {
   }, [showDownloadTimelineMultiple]);
 
   const timelinesRef = useFirestore().collection("timelines");
+  const editIDsRef = useFirestore().collection("editIDs");
   const fieldValue = useFirestore.FieldValue;
+
+  const generateEditID = (docID) => {
+    editIDsRef
+      .add({
+        timelineID: docID,
+        created: fieldValue.serverTimestamp(),
+      })
+      .then((doc) => {
+        setEditID(doc.id);
+        console.log(doc.id);
+      })
+      .catch((err) => {
+        console.log("there was a failure to generate an edit link");
+      });
+  };
 
   const publishTimeline = async () => {
     return timelinesRef
@@ -108,6 +132,10 @@ const ViewContainer = (props) => {
         anonymous: makeAnonymous,
       })
       .then((doc) => {
+        // generate edit ID
+        generateEditID(doc.id);
+
+        // generate timeline ID
         setDocID(doc.id);
         localStorage.setItem(LOCAL_STORAGE_DOC_ID_KEY, doc.id);
         console.log("doc ID: ", doc.id);
@@ -138,6 +166,9 @@ const ViewContainer = (props) => {
         setShowDownloadTimelineHorizontal,
         setShowDownloadTimelineMultiple,
         docID,
+        editID,
+        email,
+        setEmail,
         published,
         setPublished,
         publishTimeline,
@@ -146,6 +177,8 @@ const ViewContainer = (props) => {
         showDownloadTimelineMultiple,
         publishFailed,
         setPublishFailed,
+        emailSent,
+        setEmailSent,
         isDownloading,
         setIsDownloading,
         isFloatingButtonMenuOpen,

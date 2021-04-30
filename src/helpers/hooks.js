@@ -36,4 +36,14 @@ const useNonInitialEffect = (effect, deps) => {
   }, deps);
 };
 
-export { useVisited, useUpdateAnswers, useNonInitialEffect };
+const useEditID = (localStorageKey = "my-year-in-quarantine-edit-id") => {
+  const [editID, setEditID] = useState("");
+
+  useNonInitialEffect(() => {
+    localStorage.setItem(localStorageKey, editID);
+  }, [editID]);
+
+  return [editID, setEditID];
+};
+
+export { useVisited, useUpdateAnswers, useNonInitialEffect, useEditID };
