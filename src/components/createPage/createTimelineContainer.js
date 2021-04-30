@@ -17,11 +17,10 @@ const CreateTimelineContainer = ({
   setAnswers,
   editMode = false,
   answersFetchedKey,
+  pageVisited,
 }) => {
   const history = useHistory();
 
-  const VISITED_LOCAL_STORAGE_KEY = "my_year_in_quarantine_create_page_visited";
-  const pageVisited = useVisited(VISITED_LOCAL_STORAGE_KEY);
   const [questionOne, setQuestionOne] = useState({ location: "" });
   const [questionTwo, setQuestionTwo] = useState({
     entries: [{ location: "", date: null }],
@@ -112,8 +111,11 @@ const CreateTimelineContainer = ({
     {
       placement: "center",
       target: "body",
-      content:
-        "This process usually takes around ten minutes. Feel free to take a break at any point! Your work will be saved",
+      content: `This process usually takes around ten minutes. ${
+        !editMode
+          ? "Feel free to take a break at any point! Your work will be saved"
+          : 'To save your changes, click "update timeline"'
+      }`,
     },
     {
       target: "#create-page-help",

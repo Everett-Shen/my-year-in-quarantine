@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CreateTimelineContainer from "../createPage/createTimelineContainer";
 import { useRouteMatch } from "react-router-dom";
 import { useFirestore } from "reactfire";
+import { useVisited } from "../../helpers/hooks";
 
 const EditTimelinePage = () => {
   const [answers, setAnswers] = useState({
@@ -19,6 +20,8 @@ const EditTimelinePage = () => {
   const editID = useRouteMatch().params.editID;
   const editIDRef = useFirestore().collection("editIDs").doc(editID);
   const timelinesCollection = useFirestore().collection("timelines");
+  const VISITED_LOCAL_STORAGE_KEY = "my_year_in_quarantine_edit_page_visited";
+  const pageVisited = useVisited(VISITED_LOCAL_STORAGE_KEY);
 
   // on initial load, get timeline ID using edit ID, then use timelineID to get original answers
   useEffect(() => {
@@ -51,6 +54,7 @@ const EditTimelinePage = () => {
       setAnswers={setAnswers}
       editMode={true}
       answersFetchedKey={answersFetchedKey}
+      pageVisited={pageVisited}
     />
   );
 };

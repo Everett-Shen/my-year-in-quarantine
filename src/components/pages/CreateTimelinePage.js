@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CreateTimelineContainer from "../createPage/createTimelineContainer";
+import { useVisited } from "../../helpers/hooks";
 
 const CreateTimelinePage = () => {
   const [answers, setAnswers] = useState({
@@ -13,6 +14,8 @@ const CreateTimelinePage = () => {
     Q5: { text: "" },
     Q6: { name: "" },
   });
+  const VISITED_LOCAL_STORAGE_KEY = "my_year_in_quarantine_create_page_visited";
+  const pageVisited = useVisited(VISITED_LOCAL_STORAGE_KEY);
 
   // read from localstorage in CreateTimelineContainer
 
@@ -21,6 +24,7 @@ const CreateTimelinePage = () => {
       answers={answers}
       setAnswers={setAnswers}
       editMode={false}
+      pageVisited={pageVisited}
     />
   );
 };
