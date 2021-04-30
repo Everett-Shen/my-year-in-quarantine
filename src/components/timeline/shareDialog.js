@@ -26,6 +26,7 @@ import {
   FacebookMessengerIcon,
 } from "react-share";
 import BaseSnackbar from "../baseComponents/baseSnackbar";
+import InputWithButton from "../baseComponents/inputWithButton";
 import copy from "copy-to-clipboard";
 
 const ShareDialog = ({
@@ -145,7 +146,7 @@ const ShareDialog = ({
           <WhatsappIcon size={50} round />
         </WhatsappShareButton>
       </div>
-      <div
+      {/* <div
         style={{
           height: "90px",
           margin: "auto",
@@ -171,15 +172,22 @@ const ShareDialog = ({
                   }}
                   edge="end"
                 >
-                  <Tooltip title="copy to clipboard">
-                    <FileCopyIcon />
-                  </Tooltip>
+                  <Tooltip title="copy to clipboard"></Tooltip>
                 </IconButton>
               </InputAdornment>
             }
           />
         </FormControl>
-      </div>
+      </div> */}
+      <InputWithButton
+        inputContent={shareURL}
+        onClick={() => {
+          copy(shareURL);
+          setCopied(true);
+        }}
+        buttonIcon={<FileCopyIcon />}
+        tooltipLabel={"copy to clipboard"}
+      />
       <BaseSnackbar
         open={copied}
         setOpen={setCopied}
