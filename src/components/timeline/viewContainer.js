@@ -46,6 +46,7 @@ const ViewContainer = (props) => {
   const LOCAL_STORAGE_DOC_ID_KEY = "my-year-in-quarantine-doc-id";
   const LOCAL_STORAGE_EDIT_ID_KEY = "my-year-in-quarantine-edit-id";
   const answers = props.answers;
+  const originalAnswers = props.originalAnswers;
 
   const timelinesRef = useFirestore().collection("timelines");
   const editIDsRef = useFirestore().collection("editIDs");
@@ -162,6 +163,7 @@ const ViewContainer = (props) => {
     return timelinesRef
       .add({
         ...answers,
+        originalAnswers: originalAnswers,
         created: fieldValue.serverTimestamp(),
         public: makePublic,
         anonymous: makeAnonymous,

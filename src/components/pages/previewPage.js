@@ -10,6 +10,7 @@ import { sortEntries } from "../createPage/formQuestions";
 
 const PreviewPage = () => {
   const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
+  const [originalAnswers, setOriginalAnswers] = useState({});
   const [answers, setAnswers] = useState({});
 
   const VISITED_LOCAL_STORAGE_KEY =
@@ -60,7 +61,7 @@ const PreviewPage = () => {
     //   localStorage.getItem(LOCAL_STORAGE_KEY)
     // );
     // if (localStorageAnswers) setAnswers(organizeAnswers(localStorageAnswers));
-
+    setOriginalAnswers(defaultAnswers.default);
     setAnswers(organizeAnswers(defaultAnswers.default));
   }, []);
   return (
@@ -68,6 +69,7 @@ const PreviewPage = () => {
       <ViewContainer
         render={(props) => <PreviewUI {...props} />}
         answers={answers}
+        originalAnswers={originalAnswers}
         setAnswers={setAnswers}
       />
       {!pageVisited && (
