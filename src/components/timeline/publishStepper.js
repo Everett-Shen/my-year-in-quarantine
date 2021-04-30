@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-  return ["Publish!", "Export and Share", "Create Account"];
+  return ["Publish!", "Save edit link", "Export and Share"];
 }
 
 const PublishStepper = ({
@@ -55,17 +55,17 @@ const PublishStepper = ({
         };
       case 1:
         return {
-          stepName: "Export and Share",
-          label: "Export and Share",
-          component: shareDialog,
+          stepName: "Save edit link",
+          label: "Save edit link",
+          component: "Create an account to edit your timeline later!",
           action: handleNext,
           buttonText: "Next",
         };
       case 2:
         return {
-          stepName: "Create Account",
-          label: "Create Account (optional)",
-          component: "Create an account to edit your timeline later!",
+          stepName: "Export and Share",
+          label: "Export and Share",
+          component: shareDialog,
           action: finish,
           buttonText: "Finish",
         };
@@ -74,7 +74,8 @@ const PublishStepper = ({
     }
   }
   const isStepOptional = (step) => {
-    return step === 2;
+    // return step === 2;
+    return false;
   };
 
   const handleNext = () => {

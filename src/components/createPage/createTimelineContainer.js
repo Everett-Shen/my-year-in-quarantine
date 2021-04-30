@@ -97,9 +97,10 @@ const CreateTimelineContainer = () => {
         "We recommend you complete this process with a calendar or photo album nearby to remind you of what happened throughout your year",
     },
     {
-      target: "#save-for-later",
+      placement: "center",
+      target: "body",
       content:
-        "This process usually takes around ten minutes. If you need to take a break, feel free to click this button to save your progress and generate an edit link to your timeline.",
+        "This process usually takes around ten minutes. Feel free to take a break at any point! Your work will be saved",
     },
     {
       target: "#create-page-help",

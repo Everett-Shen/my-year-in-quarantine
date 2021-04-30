@@ -35,7 +35,7 @@ const CreateTimelineUI = ({
         run={isInstructionsOpen}
         setIsInstructionsOpen={setIsInstructionsOpen}
       />
-      <FloatingMenuButtons
+      {/* <FloatingMenuButtons
         id={"save-for-later"}
         buttons={[
           {
@@ -46,7 +46,7 @@ const CreateTimelineUI = ({
         ]}
         isFloatingButtonMenuOpen={isFloatingButtonMenuOpen}
         setIsFloatingButtonMenuOpen={setIsFloatingButtonMenuOpen}
-      />
+      /> */}
     </div>
   );
 };

@@ -146,7 +146,8 @@ const PreviewUI = ({
             />
           }
           finish={() => {
-            setIsOpen(false);
+            if (docID) history.push(`/view/${docID}`);
+            else setIsOpen(false);
           }}
           publishTimeline={publishTimeline}
           formSubmitted={formSubmitted}
