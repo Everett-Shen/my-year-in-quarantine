@@ -11,7 +11,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LoadingBackdrop({ open, setOpen }) {
+export default function LoadingBackdrop({
+  open,
+  setOpen,
+  message = "this may take a few seconds",
+}) {
   const classes = useStyles();
 
   const handleClose = () => {
@@ -35,7 +39,7 @@ export default function LoadingBackdrop({ open, setOpen }) {
             }}
           >
             {" "}
-            this may take a few seconds
+            {message}
           </div>
         </div>
       </Backdrop>

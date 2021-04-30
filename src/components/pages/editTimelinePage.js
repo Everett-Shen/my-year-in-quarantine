@@ -3,6 +3,7 @@ import CreateTimelineContainer from "../createPage/createTimelineContainer";
 import { useRouteMatch } from "react-router-dom";
 import { useFirestore } from "reactfire";
 import { useVisited } from "../../helpers/hooks";
+import LoadingBackdrop from "../baseComponents/loadingBackdrop";
 
 const EditTimelinePage = () => {
   const [answers, setAnswers] = useState({
@@ -17,6 +18,7 @@ const EditTimelinePage = () => {
     Q6: { name: "" },
   });
   const [answersFetchedKey, setAnswersFetchedKey] = useState(0);
+  const [isFetchingAnswers, setIsFetchingAnswers] = useState(true);
   const [timelineID, setTimelineID] = useState("");
   const editID = useRouteMatch().params.editID;
   const editIDRef = useFirestore().collection("editIDs").doc(editID);
@@ -39,6 +41,7 @@ const EditTimelinePage = () => {
               let originalAnswers = doc.data().originalAnswers;
               setAnswers(originalAnswers);
               setAnswersFetchedKey(answersFetchedKey + 1); // send signal to container to update answers
+              setIsFetchingAnswers(false);
             } else {
               console.log("redirect");
               // redirect to 404 page
@@ -51,14 +54,21 @@ const EditTimelinePage = () => {
   }, []);
 
   return (
-    <CreateTimelineContainer
-      answers={answers}
-      setAnswers={setAnswers}
-      editMode={true}
-      answersFetchedKey={answersFetchedKey}
-      pageVisited={pageVisited}
-      timelineID={timelineID}
-    />
+    <>
+      <CreateTimelineContainer
+        answers={answers}
+        setAnswers={setAnswers}
+        editMode={true}
+        answersFetchedKey={answersFetchedKey}
+        pageVisited={pageVisited}
+        timelineID={timelineID}
+      />
+      <LoadingBackdrop
+        open={isFetchingAnswers}
+        setOpen={setIsFetchingAnswers}
+        message={"loading answers"}
+      />
+    </>
   );
 };
 
