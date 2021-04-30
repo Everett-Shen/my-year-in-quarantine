@@ -199,7 +199,7 @@ const Q4 = ({
               {/* if date is undefined or empty */}
               {entry.date !== undefined ? (
                 <p>{formatDate(entry.date)}</p>
-              ) : entry.ongoing === false ? (
+              ) : !entry.ongoing ? (
                 <p>{`${
                   formatDate(entry.from) + "-" + formatDate(entry.to)
                 }`}</p>

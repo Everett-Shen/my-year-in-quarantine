@@ -5,6 +5,7 @@ import LandingPage from "./components/pages/LandingPage";
 import CreateTimelinePage from "./components/pages/CreateTimelinePage";
 import PreviewPage from "./components/pages/previewPage";
 import ViewPage from "./components/pages/viewPage";
+import EditTimelinePage from "./components/pages/editTimelinePage";
 import MetaTags from "react-meta-tags";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
@@ -51,6 +52,7 @@ function App() {
             <Route path={"/create"} exact component={CreateTimelinePage} />
             <Route path={"/preview"} exact component={PreviewPage} />
             <Route path={"/view/:docID"} exact component={ViewPage} />
+            <Route path={"/edit/:editID"} exact component={EditTimelinePage} />
             <Redirect to={"/"} />
           </Switch>
         </MuiPickersUtilsProvider>

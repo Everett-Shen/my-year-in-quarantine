@@ -29,9 +29,11 @@ const PreviewPage = () => {
     if (!_.isEmpty(answers)) {
       toReturn.location = answers.Q1.location.label;
       // combine Q2 and Q4, sort
-      let nonBlankLocations = answers.Q2.entries.filter(
-        (entry) => typeof entry.location === "object"
-      );
+      let nonBlankLocations = [
+        ...answers.Q2.entries.filter(
+          (entry) => typeof entry.location === "object"
+        ),
+      ];
       // organize q2 into entry format
       nonBlankLocations.map((entry) => {
         let location = entry.location.label;
@@ -57,12 +59,13 @@ const PreviewPage = () => {
   };
   useEffect(() => {
     // fetch timeline data
-    // let localStorageAnswers = JSON.parse(
-    //   localStorage.getItem(LOCAL_STORAGE_KEY)
-    // );
-    // if (localStorageAnswers) setAnswers(organizeAnswers(localStorageAnswers));
+    let localStorageAnswers = JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_KEY)
+    );
+    if (localStorageAnswers) setAnswers(organizeAnswers(localStorageAnswers));
+    //setAnswers(organizeAnswers(defaultAnswers.default));
+
     setOriginalAnswers(defaultAnswers.default);
-    setAnswers(organizeAnswers(defaultAnswers.default));
   }, []);
   return (
     <>

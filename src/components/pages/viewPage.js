@@ -19,7 +19,7 @@ const ViewPage = () => {
   useEffect(() => {
     // fetch timeline data
     docRef.get().then((doc) => {
-      if (doc) {
+      if (doc.exists) {
         let tempAnswers = doc.data();
         // handle anonymity
         if (tempAnswers.anonymous)

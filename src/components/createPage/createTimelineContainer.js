@@ -12,19 +12,14 @@ import { Q1, Q2, Q2Schema, Q4, Q5, Q6 } from "./formQuestions";
 
 const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
 
-const CreateTimelineContainer = () => {
+const CreateTimelineContainer = ({
+  answers,
+  setAnswers,
+  editMode = false,
+  answersFetchedKey,
+}) => {
   const history = useHistory();
-  const [answers, setAnswers] = useState({
-    Q1: { location: "" },
-    Q2: {
-      entries: [{ location: "", date: null }],
-    },
-    Q4: {
-      entries: [],
-    },
-    Q5: { text: "" },
-    Q6: { name: "" },
-  });
+
   const VISITED_LOCAL_STORAGE_KEY = "my_year_in_quarantine_create_page_visited";
   const pageVisited = useVisited(VISITED_LOCAL_STORAGE_KEY);
   const [questionOne, setQuestionOne] = useState({ location: "" });
@@ -46,29 +41,47 @@ const CreateTimelineContainer = () => {
   const formRef = createRef();
   const newEntryFormRef = createRef();
 
+  // update global answers everytime a question gets updated
   useUpdateAnswers(answers, setAnswers, "Q1", questionOne);
   useUpdateAnswers(answers, setAnswers, "Q2", questionTwo);
   useUpdateAnswers(answers, setAnswers, "Q4", questionFour);
   useUpdateAnswers(answers, setAnswers, "Q5", questionFive);
   useUpdateAnswers(answers, setAnswers, "Q6", questionSix);
 
-  // read answers from localStorage upon initial render
+  // read answers from localStorage upon initial render (only in create mode)
   useEffect(() => {
-    const storageAnswers = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-    if (storageAnswers) {
-      setAnswers(storageAnswers);
-      if (storageAnswers.Q1) setQuestionOne(storageAnswers.Q1);
-      if (storageAnswers.Q2) setQuestionTwo(storageAnswers.Q2);
-      if (storageAnswers.Q4) setQuestionFour(storageAnswers.Q4);
-      if (storageAnswers.Q5) setQuestionFive(storageAnswers.Q5);
-      if (storageAnswers.Q6) setQuestionSix(storageAnswers.Q6);
+    if (!editMode) {
+      const storageAnswers = JSON.parse(
+        localStorage.getItem(LOCAL_STORAGE_KEY)
+      );
+      if (storageAnswers) {
+        setAnswers(storageAnswers);
+        if (storageAnswers.Q1) setQuestionOne(storageAnswers.Q1);
+        if (storageAnswers.Q2) setQuestionTwo(storageAnswers.Q2);
+        if (storageAnswers.Q4) setQuestionFour(storageAnswers.Q4);
+        if (storageAnswers.Q5) setQuestionFive(storageAnswers.Q5);
+        if (storageAnswers.Q6) setQuestionSix(storageAnswers.Q6);
+      }
     }
   }, []);
 
-  // save answers to localstorage when updated
+  // save answers to localstorage when updated (only in create mode)
   useNonInitialEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(answers));
+    if (!editMode) {
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(answers));
+    }
   }, [answers]);
+
+  // update question answers from fetched original answers (only in edit mode)
+  useNonInitialEffect(() => {
+    if (editMode) {
+      setQuestionOne(answers.Q1);
+      setQuestionTwo(answers.Q2);
+      setQuestionFour(answers.Q4);
+      setQuestionFive(answers.Q5);
+      setQuestionSix(answers.Q6);
+    }
+  }, [answersFetchedKey]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
