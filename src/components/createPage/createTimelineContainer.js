@@ -9,8 +9,12 @@ import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
 import CreateTimelineUI from "./createTimelineUI";
 import { Q1, Q2, Q2Schema, Q4, Q5, Q6 } from "./formQuestions";
+import { useFirestore } from "reactfire";
+import { organizeAnswers } from "helpers/helperFunctions";
 
 const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
+const LOCAL_STORAGE_FORM_SUBMITTED_KEY = "my-year-in-quarantine-form-submitted";
+const LOCAL_STORAGE_DOC_ID_KEY = "my-year-in-quarantine-doc-id";
 
 const CreateTimelineContainer = ({
   answers,
@@ -18,6 +22,7 @@ const CreateTimelineContainer = ({
   editMode = false,
   answersFetchedKey,
   pageVisited,
+  timelineID,
 }) => {
   const history = useHistory();
 
@@ -39,6 +44,8 @@ const CreateTimelineContainer = ({
   const [selectedEntryIndex, setSelectedEntryIndex] = useState(0);
   const formRef = createRef();
   const newEntryFormRef = createRef();
+  const timelinesCollection = useFirestore().collection("timelines");
+  const fieldValue = useFirestore.FieldValue;
 
   // update global answers everytime a question gets updated
   useUpdateAnswers(answers, setAnswers, "Q1", questionOne);
@@ -114,7 +121,7 @@ const CreateTimelineContainer = ({
       content: `This process usually takes around ten minutes. ${
         !editMode
           ? "Feel free to take a break at any point! Your work will be saved"
-          : 'To save your changes, click "update timeline"'
+          : 'To save your changes, click "update"'
       }`,
     },
     {
@@ -150,6 +157,61 @@ const CreateTimelineContainer = ({
       name: Yup.string().required("q5: name is required"),
     }),
   });
+
+  const finishButtonContent = !editMode
+    ? {
+        // create mode: validate answers, set errors, set flags in localStorage, push preview page
+        onClick: () => {
+          schema
+            .validate(answers, { abortEarly: false })
+            .then((valid) => {
+              setErrors([]);
+              console.log(answers);
+              // prevent resubmission
+              localStorage.setItem(LOCAL_STORAGE_FORM_SUBMITTED_KEY, false);
+              localStorage.setItem(LOCAL_STORAGE_DOC_ID_KEY, null);
+              history.push("/preview");
+            })
+            .catch((err) => {
+              setErrors(err.errors);
+            });
+        },
+        buttonText: "Preview",
+      }
+    : {
+        // edit mode: validate answers, set errors, update firestore, push view page
+        onClick: () => {
+          schema
+            .validate(answers, { abortEarly: false })
+            .then((valid) => {
+              setErrors([]);
+              console.log(answers);
+              // prevent resubmission
+              localStorage.setItem(LOCAL_STORAGE_FORM_SUBMITTED_KEY, false);
+              localStorage.setItem(LOCAL_STORAGE_DOC_ID_KEY, null);
+              // update firestore with both originalAnswers and processedAnswers
+              let processedAnswers = organizeAnswers(answers);
+
+              timelinesCollection
+                .doc(timelineID)
+                .update({
+                  ...processedAnswers,
+                  originalAnswers: answers,
+                  updated: fieldValue.serverTimestamp(),
+                })
+                .then(() => {
+                  history.push(`/view/${timelineID}`);
+                })
+                .catch(() => {
+                  console.log("there was an error in updating your timeline");
+                });
+            })
+            .catch((err) => {
+              setErrors(err.errors);
+            });
+        },
+        buttonText: "Update",
+      };
 
   const panels = [
     {
@@ -220,6 +282,7 @@ const CreateTimelineContainer = ({
         setErrors,
         history,
         errors,
+        finishButtonContent,
       }}
     />
   );

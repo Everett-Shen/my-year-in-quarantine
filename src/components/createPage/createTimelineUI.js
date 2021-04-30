@@ -10,14 +10,11 @@ const CreateTimelineUI = ({
   joyrideSteps,
   isInstructionsOpen,
   setIsInstructionsOpen,
-  isFloatingButtonMenuOpen,
-  setIsFloatingButtonMenuOpen,
   panels,
-  schema,
-  answers,
-  setErrors,
-  history,
   errors,
+  finishButtonContent,
+  // isFloatingButtonMenuOpen,
+  // setIsFloatingButtonMenuOpen,
 }) => {
   return (
     <div className="createForm">
@@ -26,7 +23,12 @@ const CreateTimelineUI = ({
       <div className="timelineForm">
         <CreateTimelineTitle setIsInstructionsOpen={setIsInstructionsOpen} />
         <CreateTimelineForm
-          {...{ panels, schema, answers, setErrors, history, errors }}
+          {...{
+            panels,
+
+            errors,
+            finishButtonContent,
+          }}
         />
       </div>
 

@@ -17,6 +17,7 @@ const EditTimelinePage = () => {
     Q6: { name: "" },
   });
   const [answersFetchedKey, setAnswersFetchedKey] = useState(0);
+  const [timelineID, setTimelineID] = useState("");
   const editID = useRouteMatch().params.editID;
   const editIDRef = useFirestore().collection("editIDs").doc(editID);
   const timelinesCollection = useFirestore().collection("timelines");
@@ -28,6 +29,7 @@ const EditTimelinePage = () => {
     editIDRef.get().then((doc) => {
       if (doc.exists) {
         let timelineID = doc.data().timelineID;
+        setTimelineID(timelineID);
         // get original answers
         timelinesCollection
           .doc(timelineID)
@@ -55,6 +57,7 @@ const EditTimelinePage = () => {
       editMode={true}
       answersFetchedKey={answersFetchedKey}
       pageVisited={pageVisited}
+      timelineID={timelineID}
     />
   );
 };

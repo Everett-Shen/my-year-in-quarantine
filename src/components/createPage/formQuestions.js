@@ -11,16 +11,8 @@ import {
   LocationInput,
   LocationAndDateEntry,
 } from "../baseComponents/baseInputs";
+import { sortEntries } from "../../helpers/helperFunctions";
 import * as Yup from "yup";
-
-const sortEntries = (entries) => {
-  entries.sort((entryA, entryB) => {
-    let dateA = entryA.date ? entryA.date : entryA.from;
-    let dateB = entryB.date ? entryB.date : entryB.from;
-    return dateA < dateB ? -1 : dateA > dateB ? 1 : 0;
-  });
-  return entries;
-};
 
 const formatDate = (dateString) => {
   try {
@@ -322,4 +314,4 @@ const Q6 = ({ questionSix, setQuestionSix }) => {
   );
 };
 
-export { Q1, Q2, Q4, Q5, Q6, Q2Schema, sortEntries };
+export { Q1, Q2, Q4, Q5, Q6, Q2Schema };
