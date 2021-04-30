@@ -10,8 +10,8 @@ const getTitleAndDescription = (location) => {
 
 const sortEntries = (entries) => {
   entries.sort((entryA, entryB) => {
-    let dateA = entryA.date ? entryA.date : entryA.from;
-    let dateB = entryB.date ? entryB.date : entryB.from;
+    let dateA = Date.parse(entryA.date ? entryA.date : entryA.from);
+    let dateB = Date.parse(entryB.date ? entryB.date : entryB.from);
     return dateA < dateB ? -1 : dateA > dateB ? 1 : 0;
   });
   return entries;
