@@ -45,6 +45,12 @@ const ViewContainer = (props) => {
     "my-year-in-quarantine-form-submitted";
   const LOCAL_STORAGE_DOC_ID_KEY = "my-year-in-quarantine-doc-id";
   const LOCAL_STORAGE_EDIT_ID_KEY = "my-year-in-quarantine-edit-id";
+  const answers = props.answers;
+
+  const timelinesRef = useFirestore().collection("timelines");
+  const editIDsRef = useFirestore().collection("editIDs");
+  const emailsRef = useFirestore().collection("emails");
+  const fieldValue = useFirestore.FieldValue;
 
   useEffect(() => {
     setTimeout(() => window.scrollTo(0, 0), 150); // ugly solution, but kinda works
@@ -58,8 +64,6 @@ const ViewContainer = (props) => {
     let storedEditID = localStorage.getItem(LOCAL_STORAGE_EDIT_ID_KEY);
     setEditID(storedEditID);
   }, []);
-
-  const answers = props.answers;
 
   const downloadTimeline = async (
     showTimeline,
@@ -105,10 +109,6 @@ const ViewContainer = (props) => {
     );
   }, [showDownloadTimelineMultiple]);
 
-  const timelinesRef = useFirestore().collection("timelines");
-  const editIDsRef = useFirestore().collection("editIDs");
-  const fieldValue = useFirestore.FieldValue;
-
   const generateEditID = (docID) => {
     editIDsRef
       .add({
@@ -121,6 +121,40 @@ const ViewContainer = (props) => {
       })
       .catch((err) => {
         console.log("there was a failure to generate an edit link");
+      });
+  };
+
+  const addEmail = (email, editID, timelineID) => {
+    emailsRef
+      .where("email", "==", email)
+      .get()
+      .then((querySnapshot) => {
+        // new email
+        if (querySnapshot.docs.length === 0) {
+          emailsRef
+            .add({
+              email: email,
+              editIDs: [editID],
+              timelineIDs: [timelineID],
+            })
+            .then((ref) => {
+              console.log("Added doc with ID: ", ref.id);
+            });
+        }
+        // pre-existing email
+        else {
+          let docID = querySnapshot.docs[0].id;
+          let docData = querySnapshot.docs[0].data();
+          emailsRef
+            .doc(docID)
+            .update({
+              editIDs: [...docData.editIDs, editID],
+              timelineIDs: [...docData.timelineIDs, timelineID],
+            })
+            .then((ref) => {
+              console.log("Updated doc with ID: ", docID);
+            });
+        }
       });
   };
 
@@ -152,6 +186,8 @@ const ViewContainer = (props) => {
   };
 
   const sendEmailWithParams = async () => {
+    addEmail(email, editID, docID);
+
     let success = await sendEmail({
       to_name: answers.name,
       edit_link: editID ? `${window.location.host}/edit/${editID}` : "",
