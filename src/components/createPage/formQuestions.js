@@ -171,7 +171,9 @@ const Q4 = ({
       <h4>note</h4>
       <div className="notes">
         <p>1. click the "+" icon to add entries</p>
-        <p>2. events don't have to be pandemic-related!</p>
+        <p>
+          2. events can be in any order. we will automatically sort them by date
+        </p>
         <p>3. if you don't know exact the dates, approximate dates are fine!</p>
         <p>4. this question should be the longest by far. take your time!</p>
       </div>

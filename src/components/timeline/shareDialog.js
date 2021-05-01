@@ -55,6 +55,13 @@ const ShareDialog = ({
   return (
     <>
       <div
+        style={{ margin: "20px 10%", textAlign: "center", fontSize: "0.9em" }}
+      >
+        tag @myyearinquarantine on facebook, twitter, or instagram in your posts
+        for a chance to have your timeline featured!
+      </div>
+
+      <div
         style={{
           display: "flex",
           justifyContent: "space-evenly",
@@ -114,7 +121,7 @@ const ShareDialog = ({
             }}
             style={{ overflowX: "scroll" }}
           >
-            Save as image set (recommended for social media)
+            Save as post (recommended for social media)
           </MenuItem>
         </Menu>
       </div>

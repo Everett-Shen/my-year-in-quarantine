@@ -219,6 +219,15 @@
   /* hyphens: auto; */
 }
 
+.landing-page {
+  height: fit-content;
+  position: relative;
+}
+.landing-page .divider {
+  width: 250px;
+  margin: auto;
+}
+
 /* positioning */
 .intro-block {
   width: 250px;
@@ -250,6 +259,11 @@
 
 .learnMore {
   color: gray;
+  text-decoration: none;
+  width: 120px;
+  height: 40px;
+  border: none;
+  background-color: transparent;
 }
 
 .landing-page::after {
@@ -257,9 +271,9 @@
   position: absolute;
   background-color: #ff7676;
   width: 4px;
-  height: 100%;
+  height: 110%;
   left: calc(50% - 155px);
-  top: 0px;
+  top: -100px;
   z-index: 1;
 }
 
@@ -550,6 +564,12 @@
     top: 15px;
     right: 35px;
   }
+}
+.menu-container h1, .menu-container-dark h1 {
+  font-size: 30px;
+  font-family: "Nunito", sans-serif;
+  margin: 10px;
+  line-height: 90%;
 }
 
 :export {

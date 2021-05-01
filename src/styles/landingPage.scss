@@ -18,6 +18,15 @@
   /* hyphens: auto; */
 }
 
+.landing-page {
+  height: fit-content;
+  position: relative;
+  .divider {
+    width: $timeline-container-width;
+    margin: auto;
+  }
+}
+
 /* positioning */
 .intro-block {
   width: $intro-block-width;
@@ -51,6 +60,12 @@
 .learnMore {
   @extend %navLink;
   color: gray;
+
+  text-decoration: none;
+  width: 120px;
+  height: 40px;
+  border: none;
+  background-color: transparent;
 }
 
 .landing-page::after {
@@ -58,9 +73,9 @@
   position: absolute;
   background-color: $primary-color;
   width: $timeline-width;
-  height: 100%;
+  height: 110%;
   left: calc(50% - #{$intro-block-width / 2 + $timeline-margin});
-  top: 0px;
+  top: -100px;
   z-index: $timeline-line-z-index;
 }
 
