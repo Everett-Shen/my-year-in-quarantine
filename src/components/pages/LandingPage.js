@@ -180,6 +180,24 @@ const LandingPage = () => {
           })}
         </div>
       </ScrollAnimation>
+      <div
+        style={{
+          position: "absolute",
+          right: "50px",
+          marginTop: "220px",
+          marginBottom: "0px",
+        }}
+      >
+        created by{" "}
+        <a
+          href="https://linktr.ee/eshen3256"
+          target="_blank"
+          rel="noreferrer"
+          style={{ color: "blue", textDecoration: "none" }}
+        >
+          Everett Shen
+        </a>
+      </div>
     </>
   );
 };
