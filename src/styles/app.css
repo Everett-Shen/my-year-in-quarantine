@@ -568,8 +568,19 @@
 .menu-container h1, .menu-container-dark h1 {
   font-size: 30px;
   font-family: "Nunito", sans-serif;
-  margin: 10px;
+  margin: 0px;
   line-height: 90%;
+}
+.menu-container .social-link, .menu-container-dark .social-link {
+  margin: 5px;
+  font-size: 0.9em;
+}
+.menu-container .social-link a, .menu-container-dark .social-link a {
+  color: #0a74ff;
+  font-size: 1em;
+  display: inline;
+  margin: 0px;
+  padding: 4px;
 }
 
 :export {
@@ -674,6 +685,13 @@
 
 .base-dialog {
   z-index: 10;
+}
+
+.social-media-row {
+  display: flex;
+  justify-content: space-between;
+  width: fit-content;
+  margin: auto;
 }
 
 /*# sourceMappingURL=app.css.map */

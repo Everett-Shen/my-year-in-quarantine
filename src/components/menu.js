@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import HamburgerMenu from "react-hamburger-menu";
 import Fade from "@material-ui/core/Fade";
 import { useHistory } from "react-router-dom";
+import SocialMediaRow from "./baseComponents/socialMediaRow";
 
 const Menu = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +14,10 @@ const Menu = (props) => {
       <div className="menu-button-container">
         <HamburgerMenu
           isOpen={isOpen}
-          menuClicked={() => setIsOpen(!isOpen)}
+          menuClicked={() => {
+            setIsOpen(!isOpen);
+            setIsAboutOpen(false);
+          }}
           width={25}
           height={18}
           strokeWidth={1.35}
@@ -51,24 +55,38 @@ const Menu = (props) => {
         </div>
       </Fade>
       <Fade in={isAboutOpen} timeout={400}>
-        <div
-          id="myNav"
-          className="overlay"
-          onClick={() => setIsAboutOpen(!isAboutOpen)}
-        >
-          <div className="overlay-content">
-            <h1>my year in quarantine</h1>
-            ver 1.0 <br />
-            <br />
-            created by Everett Shen
-            <br />
+        <div id="myNav" className="overlay">
+          <div className="overlay-content" style={{ top: "33%" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-end",
+                width: "fit-content",
+                margin: "auto",
+              }}
+            >
+              <h1>my year in quarantine</h1>
+            </div>
+            <p className="social-link"> v 1.0</p>
+            <div className="social-link">
+              created by
+              <a
+                href="https://linktr.ee/eshen3256"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Everett Shen
+              </a>
+            </div>
+            {/* <br />
             built with React, hosted by Firebase
             <br />
-            <br />
-            contact
-            <br />
-            <br />
-            *social media page links*
+            contact me! */}
+            {/* <div className="social-link">
+              made with reactjs, hosted on firebase
+            </div> */}
+
+            <SocialMediaRow />
           </div>
         </div>
       </Fade>

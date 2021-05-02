@@ -81,7 +81,19 @@
   h1 {
     font-size: 30px;
     font-family: "Nunito", sans-serif;
-    margin: 10px;
+    margin: 0px;
     line-height: 90%;
+  }
+
+  .social-link {
+    margin: 5px;
+    font-size: 0.9em;
+    a {
+      color: #0a74ff;
+      font-size: 1em;
+      display: inline;
+      margin: 0px;
+      padding: 4px;
+    }
   }
 }
