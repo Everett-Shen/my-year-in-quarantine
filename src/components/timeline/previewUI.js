@@ -12,6 +12,7 @@ import EditLinkDialog from "./editLinkDialog.js";
 import PublishStepper from "./publishStepper.js";
 import BaseSnackbar from "../baseComponents/baseSnackbar";
 import LoadingBackdrop from "../baseComponents/loadingBackdrop";
+import { LOCATIONHOST } from "../../constants/constants";
 
 const PreviewUI = ({
   answers,
@@ -154,7 +155,7 @@ const PreviewUI = ({
           }
           shareDialog={
             <ShareDialog
-              shareURL={docID ? `${window.location.host}/view/${docID}` : ""}
+              shareURL={docID ? `${LOCATIONHOST}/view/${docID}` : ""}
               setShowDownloadTimeline={setShowDownloadTimeline}
               setShowDownloadTimelineHorizontal={
                 setShowDownloadTimelineHorizontal

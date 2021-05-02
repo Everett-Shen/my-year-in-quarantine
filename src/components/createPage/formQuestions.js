@@ -168,7 +168,7 @@ const Q4 = ({
 
   return (
     <div className="questionContainer">
-      <h4>note</h4>
+      {/* <h4>note</h4>
       <div className="notes">
         <p>1. click the "+" icon to add entries</p>
         <p>
@@ -176,7 +176,7 @@ const Q4 = ({
         </p>
         <p>3. if you don't know exact the dates, approximate dates are fine!</p>
         <p>4. this question should be the longest by far. take your time!</p>
-      </div>
+      </div> */}
       {questionFour.entries.map((entry, index) => (
         <div className="inputRow" key={index}>
           <div className="entry-container">

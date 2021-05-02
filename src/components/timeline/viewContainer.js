@@ -13,6 +13,7 @@ import "firebase/firestore";
 import { useFirestore } from "reactfire";
 import { useEditID } from "../../helpers/hooks";
 import { sendEmail } from "../../helpers/sendEmail";
+import { LOCATIONHOST } from "../../constants/constants";
 
 const ViewContainer = (props) => {
   //   const setAnswers = props.setAnswers;
@@ -192,8 +193,8 @@ const ViewContainer = (props) => {
 
     let success = await sendEmail({
       to_name: answers.name,
-      edit_link: editID ? `${window.location.host}/edit/${editID}` : "",
-      share_link: docID ? `${window.location.host}/view/${docID}` : "",
+      edit_link: editID ? `${LOCATIONHOST}/edit/${editID}` : "",
+      share_link: docID ? `${LOCATIONHOST}/view/${docID}` : "",
       reply_to: "myyearinquarantine@gmail.com",
       to_email: email,
     });

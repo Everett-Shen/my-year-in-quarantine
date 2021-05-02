@@ -7,7 +7,9 @@ import LandingPageEntry from "../landingPage/landingPageEntry";
 import "animate.css/animate.min.css";
 import Divider from "../timeline/divider";
 import { animateScroll as scroll, scrollSpy, scroller } from "react-scroll";
-import arrow from "../../images/happyChildren.jpg";
+import createPicture from "../../images/createGraphicFade.png";
+import sharePicture from "../../images/instaPost.png";
+import explorePicture from "../../images/phoneMockup.png";
 
 const LandingPage = () => {
   const entries = [
@@ -60,10 +62,20 @@ const LandingPage = () => {
           Transforming your year into an interactive timeline is as easy as
           answering a few simple questions. Our code automatically handles the
           rest.
+          <br /> <br />
+          <a href="http://myyearinquarantine.io/view/QA7o80HqxJsXfKnsp7G5">
+            view a finished timeline
+          </a>
           <img
-            src={arrow}
+            src={createPicture}
             alt="arrow"
-            style={{ height: "200px", marginTop: "20px" }}
+            style={{
+              height: "500px",
+              marginTop: "20px",
+              marginLeft: "-60px",
+              overflowX: "hidden",
+              marginBottom: "-20px",
+            }}
           />
         </>
       ),
@@ -77,9 +89,14 @@ const LandingPage = () => {
           We offer multiple export options for sharing on your favorite social
           media platforms.
           <img
-            src={arrow}
+            src={sharePicture}
             alt="arrow"
-            style={{ height: "200px", marginTop: "20px" }}
+            style={{
+              height: "340px",
+              marginTop: "60px",
+              boxShadow: "0px 0px 10px 2px rgba(0,0,0,0.11)",
+              marginLeft: "-10px",
+            }}
           />
         </>
       ),
@@ -90,10 +107,15 @@ const LandingPage = () => {
         <>
           See how other people around the world spent their year with upcoming
           features like regional search and timeline maps.
+          <br />
           <img
-            src={arrow}
+            src={explorePicture}
             alt="arrow"
-            style={{ height: "200px", marginTop: "20px" }}
+            style={{
+              height: "500px",
+              marginTop: "20px",
+              marginLeft: "-25px",
+            }}
           />
         </>
       ),
@@ -109,7 +131,7 @@ const LandingPage = () => {
           We share moments on social media all the time, but the ones that make
           us truly human often get left out. Timelines make it easier to
           recapture your authentic self. Who knows? You might find yourself
-          discovering things you long forgot in the process. <br /> <br />
+          remembering things you long forgot in the process. <br /> <br />
           Ready to begin?
           <br />
           <br />
@@ -145,7 +167,9 @@ const LandingPage = () => {
           {entries.map((entry, index) => {
             return (
               <>
-                {index !== 0 && <Divider height={"500px"} />}
+                {index !== 0 && (
+                  <Divider height={index === 1 ? "400px" : "50px"} />
+                )}
                 <LandingPageEntry
                   title={entry.title}
                   content={entry.content}
