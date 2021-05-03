@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  InputAdornment,
-  FormControl,
-  OutlinedInput,
-  Tooltip,
-  Menu,
-  MenuItem,
-} from "@material-ui/core";
+import { Tooltip, Menu, MenuItem } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import _ from "lodash";
 import {
@@ -31,8 +24,6 @@ import copy from "copy-to-clipboard";
 
 const ShareDialog = ({
   shareURL,
-  makePublic,
-  setMakePublic,
   setShowDownloadTimeline,
   setShowDownloadTimelineHorizontal,
   setShowDownloadTimelineMultiple,
@@ -46,10 +37,6 @@ const ShareDialog = ({
   };
   const openSaveMenu = (event) => {
     setAnchorEl(event.currentTarget);
-  };
-
-  const updateMakePublic = (e) => {
-    setMakePublic(e.target.checked);
   };
 
   return (

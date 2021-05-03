@@ -1,10 +1,6 @@
-import React, { useState, createRef, useEffect, useRef } from "react";
-import {
-  useVisited,
-  useUpdateAnswers,
-  useNonInitialEffect,
-} from "../../helpers/hooks";
-import DialogForm, { entrySchema } from "../createPage/dialogForm";
+import React, { useState, createRef, useEffect } from "react";
+import { useUpdateAnswers, useNonInitialEffect } from "../../helpers/hooks";
+import { entrySchema } from "../createPage/dialogForm";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
 import CreateTimelineUI from "./createTimelineUI";

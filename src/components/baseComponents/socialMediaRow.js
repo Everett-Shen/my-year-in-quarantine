@@ -26,9 +26,10 @@ const SocialMediaRow = () => {
   ];
   return (
     <div className="social-media-row">
-      {icons.map((icon) => {
+      {icons.map((icon, index) => {
         return (
           <IconButton
+            key={index}
             onClick={() => {
               window.open(icon.url, "_blank");
             }}

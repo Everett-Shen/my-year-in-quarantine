@@ -4,7 +4,7 @@ import Entry from "./entry";
 import Divider from "./divider";
 import { format } from "date-fns";
 import { animateScroll as scroll, scrollSpy, scroller } from "react-scroll";
-import { useSwipeable } from "react-swipeable";
+// import { useSwipeable } from "react-swipeable";
 import { useDoubleTap } from "use-double-tap";
 import ReactScrollWheelHandler from "react-scroll-wheel-handler";
 import { useMediaQuery } from "@material-ui/core";
@@ -111,21 +111,21 @@ const Timeline = ({
     }
   };
 
-  const handleScroll = (e) => {
-    e.preventDefault();
-    // add isScrolling stuff
+  // const handleScroll = (e) => {
+  //   e.preventDefault();
+  //   // add isScrolling stuff
 
-    if (e.wheelDelta > 0) {
-      if (scrollTargetRef.current >= 1) {
-        scrollToTarget(scrollTargetRef.current - 1);
-      }
-    } else if (e.wheelDelta < 0) {
-      // 1 less than the total number of timeline entries
-      if (scrollTargetRef.current < totalEntryNumber() - 1) {
-        scrollToTarget(scrollTargetRef.current + 1);
-      }
-    }
-  };
+  //   if (e.wheelDelta > 0) {
+  //     if (scrollTargetRef.current >= 1) {
+  //       scrollToTarget(scrollTargetRef.current - 1);
+  //     }
+  //   } else if (e.wheelDelta < 0) {
+  //     // 1 less than the total number of timeline entries
+  //     if (scrollTargetRef.current < totalEntryNumber() - 1) {
+  //       scrollToTarget(scrollTargetRef.current + 1);
+  //     }
+  //   }
+  // };
 
   const doubleTapBind = useDoubleTap((e) => {
     if (e.clientY < window.innerWidth * 0.4) scrollToTarget(scrollTarget - 1);

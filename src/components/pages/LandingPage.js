@@ -1,7 +1,6 @@
 import React from "react";
 import MetaTags from "react-meta-tags";
 import { NavLink } from "react-router-dom";
-import variables from "../../styles/variables.module.scss";
 import ScrollAnimation from "react-animate-on-scroll";
 import LandingPageEntry from "../landingPage/landingPageEntry";
 import "animate.css/animate.min.css";
@@ -10,7 +9,6 @@ import { animateScroll as scroll, scrollSpy, scroller } from "react-scroll";
 import createPicture from "../../images/createGraphicFade.png";
 import sharePicture from "../../images/instaPost.png";
 import explorePicture from "../../images/phoneMockup.png";
-import { EventRounded } from "@material-ui/icons";
 
 const LandingPage = () => {
   const entries = [

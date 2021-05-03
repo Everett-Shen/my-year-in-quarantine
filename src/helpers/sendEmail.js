@@ -1,4 +1,4 @@
-import emailjs, { init } from "emailjs-com";
+import emailjs from "emailjs-com";
 
 /* sample templateParams:
     {

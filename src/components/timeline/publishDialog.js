@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import CheckmarkWithLabel from "../baseComponents/checkmarkWithLabel";
 import HelpTooltip from "../baseComponents/helpTooltip";
 
@@ -27,7 +27,7 @@ const PublishDialog = ({
             checked={makePublic}
             onChange={updateMakePublic}
           />
-          <HelpTooltip contents="Determines if your timeline will be searchable by others" />
+          <HelpTooltip contents="Determines if your timeline will show up in searches" />
         </div>
 
         <div className="align-items-center">

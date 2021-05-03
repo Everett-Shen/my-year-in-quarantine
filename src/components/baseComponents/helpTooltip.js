@@ -1,5 +1,4 @@
 import React from "react";
-import HelpOutlineOutlinedIcon from "@material-ui/icons/HelpOutlineOutlined";
 import { Tooltip } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 

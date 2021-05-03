@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Dialog, DialogContent, withStyles } from "@material-ui/core";
+import React from "react";
+import { Dialog, DialogContent } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import variables from "../../styles/variables.module.scss";

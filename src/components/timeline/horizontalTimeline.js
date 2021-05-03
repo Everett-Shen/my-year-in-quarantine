@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import TimelineTitle from "./timelineTitle";
 import Entry from "./entry";
 import HorizontalDivider from "./horizontalDivider";
@@ -14,13 +14,13 @@ const HorizontalTimeline = ({
   captureID,
   downloadMultipleMode,
 }) => {
-  const [scrollTarget, setScrollTarget] = useState(0);
-  const dividerHeight = compressed ? "200px" : "700px";
-  const answersRef = useRef(answers);
-  const scrollTargetRef = useRef(scrollTarget);
-  const preventDefault = (e) => {
-    e.preventDefault();
-  };
+  // const [scrollTarget, setScrollTarget] = useState(0);
+  // const dividerHeight = compressed ? "200px" : "700px";
+  // const answersRef = useRef(answers);
+  // const scrollTargetRef = useRef(scrollTarget);
+  // const preventDefault = (e) => {
+  //   e.preventDefault();
+  // };
 
   const formatDate = (date) => {
     return format(new Date(date), "MMM dd yyyy");

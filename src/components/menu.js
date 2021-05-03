@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import HamburgerMenu from "react-hamburger-menu";
 import Fade from "@material-ui/core/Fade";
-import { useHistory } from "react-router-dom";
+
 import SocialMediaRow from "./baseComponents/socialMediaRow";
 
 const Menu = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
-  const history = useHistory();
+
   const LOCAL_STORAGE_KEY = "my-year-in-quarantine";
   return (
     <div className="menu-container">

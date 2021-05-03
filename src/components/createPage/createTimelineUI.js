@@ -1,5 +1,4 @@
 import React from "react";
-import FloatingMenuButtons from "../baseComponents/floatingMenuButtons";
 import MetaTag from "../baseComponents/metaTag";
 import ProductTour from "../baseComponents/productTour";
 import CreateTimelineForm from "./createTimelineForm";

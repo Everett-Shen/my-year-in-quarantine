@@ -1,6 +1,5 @@
 import React from "react";
 import InputWithButton from "../baseComponents/inputWithButton";
-import SendIcon from "@material-ui/icons/Send";
 
 const EditLinkDialog = ({ email, setEmail, sendEmail, setSent }) => {
   return (

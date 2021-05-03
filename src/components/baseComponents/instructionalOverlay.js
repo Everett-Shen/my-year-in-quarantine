@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 import Fade from "@material-ui/core/Fade";
-import { useHistory } from "react-router-dom";
 
 const InstructionalOverlay = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
