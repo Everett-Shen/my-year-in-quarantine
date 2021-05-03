@@ -221,7 +221,7 @@ const CreateTimelineContainer = ({
     },
     {
       label:
-        "2. Since then, which places have you called home? Please provide a geographic roadmap of your journey throughout the pandemic ",
+        "2. Since then, which places have you called home? Please provide a geographic roadmap of your journey throughout the pandemic. ",
       id: "Q2",
       component: (
         <Q2

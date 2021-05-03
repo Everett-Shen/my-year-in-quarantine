@@ -65,13 +65,13 @@ const Q2 = ({ questionTwo, setQuestionTwo, updatePanelContainer }) => {
     <div className="questionContainer">
       <h4>note</h4>
       <div className="notes">
-        <p>1. entries will be automatically sorted by date</p>
+        <p>
+          1. do not include the location from Q1 as the first location. If you
+          remained in one place, leave this question empty.
+        </p>
 
         <p>2. if you don't know exact the dates, approximate dates are fine!</p>
-        <p>
-          3. Include repeat locations. Do not include the location from Q1. If
-          you remained in one place, leave this question empty.
-        </p>
+        <p>3. entries will be automatically sorted by date</p>
       </div>
 
       <Formik

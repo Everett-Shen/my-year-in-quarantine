@@ -68,7 +68,7 @@ const getJPEG = async (id, orientation = "vertical") => {
     .then((dataUrl) => {
       var x = function (canvas, metrics, context) {
         return orientation === "vertical"
-          ? canvas.width - 200 * scale
+          ? canvas.width - 250 * scale
           : 25 * scale;
       };
 
@@ -76,7 +76,7 @@ const getJPEG = async (id, orientation = "vertical") => {
         return canvas.height - 20 * scale;
       };
       let pos = watermark.text.atPos;
-      let watermarkContent = "MyYearInQuarantine.com";
+      let watermarkContent = "myyearinquarantine.io";
       const image = new Image();
       image.src = dataUrl;
       return watermark([image])
