@@ -23,20 +23,26 @@ const organizeAnswers = (answers) => {
     toReturn.location = answers.Q1.location.label;
     // combine Q2 and Q4, sort
     let nonBlankLocations = [
+      // needs to be a deep copy. currently shallow copying
       ...answers.Q2.entries.filter(
         (entry) => typeof entry.location === "object"
       ),
     ];
     // organize q2 into entry format
+    let newQ2 = [];
     nonBlankLocations.map((entry) => {
       let location = entry.location.label;
+      let date = entry.date;
       let [entryTitle, entryDescription] = getTitleAndDescription(location);
 
-      entry.entry = entryTitle;
-      entry.description = `📍 ${entryDescription.trim()} `;
-      entry.location = location;
+      let newEntry = {};
+      newEntry.entry = entryTitle;
+      newEntry.description = `📍 ${entryDescription.trim()} `;
+      newEntry.location = location;
+      newEntry.date = date;
+      newQ2.push(newEntry);
     });
-    toReturn.entries = [...answers.Q4.entries, ...nonBlankLocations];
+    toReturn.entries = [...answers.Q4.entries, ...newQ2];
     sortEntries(toReturn.entries);
     toReturn.presentBlurb = answers.Q5.text;
     toReturn.name = answers.Q6.name;
