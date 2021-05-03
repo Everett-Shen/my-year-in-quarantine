@@ -694,4 +694,21 @@
   margin: auto;
 }
 
+.not-found-container {
+  width: fit-content;
+  position: absolute;
+  top: 45%;
+  transform: translateY(-50%);
+  text-align: center;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.not-found-container h1 {
+  color: #ff7676;
+  font-size: 3em;
+}
+.not-found-container p {
+  margin: 0px 30px;
+}
+
 /*# sourceMappingURL=app.css.map */

@@ -7,6 +7,7 @@ import "firebase/firestore";
 import { useFirestore } from "reactfire";
 import { useRouteMatch } from "react-router-dom";
 import { useVisited } from "../../helpers/hooks";
+import { useHistory } from "react-router-dom";
 
 const ViewPage = () => {
   const [answers, setAnswers] = useState({});
@@ -15,6 +16,7 @@ const ViewPage = () => {
 
   const VISITED_LOCAL_STORAGE_KEY = "my_year_in_quarantine_view_page_visited";
   const pageVisited = useVisited(VISITED_LOCAL_STORAGE_KEY);
+  const history = useHistory();
 
   useEffect(() => {
     // fetch timeline data
@@ -26,8 +28,7 @@ const ViewPage = () => {
           tempAnswers = { ...tempAnswers, name: "Anonymous" };
         setAnswers(tempAnswers);
       } else {
-        console.log("redirect");
-        // redirect to 404 page
+        history.push(`/404/${docID}`);
       }
     });
   }, []);

@@ -4,6 +4,7 @@ import { useRouteMatch } from "react-router-dom";
 import { useFirestore } from "reactfire";
 import { useVisited } from "../../helpers/hooks";
 import LoadingBackdrop from "../baseComponents/loadingBackdrop";
+import { useHistory } from "react-router-dom";
 
 const EditTimelinePage = () => {
   const [answers, setAnswers] = useState({
@@ -25,6 +26,7 @@ const EditTimelinePage = () => {
   const timelinesCollection = useFirestore().collection("timelines");
   const VISITED_LOCAL_STORAGE_KEY = "my_year_in_quarantine_edit_page_visited";
   const pageVisited = useVisited(VISITED_LOCAL_STORAGE_KEY);
+  const history = useHistory();
 
   // on initial load, get timeline ID using edit ID, then use timelineID to get original answers
   useEffect(() => {
@@ -43,12 +45,11 @@ const EditTimelinePage = () => {
               setAnswersFetchedKey(answersFetchedKey + 1); // send signal to container to update answers
               setIsFetchingAnswers(false);
             } else {
-              console.log("redirect");
-              // redirect to 404 page
+              history.push(`/404/${editID}`);
             }
           });
       } else {
-        console.log("redirect");
+        history.push(`/404/${editID}`);
       }
     });
   }, []);
