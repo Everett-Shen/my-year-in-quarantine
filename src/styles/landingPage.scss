@@ -5,7 +5,7 @@
   position: relative;
   line-height: 1.1;
   font-size: 50px;
-  margin-top: 70px;
+  // margin-top: 70px;
   font-family: "Nunito", sans-serif;
 }
 
@@ -27,13 +27,32 @@
   }
 }
 
-/* positioning */
-.intro-block {
+.intro-block-container {
   width: $intro-block-width;
   margin-left: auto;
   margin-right: auto;
   position: relative;
-  left: $shift-container-to-right-distance;
+  // left: $shift-container-to-right-distance;
+  height: fit-content;
+  margin-top: $landing-page-timeline-distance-to-top;
+}
+
+.intro-block {
+  width: $intro-block-width + $intro-block-extra-margin;
+  left: 0px;
+  position: relative;
+
+  height: fit-content;
+
+  @media screen and (max-width: 450px) {
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+}
+
+.intro-block-text {
+  width: $intro-block-width;
+  margin-left: 40px;
 }
 
 %navLink {
@@ -79,6 +98,7 @@
   z-index: $timeline-line-z-index;
 }
 
-.intro-block .circle {
+.intro-block-container .circle {
   @include circle($intro-block-width);
+  margin-left: $shift-container-to-right-distance; // kind of a hack
 }

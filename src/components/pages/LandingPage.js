@@ -10,6 +10,7 @@ import { animateScroll as scroll, scrollSpy, scroller } from "react-scroll";
 import createPicture from "../../images/createGraphicFade.png";
 import sharePicture from "../../images/instaPost.png";
 import explorePicture from "../../images/phoneMockup.png";
+import { EventRounded } from "@material-ui/icons";
 
 const LandingPage = () => {
   const entries = [
@@ -66,18 +67,31 @@ const LandingPage = () => {
           <a href="http://myyearinquarantine.io/view/QA7o80HqxJsXfKnsp7G5">
             view a finished timeline
           </a>
-          <img
+          {/* <img
             src={createPicture}
             alt="arrow"
             style={{
               height: "500px",
               marginTop: "20px",
               marginLeft: "-60px",
-              overflowX: "hidden",
+              // overflowX: "visible",
               marginBottom: "-20px",
             }}
-          />
+          /> */}
         </>
+      ),
+      image: (
+        <img
+          src={createPicture}
+          alt="arrow"
+          style={{
+            height: "500px",
+            marginTop: "20px",
+            marginLeft: "-10px",
+            // overflowX: "visible",
+            marginBottom: "-20px",
+          }}
+        />
       ),
     },
     {
@@ -88,7 +102,7 @@ const LandingPage = () => {
           <br /> <br />
           We offer multiple export options for sharing on your favorite social
           media platforms.
-          <img
+          {/* <img
             src={sharePicture}
             alt="arrow"
             style={{
@@ -97,8 +111,20 @@ const LandingPage = () => {
               boxShadow: "0px 0px 10px 2px rgba(0,0,0,0.11)",
               marginLeft: "-10px",
             }}
-          />
+          /> */}
         </>
+      ),
+      image: (
+        <img
+          src={sharePicture}
+          alt="arrow"
+          style={{
+            height: "340px",
+            marginTop: "60px",
+            boxShadow: "0px 0px 10px 2px rgba(0,0,0,0.11)",
+            marginLeft: "40px",
+          }}
+        />
       ),
     },
     {
@@ -108,7 +134,7 @@ const LandingPage = () => {
           See how other people around the world spent their year with upcoming
           features like regional search and timeline maps.
           <br />
-          <img
+          {/* <img
             src={explorePicture}
             alt="arrow"
             style={{
@@ -116,8 +142,19 @@ const LandingPage = () => {
               marginTop: "20px",
               marginLeft: "-25px",
             }}
-          />
+          /> */}
         </>
+      ),
+      image: (
+        <img
+          src={explorePicture}
+          alt="arrow"
+          style={{
+            height: "500px",
+            marginTop: "20px",
+            marginLeft: "20px",
+          }}
+        />
       ),
     },
     {
@@ -139,6 +176,8 @@ const LandingPage = () => {
           <NavLink className="getStarted" to={"/create"}>
             Get started
           </NavLink>
+          <br />
+          <br />
         </>
       ),
     },
@@ -173,6 +212,7 @@ const LandingPage = () => {
                 <LandingPageEntry
                   title={entry.title}
                   content={entry.content}
+                  image={entry.image}
                   index={index}
                 />
               </>

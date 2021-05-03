@@ -206,7 +206,6 @@
   position: relative;
   line-height: 1.1;
   font-size: 50px;
-  margin-top: 70px;
   font-family: "Nunito", sans-serif;
 }
 
@@ -228,13 +227,31 @@
   margin: auto;
 }
 
-/* positioning */
-.intro-block {
+.intro-block-container {
   width: 250px;
   margin-left: auto;
   margin-right: auto;
   position: relative;
-  left: 35px;
+  height: fit-content;
+  margin-top: 70px;
+}
+
+.intro-block {
+  width: 350px;
+  left: 0px;
+  position: relative;
+  height: fit-content;
+}
+@media screen and (max-width: 450px) {
+  .intro-block {
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+}
+
+.intro-block-text {
+  width: 250px;
+  margin-left: 40px;
 }
 
 .primaryButton, .createForm .timelineForm .finish, .createForm .timelineForm .next, .learnMore, .getStarted {
@@ -277,7 +294,7 @@
   z-index: 1;
 }
 
-.intro-block .circle {
+.intro-block-container .circle {
   background-color: white;
   border: 3px solid #ff7676;
   height: 50px;
@@ -287,6 +304,7 @@
   border-radius: 25px;
   top: 0px;
   left: calc( 50% - 213px );
+  margin-left: 35px;
 }
 
 :export {
