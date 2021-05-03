@@ -67,17 +67,6 @@ const LandingPage = () => {
           <a href="http://myyearinquarantine.io/view/QA7o80HqxJsXfKnsp7G5">
             view a finished timeline
           </a>
-          {/* <img
-            src={createPicture}
-            alt="arrow"
-            style={{
-              height: "500px",
-              marginTop: "20px",
-              marginLeft: "-60px",
-              // overflowX: "visible",
-              marginBottom: "-20px",
-            }}
-          /> */}
         </>
       ),
       image: (
@@ -102,16 +91,6 @@ const LandingPage = () => {
           <br /> <br />
           We offer multiple export options for sharing on your favorite social
           media platforms.
-          {/* <img
-            src={sharePicture}
-            alt="arrow"
-            style={{
-              height: "340px",
-              marginTop: "60px",
-              boxShadow: "0px 0px 10px 2px rgba(0,0,0,0.11)",
-              marginLeft: "-10px",
-            }}
-          /> */}
         </>
       ),
       image: (
@@ -134,15 +113,6 @@ const LandingPage = () => {
           See how other people around the world spent their year with upcoming
           features like regional search and timeline maps.
           <br />
-          {/* <img
-            src={explorePicture}
-            alt="arrow"
-            style={{
-              height: "500px",
-              marginTop: "20px",
-              marginLeft: "-25px",
-            }}
-          /> */}
         </>
       ),
       image: (

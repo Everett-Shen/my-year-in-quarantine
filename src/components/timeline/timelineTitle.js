@@ -2,6 +2,7 @@ import React from "react";
 import EntryContainer from "./entryContainer";
 import ScrollAnimation from "react-animate-on-scroll";
 import "animate.css/animate.min.css";
+import { isIOS } from "react-device-detect";
 
 const TimelineTitle = ({ title, name, id, compressed }) => {
   return (
@@ -10,7 +11,7 @@ const TimelineTitle = ({ title, name, id, compressed }) => {
         <div
           className="entry-content-title"
           id={id}
-          style={{ overflowX: "hidden", hyphens: "auto" }}
+          style={{ overflowX: isIOS ? "hidden" : "visible", hyphens: "auto" }}
         >
           <ScrollAnimation
             animateIn="animate__fadeInRight"

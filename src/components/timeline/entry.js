@@ -2,6 +2,7 @@ import React from "react";
 import EntryContainer from "./entryContainer";
 import ScrollAnimation from "react-animate-on-scroll";
 import "animate.css/animate.min.css";
+import { isIOS } from "react-device-detect";
 
 const Entry = ({ date, title, content, id, compressed }) => {
   return (
@@ -10,9 +11,13 @@ const Entry = ({ date, title, content, id, compressed }) => {
         <div
           className="entry-content"
           id={id}
-          style={{
-            overflowX: "hidden",
-          }}
+          style={
+            isIOS
+              ? {
+                  overflowX: "hidden",
+                }
+              : {}
+          }
         >
           <ScrollAnimation
             animateIn="animate__fadeIn"
