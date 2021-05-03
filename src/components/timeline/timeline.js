@@ -16,6 +16,7 @@ const Timeline = ({
   compressed,
   captureID,
   setIsFloatingButtonMenuOpen,
+  totalEntryNumber,
 }) => {
   const mobile = useMediaQuery("(max-width:600px)");
   const [scrollTarget, setScrollTarget] = useState(0);
@@ -68,11 +69,11 @@ const Timeline = ({
     return format(new Date(date), "MMM dd yyyy");
   };
 
-  const totalEntryNumber = () => {
-    return answersRef.current.entries
-      ? answersRef.current.entries.length + 3
-      : 3; // entries + title, start location, present day
-  };
+  // const totalEntryNumber = () => {
+  //   return answersRef.current.entries
+  //     ? answersRef.current.entries.length + 3
+  //     : 3; // entries + title, start location, present day
+  // };
 
   const scrollToTarget = (targetID) => {
     if (targetID < 0 || targetID > totalEntryNumber() - 1) return;

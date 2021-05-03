@@ -76,9 +76,9 @@ const HorizontalTimeline = ({
                   date={
                     entry.date
                       ? formatDate(entry.date)
-                      : `${formatDate(entry.from)} -  \n ${formatDate(
-                          entry.to
-                        )}`
+                      : `${formatDate(entry.from)} -  \n ${
+                          !entry.ongoing ? formatDate(entry.to) : "present"
+                        }`
                   }
                   title={entry.entry}
                   content={
@@ -90,17 +90,33 @@ const HorizontalTimeline = ({
                   compressed={compressed}
                 />
                 <HorizontalDivider
-                  width={
-                    downloadMultipleMode
-                      ? index === answers.entries.length - 1
-                        ? `calc(${dividerWidth} / 2)`
-                        : dividerWidth
-                      : dividerWidth
-                  }
+                  width={downloadMultipleMode ? dividerWidth : dividerWidth}
                 />
               </React.Fragment>
             );
           })}
+        {answers.presentBlurb && (
+          <React.Fragment>
+            <Entry
+              date={"present day"}
+              title={"Life Today"}
+              content={
+                <div>
+                  <p>{answers.presentBlurb}</p>
+                </div>
+              }
+              compressed={compressed}
+            />
+
+            <HorizontalDivider
+              width={
+                downloadMultipleMode
+                  ? `calc(${dividerWidth} / 2)`
+                  : dividerWidth
+              }
+            />
+          </React.Fragment>
+        )}
       </div>
     </div>
   );

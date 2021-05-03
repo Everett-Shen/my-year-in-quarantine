@@ -75,7 +75,7 @@ const ViewContainer = (props) => {
     if (showTimeline) {
       setIsDownloading(true);
       // this parameter only gets used by downloadTimelineMultiple
-      await downloadFunction(answers.entries.length + 2);
+      await downloadFunction(totalEntryNumber()); // entries + title, start location, present day
 
       setIsDownloading(false);
 
@@ -203,6 +203,10 @@ const ViewContainer = (props) => {
     return success;
   };
 
+  const totalEntryNumber = () => {
+    return answers.entries ? answers.entries.length + 3 : 3; // entries + title, start location, present day
+  };
+
   return (
     <>
       {props.render({
@@ -237,6 +241,7 @@ const ViewContainer = (props) => {
         setIsDownloading,
         isFloatingButtonMenuOpen,
         setIsFloatingButtonMenuOpen,
+        totalEntryNumber,
       })}
     </>
   );

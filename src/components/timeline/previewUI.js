@@ -46,6 +46,7 @@ const PreviewUI = ({
   setIsDownloading,
   isFloatingButtonMenuOpen,
   setIsFloatingButtonMenuOpen,
+  totalEntryNumber,
 }) => {
   return (
     <div className="preview-page" id="preview-page">
@@ -85,6 +86,7 @@ const PreviewUI = ({
             compressed={false}
             captureID={"0"}
             setIsFloatingButtonMenuOpen={setIsFloatingButtonMenuOpen}
+            totalEntryNumber={totalEntryNumber}
           />
         </ScrollAnimation>
       </div>
@@ -174,7 +176,12 @@ const PreviewUI = ({
       </BaseDialog>
 
       {showDownloadTimeline && (
-        <Timeline answers={answers} compressed={true} captureID={"capture"} />
+        <Timeline
+          answers={answers}
+          compressed={true}
+          captureID={"capture"}
+          totalEntryNumber={totalEntryNumber}
+        />
       )}
       {(showDownloadTimelineHorizontal || showDownloadTimelineMultiple) && (
         <HorizontalTimeline
