@@ -257,7 +257,7 @@ const CreateTimeline = () => {
             {(props) => (
               <Form id="Q1">
                 <GooglePlacesAutocomplete
-                  apiKey="AIzaSyCeVWbfSffGK19HP7Tg-GY_nFfZ-sP7ASw"
+                  apiKey="API_KEY"
                   selectProps={{
                     value: props.values.location,
                     onChange: (location) => {

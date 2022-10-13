@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { FirebaseAppProvider } from "reactfire";
 const firebaseConfig = {
-  apiKey: "AIzaSyAS0nBZ7uWDb0_3sY-zemq6bwt_VM7CH9g",
+  apiKey: "API_KEY",
   authDomain: "my-year-in-quarantine.firebaseapp.com",
   projectId: "my-year-in-quarantine",
   storageBucket: "my-year-in-quarantine.appspot.com",

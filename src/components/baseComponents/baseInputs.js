@@ -131,7 +131,7 @@ const LocationInput = ({
   value,
   onChange,
   placeholder,
-  apiKey = "AIzaSyCeVWbfSffGK19HP7Tg-GY_nFfZ-sP7ASw",
+  apiKey = "API_KEY",
   name,
 }) => {
   return (
